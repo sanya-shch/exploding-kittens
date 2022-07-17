@@ -1,0 +1,42 @@
+.main_button {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  max-width: 250px;
+  padding: 0 45px;
+  height: 70px;
+  border: none;
+  border-radius: 6px;
+  color: #E1E0E7;
+  //color: #ca3e47;
+  background-color: #313131;
+  cursor: pointer;
+
+  span.text {
+    font-size: 28px;
+    font-family: 'Comfortaa', cursive;
+    font-weight: bold;
+    position: relative;
+    z-index: 10;
+  }
+
+  span.focus-bg {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: #414141;
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+  //&:hover {
+  //  color: #004d61;
+  //}
+  &:hover span.focus-bg {
+    width: 225%;
+    height: 562.5px;
+  }
+}

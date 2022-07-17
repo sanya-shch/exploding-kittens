@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+
+  span {
+    background: -webkit-linear-gradient(#dc2626, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  h1 {
+    font-weight: bold;
+  }
+}

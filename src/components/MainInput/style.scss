@@ -1,0 +1,83 @@
+.main_input {
+  width: 385px;
+  height: 70px;
+  position: relative;
+
+  input {
+    width: 100%;
+    border-radius: 6px;
+    height: 70px;
+    border: 0;
+    padding: 20px 0 0 16px;
+    font-size: 0;
+    background: #313131;
+    transition: background .3s ease;
+    color: #E1E0E7;
+
+    &:focus {
+      background: #414141;
+      font-size: 23px;
+      //width: 270px;
+
+      &::selection {
+         background: rgba(188, 232, 255, 0.5);
+      }
+    }
+  }
+
+  input,
+  button {
+    position: absolute;
+    height: 70px;
+  }
+
+  button {
+    background: #313131;
+    right: 0;
+    border: 0;
+    width: 115px;
+    border-radius: 6px;
+    font-size: 22px;
+    font-family: 'Comfortaa', cursive;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        width .3s ease,
+        background .3s ease,
+        opacity .3s ease;
+    opacity: 0;
+    color: #E1E0E7;
+
+    &.full {
+       width: 100%;
+    }
+  }
+
+  input:focus + label {
+    font-size: 19px;
+    transform: translate(16px, 11px);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  label {
+    position: absolute;
+    color: #E1E0E7;
+    transform: translate(16px, 20px);
+    transition:
+        transform .3s ease,
+        font-size .3s ease,
+        color .3s .1s ease;
+    font-size: 28px;
+    font-weight: bold;
+
+    &.active {
+       font-size: 19px;
+       transform: translate(16px, 11px);
+       color: rgba(255, 255, 255, 0.7);
+    }
+  }
+
+  input:focus + label + button {
+    opacity: 1;
+  }
+}

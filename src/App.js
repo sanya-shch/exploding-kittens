@@ -1,24 +1,64 @@
-import logo from './logo.svg';
+import React, { useState, lazy, Suspense } from 'react';
+import { Routes, Route, Outlet } from 'react-router-dom';
+
+import HomePage from "./modules/HomePage";
+import Loader from "./components/Loader";
+import Header from "./components/Header";
+
 import './App.css';
 
-function App() {
+const GamePage = lazy(() => import("./modules/GamePage"));
+const PageNotFound = lazy(() => import("./modules/404"));
+
+const Layout = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+
+      <main>
+        <Outlet />
+      </main>
+    </>
+  );
+};
+
+function App() {
+  const [gameId, setGameId] = useState('');
+
+  return (
+    <Routes>
+      <Route index element={<HomePage gameId={gameId} setGameId={setGameId} />} />
+      <Route element={<Layout />}>
+        {/*<Route path="/join" element={(*/}
+        {/*  <Suspense fallback={<Loader delay={500} />}>*/}
+        {/*    <JoinPage />*/}
+        {/*  </Suspense>*/}
+        {/*)} />*/}
+        {/*<Route*/}
+        {/*  path="/settings"*/}
+        {/*  element={(*/}
+        {/*    <Suspense fallback={<Loader delay={500} />}>*/}
+        {/*      <SettingsPage gameId={gameId} setGameId={setGameId} />*/}
+        {/*    </Suspense>*/}
+        {/*  )}*/}
+        {/*/>*/}
+        <Route path="/game/:id" element={(
+          <Suspense fallback={<Loader delay={500} />}>
+            <GamePage />
+          </Suspense>
+        )} />
+        {/*<Route path="/error" element={(*/}
+        {/*  <Suspense fallback={<Loader delay={500} />}>*/}
+        {/*    <ErrorPage />*/}
+        {/*  </Suspense>*/}
+        {/*)} />*/}
+        <Route path="*" element={(
+          <Suspense fallback={<Loader delay={500} />}>
+            <PageNotFound />
+          </Suspense>
+        )} />
+      </Route>
+    </Routes>
   );
 }
 

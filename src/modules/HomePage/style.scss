@@ -1,0 +1,23 @@
+.home_page {
+  background: linear-gradient(45deg, rgba(49,49,49,1) 0%, rgba(202,62,71,1) 100%);
+  //background: linear-gradient(45deg, rgba(49,49,49,1) 0%, #ff502f 100%);
+
+  .first_screen {
+    width: 100%;
+    //height: calc(100vh - 80px);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .input_block {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main_button {
+      margin-right: 15px;
+    }
+  }
+}
