@@ -1,0 +1,45 @@
+.radio_block {
+  .rating-container {
+    display: flex;
+    justify-content: space-between;
+    //padding: 0.4rem 0.8rem;
+    //width: 100%;
+  }
+
+  .rating {
+    //background-color: #525252;
+    padding: 0.4rem 0.4rem 0.1rem 0.4rem;
+    border-radius: 2.2rem;
+    border: 2px solid #525252;
+  }
+
+  svg {
+    fill: #525252;
+    height: 3.6rem;
+    width: 3.6rem;
+    margin: 0.2rem;
+  }
+
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+  }
+
+  input[type="radio"] + svg {
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+  }
+
+  input + svg {
+    cursor: pointer;
+  }
+
+  input:hover + svg {
+    fill: #313131;
+  }
+
+  input:focus + svg,
+  input:checked + svg {
+    fill: #ca3e47;
+  }
+}

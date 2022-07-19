@@ -6,7 +6,7 @@ const MainInput = ({
   label,
   btnText,
   value,
-   maxLength,
+  maxLength,
   onChange,
   onClick,
 }) => {

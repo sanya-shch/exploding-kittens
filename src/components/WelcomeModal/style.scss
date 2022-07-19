@@ -1,0 +1,90 @@
+.start-modal {
+  position: fixed;
+  inset: 0;
+  //background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  z-index: 999;
+  padding: 40px 20px 20px;
+
+  .modal-content {
+    width: 500px;
+    background-color: #f6f6e9;
+    color: #313131;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 33px;
+    border: 2px solid #525252;
+  }
+
+  .input_name_block {
+    height: 95px;
+    margin: 10px;
+
+    .input_container {
+      input {
+        height: 95px;
+      }
+      label {
+
+      }
+    }
+  }
+  .content_block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 5px 10px;
+  }
+  //.expansion_packs_block {
+  //  width: 100%;
+  //  padding: 5px 10px;
+  //  border-top: 2px dashed #525252;
+  //  border-bottom: 2px dashed #525252;
+  //}
+  .icons_block {
+    user-select: none;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    img {
+      padding: 5px;
+      cursor: pointer;
+      width: 75px;
+      height: 75px;
+    }
+
+    img.checked {
+      border: 2px solid #ca3e47;
+      border-radius: 50%;
+      padding: 2px;
+    }
+  }
+  .btn_block {
+    width: 100%;
+    //padding: 10px;
+
+    .main_button {
+      max-width: 100%;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .start-modal .modal-content {
+    width: 100%;
+  }
+}

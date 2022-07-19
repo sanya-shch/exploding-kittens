@@ -32,8 +32,7 @@ import animals13 from "./animals/penguin.png";
 import animals14 from "./animals/rabbit.png";
 import animals15 from "./animals/rhinoceros.png";
 import animals16 from "./animals/tiger.png";
-import animals17 from "./animals/turtle.png";
-import animals18 from "./animals/wolf.png";
+import animals17 from "./animals/wolf.png" /* "./animals/turtle.png"; */
 
 import origami1 from "./origami/rabbit.png";
 import origami2 from "./origami/penguin.png";
@@ -91,7 +90,7 @@ const animals = {
   animals15,
   animals16,
   animals17,
-  animals18,
+  // animals18,
 };
 
 const origami = {

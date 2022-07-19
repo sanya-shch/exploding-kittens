@@ -45,12 +45,15 @@ const createGame = async ({
       host_uid: uuid,
       card_packs: [],
       card_deck: [],
-      player_data_arr: [{ username: '', uid: uuid, points: 0 }],
+      // player_data_arr: [{ username: '', uid: uuid, points: 0 }],
+      player_data_arr: [],
       player_cards: {},
       banned_player_uid: [],
       midgame_player_uid: [],
       game_room_closed: false,
       ongoing_game: false,
+      icon_pack: '',
+      icon_index: 1,
     });
 
     navigate(`/game/${gameId}`);
