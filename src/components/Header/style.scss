@@ -2,7 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80px;
+  height: 60px;
+  position: fixed;
+  width: 100%;
 
   span {
     background: -webkit-linear-gradient(#dc2626, #f59e0b);
@@ -12,5 +14,7 @@
 
   h1 {
     font-weight: bold;
+    cursor: pointer;
+    user-select: none;
   }
 }

@@ -13,6 +13,8 @@ import {
 import { db } from "../../firebase";
 import { getUserId } from "../../helpers";
 import WelcomeModal from "../../components/WelcomeModal";
+import Header from "../../components/Header";
+import Menu from "../../components/Menu";
 
 import './style.scss';
 
@@ -31,6 +33,8 @@ const GamePage = () => {
   const [isMidGamePlayer, setIsMidGamePlayer] = useState(false);
 
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
+
+  const [openMenu, setOpenMenu] = useState(false);
 
   const checkIfGameExists = useCallback(async () => {
     const docSnap = await getDoc(doc(db, "game_rooms_kitten", id));
@@ -120,19 +124,27 @@ const GamePage = () => {
   });
 
   return (
-    <div className="game_page">
-
-      <WelcomeModal
-        isOpen={isWelcomeModalOpen}
-        handleClose={() => setIsWelcomeModalOpen(false)}
-        isHost={isHost}
-        iconPack={gameData?.icon_pack}
-        iconIndex={gameData?.icon_index}
-        id={id}
-        uuid={uuid}
-        ongoingGame={ongoingGame}
+    <>
+      <Menu
+        open={openMenu}
+        setOpen={setOpenMenu}
       />
-    </div>
+      <div className={`content ${openMenu ? 'content_active' : ''}`}>
+        <Header/>
+        <div className="game_page">
+          <WelcomeModal
+            isOpen={isWelcomeModalOpen}
+            handleClose={() => setIsWelcomeModalOpen(false)}
+            isHost={isHost}
+            iconPack={gameData?.icon_pack}
+            iconIndex={gameData?.icon_index}
+            id={id}
+            uuid={uuid}
+            ongoingGame={ongoingGame}
+          />
+        </div>
+      </div>
+    </>
   )
 };
 

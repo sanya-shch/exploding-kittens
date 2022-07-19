@@ -1,0 +1,80 @@
+:root {
+  --button-width: 40px;
+  --button-height: calc(var(--button-width) * .8);
+  --rectangle-height: calc(var(--button-width) * .1);
+  --rectangle-radius: calc(var(--button-width) * .04);
+  --translate: calc(var(--button-width) * .17);
+}
+
+.menu {
+  position: fixed;
+  //left: 0;
+  right: 0;
+  top: 0;
+  z-index: 99;
+  //width: 30%;
+  width: 500px;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  transition: 0.5s;
+  //transform: translateX(-100%);
+  transform: translateX(100%);
+
+  .fancy-burger {
+    position: absolute;
+    //right: -45px;
+    left: -45px;
+    top: 10px;
+    width: var(--button-width);
+    height: var(--button-height);
+    border: 0;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+  }
+  .rectangle {
+    position: absolute;
+    height: var(--rectangle-height);
+    background: #313131;
+    border-radius: var(--rectangle-radius);
+    transition: transform 0.65s;
+  }
+  .rectangle--small {
+    width: calc(var(--button-width) / 2);
+  }
+  .rectangle--top {
+    top: 0;
+    left: 0;
+    transform-origin: top left;
+  }
+  .rectangle--top.open {
+    transform: translateX(var(--translate)) rotate(45deg);
+  }
+  .rectangle--middle {
+    top: 50%;
+    left: 0;
+    width: var(--button-width);
+    transform: translateY(-50%);
+  }
+  .rectangle--middle.open {
+    transform: translateY(-50%) rotate(-45deg);
+  }
+  .rectangle--bottom {
+    bottom: 0;
+    right: 0;
+    transform-origin: bottom right;
+  }
+  .rectangle--bottom.open {
+    transform: translateX(calc(-1 * var(--translate))) rotate(45deg);
+  }
+}
+.menu_active {
+  transform: translateX(0);
+}
+.menu_list {
+  width: 100%;
+  height: 100%;
+}
