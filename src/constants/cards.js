@@ -4,82 +4,102 @@ export const ImplodingKittens = {
   alterTheFuture_1: {
     img: cardsImages.alterTheFuture_1,
     title: "Alter The Future",
+    type: "alterTheFuture"
   },
   alterTheFuture_2: {
     img: cardsImages.alterTheFuture_2,
     title: "Alter The Future",
+    type: "alterTheFuture"
   },
   alterTheFuture_3: {
     img: cardsImages.alterTheFuture_3,
     title: "Alter The Future",
+    type: "alterTheFuture"
   },
   alterTheFuture_4: {
     img: cardsImages.alterTheFuture_4,
     title: "Alter The Future",
+    type: "alterTheFuture"
   },
   drawFromTheBottom_1: {
     img: cardsImages.drawFromTheBottom_1,
     title: "Draw From The Bottom",
+    type: "drawFromTheBottom"
   },
   drawFromTheBottom_2: {
     img: cardsImages.drawFromTheBottom_2,
     title: "Draw From The Bottom",
+    type: "drawFromTheBottom"
   },
   drawFromTheBottom_3: {
     img: cardsImages.drawFromTheBottom_3,
     title: "Draw From The Bottom",
+    type: "drawFromTheBottom"
   },
   drawFromTheBottom_4: {
     img: cardsImages.drawFromTheBottom_4,
     title: "Draw From The Bottom",
+    type: "drawFromTheBottom"
   },
   feral_1: {
     img: cardsImages.feral_1,
     title: "Feral Cat",
+    type: "feral"
   },
   feral_2: {
     img: cardsImages.feral_1,
     title: "Feral Cat",
+    type: "feral"
   },
   feral_3: {
     img: cardsImages.feral_1,
     title: "Feral Cat",
+    type: "feral"
   },
   feral_4: {
     img: cardsImages.feral_1,
     title: "Feral Cat",
+    type: "feral"
   },
   impendingImplodingKitten_1: {
     img: cardsImages.impendingImplodingKitten_1,
     title: "Impending Imploding Kitten",
+    type: "impendingImplodingKitten"
   },
   reverse_1: {
     img: cardsImages.reverse_1,
     title: "Reverse",
+    type: "reverse"
   },
   reverse_2: {
     img: cardsImages.reverse_2,
     title: "Reverse",
+    type: "reverse"
   },
   reverse_3: {
     img: cardsImages.reverse_3,
     title: "Reverse",
+    type: "reverse"
   },
   reverse_4: {
     img: cardsImages.reverse_4,
     title: "Reverse",
+    type: "reverse"
   },
   targetedAttack_1: {
     img: cardsImages.targetedAttack_1,
     title: "Targeted Attack",
+    type: "targetedAttack"
   },
   targetedAttack_2: {
     img: cardsImages.targetedAttack_2,
     title: "Targeted Attack",
+    type: "targetedAttack"
   },
   targetedAttack_3: {
     img: cardsImages.targetedAttack_3,
     title: "Targeted Attack",
+    type: "targetedAttack"
   },
 };
 
@@ -170,7 +190,7 @@ export const ExplodingKittensOriginal = {
     type: "favor"
   },
   favor_4: {
-    img: cardsImages.zzzzz,
+    img: cardsImages.favor_4,
     title: "Favor",
     type: "favor"
   },
@@ -220,7 +240,7 @@ export const ExplodingKittensOriginal = {
     type: "seeFuture"
   },
   seeFuture_5: {
-    img: cardsImages.zzzzz,
+    img: cardsImages.seeFuture_5,
     title: "See The Future",
     type: "seeFuture"
   },
@@ -240,7 +260,7 @@ export const ExplodingKittensOriginal = {
     type: "shuffle"
   },
   shuffle_4: {
-    img: cardsImages.zzzzz,
+    img: cardsImages.shuffle_4,
     title: "Shuffle",
     type: "shuffle"
   },
@@ -260,7 +280,7 @@ export const ExplodingKittensOriginal = {
     type: "skip"
   },
   skip_4: {
-    img: cardsImages.zzzzz,
+    img: cardsImages.skip_4,
     title: "Skip",
     type: "skip"
   },

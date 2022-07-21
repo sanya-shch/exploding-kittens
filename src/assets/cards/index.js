@@ -35,7 +35,7 @@ import defuse_6 from './ExplodingKittens_ORIGINAL/exploding-kittens-defuse-11.pn
 import favor_1 from './ExplodingKittens_ORIGINAL/exploding-kittens-favor-1.png';
 import favor_2 from './ExplodingKittens_ORIGINAL/exploding-kittens-favor-2.png';
 import favor_3 from './ExplodingKittens_ORIGINAL/exploding-kittens-favor-6.png';
-// import favor_4 from './ExplodingKittens_ORIGINAL';
+import favor_4 from './ExplodingKittens_ORIGINAL/exploding-kittens-favor-011.png';
 import nope_1 from './ExplodingKittens_ORIGINAL/exploding-kittens-nope-1.png';
 import nope_2 from './ExplodingKittens_ORIGINAL/exploding-kittens-nope-7.png';
 import nope_3 from './ExplodingKittens_ORIGINAL/exploding-kittens-nope-8.png';
@@ -45,15 +45,15 @@ import seeFuture_1 from './ExplodingKittens_ORIGINAL/exploding-kittens-seefuture
 import seeFuture_2 from './ExplodingKittens_ORIGINAL/exploding-kittens-SEEFUTURE6.png';
 import seeFuture_3 from './ExplodingKittens_ORIGINAL/exploding-kittens-seefuture7.png';
 import seeFuture_4 from './ExplodingKittens_ORIGINAL/exploding-kittens-SEEFUTURE9.png';
-// import seeFuture_5 from './ExplodingKittens_ORIGINAL';
+import seeFuture_5 from './ExplodingKittens_ORIGINAL/exploding-kittens-SEEFUTURE_011.png';
 import shuffle_1 from './ExplodingKittens_ORIGINAL/exploding-kittens-shuffle-2.png';
 import shuffle_2 from './ExplodingKittens_ORIGINAL/exploding-kittens-shuffle-3.png';
 import shuffle_3 from './ExplodingKittens_ORIGINAL/exploding-kittens-shuffle-5.png';
-// import shuffle_4 from './ExplodingKittens_ORIGINAL';
+import shuffle_4 from './ExplodingKittens_ORIGINAL/exploding-kittens-shuffle-011.png';
 import skip_1 from './ExplodingKittens_ORIGINAL/exploding-kittens-skip3.png';
 import skip_2 from './ExplodingKittens_ORIGINAL/exploding-kittens-SKIP4.png';
 import skip_3 from './ExplodingKittens_ORIGINAL/exploding-kittens-skip5.png';
-// import skip_4 from './ExplodingKittens_ORIGINAL';
+import skip_4 from './ExplodingKittens_ORIGINAL/exploding-kittens-skip_011.png';
 import beardCat_1 from './ExplodingKittens_ORIGINAL/exploding-kittens-standard-3.png';
 import cattermelon_1 from './ExplodingKittens_ORIGINAL/exploding-kittens-standard-4.png';
 import hairyPotatoCat_1 from './ExplodingKittens_ORIGINAL/exploding-kittens-standard-5.png';
@@ -96,6 +96,7 @@ export {
   favor_1,
   favor_2,
   favor_3,
+  favor_4,
   nope_1,
   nope_2,
   nope_3,
@@ -105,12 +106,15 @@ export {
   seeFuture_2,
   seeFuture_3,
   seeFuture_4,
+  seeFuture_5,
   shuffle_1,
   shuffle_2,
   shuffle_3,
+  shuffle_4,
   skip_1,
   skip_2,
   skip_3,
+  skip_4,
   beardCat_1,
   cattermelon_1,
   hairyPotatoCat_1,
