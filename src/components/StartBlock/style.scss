@@ -1,0 +1,21 @@
+.start_block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+
+  .player_block {
+    border: 2px dashed #525252;
+    border-radius: 30px;
+    padding: 8px 14px;
+    max-width: 500px;
+    max-height: 350px;
+    min-width: 202px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+}

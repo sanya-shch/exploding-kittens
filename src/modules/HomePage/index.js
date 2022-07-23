@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
@@ -9,6 +9,8 @@ import {
   getUserId,
   getSixLetterCode,
 } from "../../helpers";
+import { expansions } from "../../constants/expansions";
+import { ToastContext } from "../../components/Toast";
 
 import './style.scss';
 
@@ -43,8 +45,9 @@ const createGame = async ({
 
     await setDoc(doc(db, `game_rooms_kitten/${gameId}`), {
       host_uid: uuid,
-      card_packs: [],
       card_deck: [],
+      card_packs: [expansions.ExplodingKittensOriginal],
+      expansions: [],
       // player_data_arr: [{ username: '', uid: uuid, points: 0 }],
       player_data_arr: [],
       player_cards: {},
@@ -53,7 +56,6 @@ const createGame = async ({
       game_room_closed: false,
       ongoing_game: false,
       icon_pack: '',
-      icon_index: 1,
     });
 
     navigate(`/game/${gameId}`);
@@ -64,6 +66,8 @@ const createGame = async ({
 };
 
 const HomePage = ({ gameId, setGameId }) => {
+  const { setToast } = useContext(ToastContext);
+
   const [code, setCode] = useState('');
 
   const navigate = useNavigate();
@@ -88,10 +92,16 @@ const HomePage = ({ gameId, setGameId }) => {
       if (codesDoc.data().codes.indexOf(code) !== -1) {
         navigate(`/game/${code}`);
       } else {
-        // "please enter a valid code"
+        setToast({
+          type: 'danger',
+          text: 'Please enter a valid code',
+        })
       }
     } else {
-      // "please enter a code"
+      setToast({
+        type: 'danger',
+        text: 'Please enter a code',
+      })
     }
   };
   const handleChange = value => {

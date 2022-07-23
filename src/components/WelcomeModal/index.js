@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 import * as icons from "../../assets/icons";
 import { db } from "../../firebase";
+import { ToastContext } from "../Toast";
 import RadioBlock from "../RadioBlock";
 import ReactPortal from "../ReactPortal";
 import Input from "../Input";
@@ -20,6 +21,8 @@ const WelcomeModal = ({
   uuid,
   ongoingGame,
 }) => {
+  const { setToast } = useContext(ToastContext);
+
   const [value, setValue] = useState('cat');
   const [checked, setChecked] = useState(1);
   const [username, setUsername] = useState('');
@@ -37,8 +40,7 @@ const WelcomeModal = ({
     if (value && checked && username) {
       updateDoc(doc(db, "game_rooms_kitten", id), {
         icon_pack: value,
-        icon_index: checked,
-        player_data_arr: arrayUnion({ username, uid: uuid, points: 0 }),
+        player_data_arr: arrayUnion({ username, uid: uuid, points: 0, icon_index: checked }),
       });
 
       if (ongoingGame) {
@@ -48,6 +50,11 @@ const WelcomeModal = ({
       }
 
       handleClose();
+    } else {
+      setToast({
+        type: 'danger',
+        text: 'Enter your username',
+      });
     }
   };
 
@@ -63,7 +70,7 @@ const WelcomeModal = ({
         <div className="modal-content">
           <div className="input_name_block">
             <Input
-              maxLength={16}
+              maxLength={12}
               value={username}
               onChange={handleChange}
             />

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import {
   doc,
@@ -10,17 +10,22 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
+import { ToastContext } from "../../components/Toast";
 import { db } from "../../firebase";
 import { getUserId } from "../../helpers";
+import { numbersOfPlayers } from "../../constants/expansions";
 import WelcomeModal from "../../components/WelcomeModal";
 import Header from "../../components/Header";
 import Menu from "../../components/Menu";
+import StartBlock from "../../components/StartBlock";
 
 import './style.scss';
 
 const GamePage = () => {
   let { id } = useParams();
   id = id.toUpperCase();
+
+  const { setToast } = useContext(ToastContext);
 
   const uuid = getUserId();
   const navigate = useNavigate();
@@ -29,12 +34,14 @@ const GamePage = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [isHost, setIsHost] = useState(false);
   const [ongoingGame, setOngoingGame] = useState(false);
-  const [banned, setBanned] = useState(false);
+  // const [banned, setBanned] = useState(false);
   const [isMidGamePlayer, setIsMidGamePlayer] = useState(false);
 
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
 
   const [openMenu, setOpenMenu] = useState(false);
+
+  const [isWaitStart, setIsWaitStart] = useState(false);
 
   const checkIfGameExists = useCallback(async () => {
     const docSnap = await getDoc(doc(db, "game_rooms_kitten", id));
@@ -61,15 +68,33 @@ const GamePage = () => {
         userExists = true;
       }
     });
+
+    const currentNumberOfPlayers = gameData.player_data_arr.length;
+    const possibleNumberOfPlayers = gameData.card_packs.reduce((acc, item) => acc + numbersOfPlayers[item], 0);
+
     if (!userExists) {
       setIsWelcomeModalOpen(true);
+      setIsWaitStart(false);
+    } else if (possibleNumberOfPlayers <= currentNumberOfPlayers) {
+      setToast({
+        type: 'info',
+        text: 'There are too many players in this game',
+      });
+      navigate("/");
+    } else {
+      setIsWaitStart(true);
     }
   }, [gameData?.player_data_arr, uuid]);
 
   const checkIfBanned = useCallback(() => {
     if (gameData.banned_player_uid.indexOf(uuid) !== -1) {
-      setBanned(true);
+      // setBanned(true);
       setIsWelcomeModalOpen(false);
+      setToast({
+        type: 'danger',
+        text: 'You have been banned',
+      });
+      navigate("/");
     }
   }, [gameData?.banned_player_uid, uuid]);
 
@@ -119,8 +144,6 @@ const GamePage = () => {
 
   console.log({
     gameData,
-    isWelcomeModalOpen,
-    uuid,
   });
 
   return (
@@ -128,10 +151,25 @@ const GamePage = () => {
       <Menu
         open={openMenu}
         setOpen={setOpenMenu}
+        id={id}
+        gameData={gameData}
+        ongoingGame={ongoingGame}
+        isHost={isHost}
       />
       <div className={`content ${openMenu ? 'content_active' : ''}`}>
         <Header/>
         <div className="game_page">
+          {!ongoingGame && isWaitStart && (
+            <StartBlock
+              isHost={isHost}
+              playerDataArr={gameData?.player_data_arr}
+              iconPack={gameData?.icon_pack}
+              uuid={uuid}
+              id={id}
+              expansionsList={gameData?.expansions}
+              cardPacksList={gameData?.card_packs}
+            />
+          )}
           <WelcomeModal
             isOpen={isWelcomeModalOpen}
             handleClose={() => setIsWelcomeModalOpen(false)}

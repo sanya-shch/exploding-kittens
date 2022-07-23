@@ -2,7 +2,8 @@ import React, { useState, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import HomePage from "./modules/HomePage";
-import Loader from "./components/Loader";
+// import Loader from "./components/Loader";
+import CardsLoader from "./components/CardsLoader";
 
 import './App.css';
 
@@ -23,7 +24,7 @@ function App() {
       <Route
         path="/game/:id"
         element={(
-          <Suspense fallback={<Loader delay={500} />}>
+          <Suspense fallback={<CardsLoader delay={500} />}>
             <GamePage />
           </Suspense>
         )}
@@ -31,7 +32,7 @@ function App() {
       <Route
         path="*"
         element={(
-          <Suspense fallback={<Loader delay={500} />}>
+          <Suspense fallback={<CardsLoader delay={500} />}>
             <PageNotFound />
           </Suspense>
         )}

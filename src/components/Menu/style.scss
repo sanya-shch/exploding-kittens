@@ -77,4 +77,34 @@
 .menu_list {
   width: 100%;
   height: 100%;
+
+  .game_id_block {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    font-size: 2rem;
+
+    button {
+      margin-left: 15px;
+    }
+
+    span {
+      font-size: 1.5rem;
+    }
+  }
+
+  .packs_block {
+    padding-left: 20px;
+
+    p {
+      font-size: 20px;
+      margin: 16px 0;
+      user-select: none;
+    }
+
+    .checkbox-rect {
+      margin: 8px 0;
+    }
+  }
 }
