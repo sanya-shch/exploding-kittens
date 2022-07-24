@@ -3,13 +3,13 @@ import React from 'react';
 import './style.scss';
 
 const UserBlock = ({
- imgSrc,
- username,
- itsI,
- numberOfCards,
- isHost,
- isStartBlock,
- handleKick,
+  imgSrc,
+  username,
+  itsI,
+  numberOfCards,
+  isHost,
+  isStartBlock,
+  handleKick,
 }) => {
   return (
     <div className={`user_block ${itsI ? 'itsI' : ''}`}>

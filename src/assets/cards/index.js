@@ -60,6 +60,8 @@ import hairyPotatoCat_1 from './ExplodingKittens_ORIGINAL/exploding-kittens-stan
 import tacocat_1 from './ExplodingKittens_ORIGINAL/exploding-kittens-standard-6.png';
 import rainbowRalphingCat_1 from './ExplodingKittens_ORIGINAL/exploding-kittens-standard-7.png';
 
+import revers from './exploding-kittens-title-2.png';
+
 export {
   alterTheFuture_1,
   alterTheFuture_2,
@@ -120,4 +122,6 @@ export {
   hairyPotatoCat_1,
   tacocat_1,
   rainbowRalphingCat_1,
+
+  revers,
 }

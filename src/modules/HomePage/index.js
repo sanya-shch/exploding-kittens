@@ -47,6 +47,7 @@ const createGame = async ({
       host_uid: uuid,
       card_deck: [],
       card_packs: [expansions.ExplodingKittensOriginal],
+      out_card_deck: [],
       expansions: [],
       // player_data_arr: [{ username: '', uid: uuid, points: 0 }],
       player_data_arr: [],

@@ -1,0 +1,38 @@
+.cards_block {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  left: 25px;
+  right: 0;
+  overflow: hidden;
+  padding-top: 70px;
+  user-select: none;
+
+  .card_wrapper {
+    height: 250px;
+    min-width: 50px;
+    margin-right: 10px;
+    cursor: pointer;
+
+    img {
+      //border-radius: 12px;
+      height: 250px;
+      object-fit: cover;
+      object-position: top;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+  }
+
+  .card_wrapper:hover,
+  .card_wrapper.selected {
+    transform: translate(0px, -70px);
+    transition: 0.5s;
+
+    img {
+      border-radius: 12px;
+      height: 300px;
+    }
+  }
+}

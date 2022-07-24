@@ -18,6 +18,7 @@ import WelcomeModal from "../../components/WelcomeModal";
 import Header from "../../components/Header";
 import Menu from "../../components/Menu";
 import StartBlock from "../../components/StartBlock";
+import GameBlock from "../../components/GameBlock";
 
 import './style.scss';
 
@@ -169,6 +170,23 @@ const GamePage = () => {
               expansionsList={gameData?.expansions}
               cardPacksList={gameData?.card_packs}
             />
+          )}
+          {ongoingGame && (
+            <GameBlock
+              midgamePlayerUid={gameData?.midgame_player_uid}
+              playerDataArr={gameData?.player_data_arr}
+              iconPack={gameData?.icon_pack}
+              playerCards={gameData?.player_cards}
+              cardDeck={gameData?.card_deck}
+              outCardDeck={gameData?.out_card_deck}
+              expansionsList={gameData?.expansions}
+              cardPacksList={gameData?.card_packs}
+              uuid={uuid}
+              id={id}
+            />
+          )}
+          {isMidGamePlayer && (
+            <div/>
           )}
           <WelcomeModal
             isOpen={isWelcomeModalOpen}
