@@ -11,6 +11,7 @@ const PlayersBlock = ({
   playerCards,
   iconPack,
   uuid,
+  currentPlayerUid,
 }) => {
   return (
     <div className="players_block">
@@ -20,6 +21,7 @@ const PlayersBlock = ({
             imgSrc={icons[iconPack][`${iconPack}${player.icon_index}`]}
             username={player.username}
             itsI={uuid === player.uid}
+            isCurrentPlayer={currentPlayerUid === player.uid}
             numberOfCards={playerCards[player.uid].length}
           />
           {playerDataArr.length !== index + 1 && (

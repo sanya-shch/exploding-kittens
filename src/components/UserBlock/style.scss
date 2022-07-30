@@ -23,6 +23,10 @@
     content: '';
     border: 2px solid #525252;
   }
+  &.is_current_player:after {
+    content: '';
+    border: 2px solid #0071cd;
+  }
 
   img {
     z-index: 2;

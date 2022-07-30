@@ -12,6 +12,7 @@ const CardsBlock = ({
   setSelectedCards,
   selectedCards,
   cards,
+  isCurrentPlayer,
 }) => {
   const [dragCard, setDragCard] = useState(null);
 
@@ -30,11 +31,13 @@ const CardsBlock = ({
   function dragStart({ event, cardId }) {
     // console.log('drag started');
 
-    setDragCard(cardId);
+    if (isCurrentPlayer) {
+      setDragCard(cardId);
 
-    let dropZone = document.querySelector('.drop_zone div');
-    if (!dropZone) dropZone = document.querySelector('.drop_zone img');
-    dropZone.classList.toggle("drag_start");
+      let dropZone = document.querySelector('.drop_zone div');
+      if (!dropZone) dropZone = document.querySelector('.drop_zone img');
+      dropZone.classList.toggle("drag_start");
+    }
 
     // event.dataTransfer.dropEffect = "move";
     // event.dataTransfer.effectAllowed = "move";
@@ -44,11 +47,13 @@ const CardsBlock = ({
   function dragEnd() {
     // console.log('drag ended');
 
-    let dropZone = document.querySelector('.drop_zone div');
-    if (!dropZone) dropZone = document.querySelector('.drop_zone img');
-    dropZone.classList.toggle("drag_start");
+    if (isCurrentPlayer) {
+      let dropZone = document.querySelector('.drop_zone div');
+      if (!dropZone) dropZone = document.querySelector('.drop_zone img');
+      dropZone.classList.toggle("drag_start");
 
-    setDragCard(null);
+      setDragCard(null);
+    }
   }
 
   const dragDrop = useCallback(() => {
@@ -66,28 +71,32 @@ const CardsBlock = ({
     // const draggableItems = document.querySelectorAll('.draggable_item');
     const dropZone = document.querySelector('.drop_zone');
 
-    // draggableItems.forEach(item => {
-    //   // item.addEventListener('dragstart', dragStart);
-    //   item.addEventListener('dragend', dragEnd);
-    // });
-
-    // dropZone.addEventListener('dragenter', dragEnter);
-    // dropZone.addEventListener('dragleave', dragLeave);
-    dropZone.addEventListener('dragover', dragOver);
-    dropZone.addEventListener('drop', dragDrop);
-
-    return () => {
+    if (isCurrentPlayer) {
       // draggableItems.forEach(item => {
-      //   // item.removeEventListener('dragstart', dragStart);
-      //   item.removeEventListener('dragend', dragEnd);
+      //   // item.addEventListener('dragstart', dragStart);
+      //   item.addEventListener('dragend', dragEnd);
       // });
 
-      // dropZone.removeEventListener('dragenter', dragEnter);
-      // dropZone.removeEventListener('dragleave', dragLeave);
-      dropZone.removeEventListener('dragover', dragOver);
-      dropZone.removeEventListener('drop', dragDrop);
+      // dropZone.addEventListener('dragenter', dragEnter);
+      // dropZone.addEventListener('dragleave', dragLeave);
+      dropZone.addEventListener('dragover', dragOver);
+      dropZone.addEventListener('drop', dragDrop);
     }
-  }, [dragDrop]);
+
+    return () => {
+      if (isCurrentPlayer) {
+        // draggableItems.forEach(item => {
+        //   // item.removeEventListener('dragstart', dragStart);
+        //   item.removeEventListener('dragend', dragEnd);
+        // });
+
+        // dropZone.removeEventListener('dragenter', dragEnter);
+        // dropZone.removeEventListener('dragleave', dragLeave);
+        dropZone.removeEventListener('dragover', dragOver);
+        dropZone.removeEventListener('drop', dragDrop);
+      }
+    }
+  }, [dragDrop, isCurrentPlayer]);
 
   // function handleMouseDown({ event, cardId }) {
   //   console.log("onMouseDown", { cardId });
@@ -114,13 +123,15 @@ const CardsBlock = ({
   }, []);
 
   const handleClick = item => {
-    setSelectedCards(prev => (
-      prev.includes(item)
-        ? prev.filter(pItem => pItem !== item)
-        : prev.length < 5
-          ? [...prev, item]
-          : prev
-    ));
+    if (isCurrentPlayer) {
+      setSelectedCards(prev => (
+        prev.includes(item)
+          ? prev.filter(pItem => pItem !== item)
+          : prev.length < 5
+            ? [...prev, item]
+            : prev
+      ));
+    }
   };
 
   return (
@@ -129,7 +140,7 @@ const CardsBlock = ({
         playerCards[uuid].sort().map(item => (
           <div
             key={item}
-            className={`draggable_item ${item} card_wrapper ${selectedCards.includes(item) ? 'selected' : ''}`}
+            className={`draggable_item ${item} card_wrapper ${selectedCards.includes(item) ? 'selected' : ''} ${isCurrentPlayer ? '' : 'not_current_player'}`}
             tabIndex={0}
             role="button"
             onClick={() => handleClick(item)}

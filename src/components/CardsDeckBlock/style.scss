@@ -19,6 +19,9 @@
       border-radius: 12px;
       cursor: pointer;
     }
+    img.not_current_player {
+      cursor: not-allowed;
+    }
 
     .no_card {
       text-align: center;

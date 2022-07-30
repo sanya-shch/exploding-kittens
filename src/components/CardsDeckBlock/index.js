@@ -15,9 +15,10 @@ const CardsDeckBlock = ({
   cards,
   selectedCards,
   setSelectedCards,
+  isCurrentPlayer,
 }) => {
   const handleClickOutDeck = () => {
-    if (selectedCards.length) {
+    if (selectedCards.length && isCurrentPlayer) {
       updateDoc(doc(db, "game_rooms_kitten", id), {
         player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
         out_card_deck: arrayUnion(...selectedCards),
@@ -28,7 +29,7 @@ const CardsDeckBlock = ({
   };
 
   const handleClickDeck = () => {
-    if (cardDeck.length) {
+    if (cardDeck.length && isCurrentPlayer) {
       updateDoc(doc(db, "game_rooms_kitten", id), {
         player_cards: { ...playerCards, [uuid]: [...playerCards[uuid], cardDeck[0]] },
         card_deck: arrayRemove(cardDeck[0]),
@@ -45,6 +46,7 @@ const CardsDeckBlock = ({
             alt=""
             width={200}
             height={300}
+            className={`${isCurrentPlayer ? '' : 'not_current_player'}`}
             tabIndex={0}
             role="button"
             onClick={handleClickDeck}

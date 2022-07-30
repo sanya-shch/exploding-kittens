@@ -61,6 +61,10 @@
     }
   }
 
+  .card_wrapper.not_current_player {
+    cursor: not-allowed;
+  }
+
   .no_card {
     font-size: 2rem;
     text-align: center;

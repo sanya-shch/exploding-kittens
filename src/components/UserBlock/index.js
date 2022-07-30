@@ -6,13 +6,14 @@ const UserBlock = ({
   imgSrc,
   username,
   itsI,
+  isCurrentPlayer,
   numberOfCards,
   isHost,
   isStartBlock,
   handleKick,
 }) => {
   return (
-    <div className={`user_block ${itsI ? 'itsI' : ''}`}>
+    <div className={`user_block ${itsI ? 'itsI' : ''} ${isCurrentPlayer ? 'is_current_player' : ''}`}>
       <p>{username}</p>
       <img
         src={imgSrc}

@@ -173,6 +173,7 @@ const GamePage = () => {
               outCardDeck={gameData?.out_card_deck}
               expansionsList={gameData?.expansions}
               cardPacksList={gameData?.card_packs}
+              currentPlayerUid={gameData?.current_player_uid}
               uuid={uuid}
               id={id}
             />

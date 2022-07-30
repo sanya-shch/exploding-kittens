@@ -57,6 +57,7 @@ const createGame = async ({
       game_room_closed: false,
       ongoing_game: false,
       icon_pack: '',
+      current_player_uid: uuid,
     });
 
     navigate(`/game/${gameId}`);
