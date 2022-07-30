@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 
+import * as cardsImages from "../../constants/cards";
 import PlayersBlock from "../PlayersBlock";
 import CardsBlock from "../CardsBlock";
-import { revers } from "../../assets/cards"
 
 import './style.scss';
+import CardsDeckBlock from "../CardsDeckBlock";
 
 const GameBlock = ({
   midgamePlayerUid,
@@ -18,6 +19,13 @@ const GameBlock = ({
   uuid,
   id,
 }) => {
+  const [selectedCards, setSelectedCards] = useState([]);
+
+  const cards = useMemo(() => [...expansionsList, ...cardPacksList]
+      .reduce((acc, item) => ({ ...acc, ...cardsImages[item]}), {}),
+    [expansionsList, cardPacksList]
+  );
+
   return (
     <div className="game_block">
       <PlayersBlock
@@ -26,37 +34,33 @@ const GameBlock = ({
         iconPack={iconPack}
         playerCards={playerCards}
         uuid={uuid}
-        id={id}
       />
 
-      <div className="cards_deck">
-        <div className="deck">
-          {cardDeck?.length ? (
-            <img src={revers} alt="" width={200} height={300} />
-          ) : (
-            <div>
-
-            </div>
-          )}
-        </div>
-        <div className="out">
-          {outCardDeck?.length ? (
-            <img src={revers} alt="" width={200} height={300} />
-          ) : (
-            <div>
-
-            </div>
-          )}
-        </div>
-      </div>
-
-      <CardsBlock
-        playerCards={playerCards[uuid]}
-        expansionsList={expansionsList}
-        cardPacksList={cardPacksList}
+      <CardsDeckBlock
+        playerCards={playerCards}
+        cardDeck={cardDeck}
+        outCardDeck={outCardDeck}
+        cards={cards}
+        selectedCards={selectedCards}
+        setSelectedCards={setSelectedCards}
         uuid={uuid}
         id={id}
       />
+
+      <CardsBlock
+        playerCards={playerCards}
+        uuid={uuid}
+        id={id}
+        setSelectedCards={setSelectedCards}
+        selectedCards={selectedCards}
+        cards={cards}
+      />
+
+      <div className="drag_items">
+        {selectedCards?.map(item => (
+          <img key={item} src={cards[item]?.img} alt="" />
+        ))}
+      </div>
     </div>
   )
 };

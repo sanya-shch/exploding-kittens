@@ -3,20 +3,22 @@
   justify-content: center;
   position: absolute;
   bottom: 0;
-  left: 25px;
+  left: 10px;
   right: 0;
   overflow: hidden;
   padding-top: 70px;
   user-select: none;
+  z-index: 200;
 
   .card_wrapper {
     height: 250px;
     min-width: 50px;
     margin-right: 10px;
     cursor: pointer;
+    //cursor: move;
+    position: relative;
 
     img {
-      //border-radius: 12px;
       height: 250px;
       object-fit: cover;
       object-position: top;
@@ -25,14 +27,43 @@
     }
   }
 
-  .card_wrapper:hover,
-  .card_wrapper.selected {
+  .card_wrapper:last-of-type {
+    width: 200px;
+    min-width: 200px;
+  }
+
+  .card_wrapper:hover:not(.selected) {
     transform: translate(0px, -70px);
     transition: 0.5s;
+    //transition-delay: 0.05s;
+    z-index: 1;
 
     img {
       border-radius: 12px;
       height: 300px;
     }
+  }
+  .card_wrapper.selected {
+    img {
+      border-radius: 12px;
+      height: 300px;
+    }
+
+    &:after {
+      content: '';
+      width: 200px;
+      height: 300px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(45,45,45,0.3);
+      border-radius: 12px;
+    }
+  }
+
+  .no_card {
+    font-size: 2rem;
+    text-align: center;
+    height: 200px;
   }
 }

@@ -6,12 +6,11 @@ import UserBlock from "../UserBlock";
 import './style.scss';
 
 const PlayersBlock = ({
-  midgamePlayerUid,
+  // midgamePlayerUid,
   playerDataArr,
   playerCards,
   iconPack,
   uuid,
-  id,
 }) => {
   return (
     <div className="players_block">

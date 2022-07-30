@@ -3,11 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import {
   doc,
   getDoc,
-  updateDoc,
   onSnapshot,
-  arrayUnion,
-  arrayRemove,
-  deleteDoc,
 } from "firebase/firestore";
 
 import { ToastContext } from "../../components/Toast";
@@ -142,10 +138,6 @@ const GamePage = () => {
     leaveIfGameDeleted,
     uuid,
   ]);
-
-  console.log({
-    gameData,
-  });
 
   return (
     <>
