@@ -55,5 +55,6 @@ export const startGame = ({
     ongoing_game: true,
     player_cards: playerCards,
     card_deck: randomize(deckOfCards),
+    players_list: playerDataArr.map(item => item.uid),
   });
 };

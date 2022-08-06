@@ -1,7 +1,10 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useContext } from 'react';
+import { doc, updateDoc } from "firebase/firestore";
 
+import { db } from "../../firebase";
 import * as cardsImages from "../../constants/cards";
 import { isExplode } from "../../helpers";
+import { ToastContext } from "../Toast";
 import PlayersBlock from "../PlayersBlock";
 import CardsBlock from "../CardsBlock";
 import CardsDeckBlock from "../CardsDeckBlock";
@@ -26,6 +29,8 @@ const GameBlock = ({
   uuid,
   id,
 }) => {
+  const { setToast } = useContext(ToastContext);
+
   const [cardSeeTheFutureModalOpen, setCardSeeTheFutureModalOpen] = useState(false);
   const [cardType, setCardType] = useState('');
 
@@ -50,7 +55,16 @@ const GameBlock = ({
       cards,
     })) {
       case 'explode':
-        console.log("explode");
+        updateDoc(doc(db, "game_rooms_kitten", id), {
+          player_cards: { ...playerCards, [uuid]: [] },
+          attack_count: 0,
+          game_moves: [],
+          players_list: playersList.filter(item => item !== uuid),
+        });
+        setToast({
+          type: 'danger',
+          text: 'You exploded!!!',
+        });
         break;
       case 'not_explode':
         setCardPutToDeckModalOpen(true);

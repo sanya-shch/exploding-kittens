@@ -150,7 +150,10 @@ const GamePage = () => {
         isHost={isHost}
       />
       <div className={`content ${openMenu ? 'content_active' : ''}`}>
-        <Header/>
+        <Header
+          playerDataArr={gameData?.player_data_arr}
+          iconPack={gameData?.icon_pack}
+        />
         <div className="game_page">
           {!ongoingGame && isWaitStart && (
             <StartBlock

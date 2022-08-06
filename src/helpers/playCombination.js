@@ -37,30 +37,31 @@ export const playCombination = ({
     } else if (cardType === cardTypes.drawFromTheBottom) {
       if (attackCount > 0) {
         updateDoc(doc(db, "game_rooms_kitten", id), {
-          player_cards: { ...playerCards, [uuid]: [...playerCards[uuid], cardDeck.at(-1)] },
+          player_cards: { ...playerCards, [uuid]: [...playerCards[uuid].filter(item => !selectedCards.includes(item)), cardDeck.at(-1)] },
           card_deck: arrayRemove(cardDeck.at(-1)),
 
           game_moves: [],
-
           attack_count: attackCount - 1,
+          out_card_deck: arrayUnion(...selectedCards),
         });
       } else if (isExplodeCard({ cards, card: cardDeck.at(-1) })) {
         updateDoc(doc(db, "game_rooms_kitten", id), {
-          player_cards: { ...playerCards, [uuid]: [...playerCards[uuid], cardDeck.at(-1)] },
+          player_cards: { ...playerCards, [uuid]: [...playerCards[uuid].filter(item => !selectedCards.includes(item)), cardDeck.at(-1)] },
           card_deck: arrayRemove(cardDeck.at(-1)),
 
           game_moves: [],
+          out_card_deck: arrayUnion(...selectedCards),
         });
       } else {
         const index = playersList.findIndex(item => item === uuid);
 
         updateDoc(doc(db, "game_rooms_kitten", id), {
-          player_cards: { ...playerCards, [uuid]: [...playerCards[uuid], cardDeck.at(-1)] },
+          player_cards: { ...playerCards, [uuid]: [...playerCards[uuid].filter(item => !selectedCards.includes(item)), cardDeck.at(-1)] },
           card_deck: arrayRemove(cardDeck.at(-1)),
 
           game_moves: [],
-
           current_player_uid: index === playersList.length - 1 ? playersList[0] : playersList[index + 1],
+          out_card_deck: arrayUnion(...selectedCards),
         });
       }
     } else if (cardType === cardTypes.reverse) {
