@@ -344,121 +344,141 @@ export const ExplodingKittensOriginal = {
     id: 'beardCat_1',
     img: cardsImages.beardCat_1,
     title: "Beard Cat",
-    type: "standardCart"
+    type: "beardCat",
+    subType: "standardCart"
   },
   beardCat_2: {
     id: 'beardCat_2',
     img: cardsImages.beardCat_1,
     title: "Beard Cat",
-    type: "standardCart"
+    type: "beardCat",
+    subType: "standardCart"
   },
   beardCat_3: {
     id: 'beardCat_3',
     img: cardsImages.beardCat_1,
     title: "Beard Cat",
-    type: "standardCart"
+    type: "beardCat",
+    subType: "standardCart"
   },
   beardCat_4: {
     id: 'beardCat_4',
     img: cardsImages.beardCat_1,
     title: "Beard Cat",
-    type: "standardCart"
+    type: "beardCat",
+    subType: "standardCart"
   },
   cattermelon_1: {
     id: 'cattermelon_1',
     img: cardsImages.cattermelon_1,
     title: "Cattermelon",
-    type: "standardCart"
+    type: "cattermelon",
+    subType: "standardCart"
   },
   cattermelon_2: {
     id: 'cattermelon_2',
     img: cardsImages.cattermelon_1,
     title: "Cattermelon",
-    type: "standardCart"
+    type: "cattermelon",
+    subType: "standardCart"
   },
   cattermelon_3: {
     id: 'cattermelon_3',
     img: cardsImages.cattermelon_1,
     title: "Cattermelon",
-    type: "standardCart"
+    type: "cattermelon",
+    subType: "standardCart"
   },
   cattermelon_4: {
     id: 'cattermelon_4',
     img: cardsImages.cattermelon_1,
     title: "Cattermelon",
-    type: "standardCart"
+    type: "cattermelon",
+    subType: "standardCart"
   },
   hairyPotatoCat_1: {
     id: 'hairyPotatoCat_1',
     img: cardsImages.hairyPotatoCat_1,
     title: "Hairy Potato Cat",
-    type: "standardCart"
+    type: "hairyPotatoCat",
+    subType: "standardCart"
   },
   hairyPotatoCat_2: {
     id: 'hairyPotatoCat_2',
     img: cardsImages.hairyPotatoCat_1,
     title: "Hairy Potato Cat",
-    type: "standardCart"
+    type: "hairyPotatoCat",
+    subType: "standardCart"
   },
   hairyPotatoCat_3: {
     id: 'hairyPotatoCat_3',
     img: cardsImages.hairyPotatoCat_1,
     title: "Hairy Potato Cat",
-    type: "standardCart"
+    type: "hairyPotatoCat",
+    subType: "standardCart"
   },
   hairyPotatoCat_4: {
     id: 'hairyPotatoCat_4',
     img: cardsImages.hairyPotatoCat_1,
     title: "Hairy Potato Cat",
-    type: "standardCart"
+    type: "hairyPotatoCat",
+    subType: "standardCart"
   },
   tacocat_1: {
     id: 'tacocat_1',
     img: cardsImages.tacocat_1,
     title: "Tacocat",
-    type: "standardCart"
+    type: "tacocat",
+    subType: "standardCart"
   },
   tacocat_2: {
     id: 'tacocat_2',
     img: cardsImages.tacocat_1,
     title: "Tacocat",
-    type: "standardCart"
+    type: "tacocat",
+    subType: "standardCart"
   },
   tacocat_3: {
     id: 'tacocat_3',
     img: cardsImages.tacocat_1,
     title: "Tacocat",
-    type: "standardCart"
+    type: "tacocat",
+    subType: "standardCart"
   },
   tacocat_4: {
     id: 'tacocat_4',
     img: cardsImages.tacocat_1,
     title: "Tacocat",
-    type: "standardCart"
+    type: "tacocat",
+    subType: "standardCart"
   },
   rainbowRalphingCat_1: {
     id: 'rainbowRalphingCat_1',
     img: cardsImages.rainbowRalphingCat_1,
     title: "Rainbow-Ralphing Cat",
-    type: "standardCart"
+    type: "rainbowRalphingCat",
+    subType: "standardCart"
   },
   rainbowRalphingCat_2: {
     id: 'rainbowRalphingCat_2',
     img: cardsImages.rainbowRalphingCat_1,
     title: "Rainbow-Ralphing Cat",
-    type: "standardCart"
+    type: "rainbowRalphingCat",
+    subType: "standardCart"
   },
   rainbowRalphingCat_3: {
     id: 'rainbowRalphingCat_3',
     img: cardsImages.rainbowRalphingCat_1,
     title: "Rainbow-Ralphing Cat",
-    type: "standardCart"
+    type: "rainbowRalphingCat",
+    subType: "standardCart"
   },
   rainbowRalphingCat_4: {
     id: 'rainbowRalphingCat_4',
     img: cardsImages.rainbowRalphingCat_1,
     title: "Rainbow-Ralphing Cat",
-    type: "standardCart"
+    type: "rainbowRalphingCat",
+    subType: "standardCart"
   },
 };
 

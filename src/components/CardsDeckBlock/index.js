@@ -1,8 +1,9 @@
 import React from 'react';
-import { arrayUnion, doc, updateDoc, arrayRemove } from "firebase/firestore";
+import { doc, updateDoc, arrayRemove } from "firebase/firestore";
 
 import { revers } from "../../assets/cards"
 import { db } from "../../firebase";
+import { isCombinationExist, playCombination, isExplodeCard } from "../../helpers";
 
 import './style.scss';
 
@@ -16,13 +17,27 @@ const CardsDeckBlock = ({
   selectedCards,
   setSelectedCards,
   isCurrentPlayer,
+  playersList,
+  gameMoves,
+  attackCount,
+  setCardType,
 }) => {
   const handleClickOutDeck = () => {
     if (selectedCards.length && isCurrentPlayer) {
-      updateDoc(doc(db, "game_rooms_kitten", id), {
-        player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
-        out_card_deck: arrayUnion(...selectedCards),
-      });
+      if (isCombinationExist(selectedCards, cards)) {
+        playCombination({
+          selectedCards,
+          cards,
+          id,
+          playerCards,
+          uuid,
+          playersList,
+          cardDeck,
+          setCardType,
+          gameMoves,
+          attackCount,
+        });
+      }
 
       setSelectedCards([]);
     }
@@ -30,10 +45,34 @@ const CardsDeckBlock = ({
 
   const handleClickDeck = () => {
     if (cardDeck.length && isCurrentPlayer) {
-      updateDoc(doc(db, "game_rooms_kitten", id), {
-        player_cards: { ...playerCards, [uuid]: [...playerCards[uuid], cardDeck[0]] },
-        card_deck: arrayRemove(cardDeck[0]),
-      });
+      if (attackCount > 0) {
+        updateDoc(doc(db, "game_rooms_kitten", id), {
+          player_cards: { ...playerCards, [uuid]: [...playerCards[uuid], cardDeck[0]] },
+          card_deck: arrayRemove(cardDeck[0]),
+
+          game_moves: [],
+
+          attack_count: attackCount - 1,
+        });
+      } else if (isExplodeCard({ cards, card: cardDeck[0] })) {
+        updateDoc(doc(db, "game_rooms_kitten", id), {
+          player_cards: { ...playerCards, [uuid]: [...playerCards[uuid], cardDeck[0]] },
+          card_deck: arrayRemove(cardDeck[0]),
+
+          game_moves: [],
+        });
+      } else {
+        const index = playersList.findIndex(item => item === uuid);
+
+        updateDoc(doc(db, "game_rooms_kitten", id), {
+          player_cards: { ...playerCards, [uuid]: [...playerCards[uuid], cardDeck[0]] },
+          card_deck: arrayRemove(cardDeck[0]),
+
+          game_moves: [],
+
+          current_player_uid: index === playersList.length - 1 ? playersList[0] : playersList[index + 1],
+        });
+      }
     }
   };
 

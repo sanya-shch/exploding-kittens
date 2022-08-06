@@ -12,10 +12,17 @@ const PlayersBlock = ({
   iconPack,
   uuid,
   currentPlayerUid,
+  playersList,
 }) => {
+  const players = playersList.reduce((acc, item) => {
+    acc.push(playerDataArr.find(findItem => findItem.uid === item));
+
+    return acc;
+  }, []);
+
   return (
     <div className="players_block">
-      {playerDataArr.map((player, index) => (
+      {players.map((player, index) => (
         <React.Fragment key={player.uid}>
           <UserBlock
             imgSrc={icons[iconPack][`${iconPack}${player.icon_index}`]}
@@ -24,7 +31,7 @@ const PlayersBlock = ({
             isCurrentPlayer={currentPlayerUid === player.uid}
             numberOfCards={playerCards[player.uid].length}
           />
-          {playerDataArr.length !== index + 1 && (
+          {players.length !== index + 1 && (
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                  className="bi bi-caret-right-fill" viewBox="0 0 16 16">
               <path

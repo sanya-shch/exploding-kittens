@@ -1,0 +1,84 @@
+.card-put-to-deck-modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  z-index: 999;
+  padding: 40px 20px 20px;
+
+  .modal-content {
+    min-width: 244px;
+    background-color: #f6f6e9;
+    color: #313131;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 33px;
+    border: 2px solid #525252;
+  }
+
+  .content_block {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+
+    //overflow-x: scroll;
+    //width: 700px;
+    //
+    //div {
+    //  width: 54px;
+    //  height: 304px;
+    //}
+    //img {
+    //  border: 2px solid #f6f6e9;
+    //  border-radius: 12px;
+    //}
+    //.dnd_item.over img{
+    //  border: 2px dotted #f6f6e9;
+    //}
+  }
+
+  .btn_block {
+    width: 100%;
+
+    .main_button {
+      max-width: 100%;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+
+  .dnd_container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  .dnd_item {
+    border: 3px solid #525252;
+    background-color: #f6f6e9;
+    border-radius: .5em;
+    padding: 10px;
+    cursor: move;
+  }
+  .dnd_item.over {
+    border: 3px dotted #525252;
+  }
+  [draggable] {
+    user-select: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-put-to-deck-modal .modal-content {
+    width: 100%;
+  }
+}

@@ -58,6 +58,10 @@ const createGame = async ({
       ongoing_game: false,
       icon_pack: '',
       current_player_uid: uuid,
+      players_list: [],
+
+      game_moves: [],
+      attack_count: 0,
     });
 
     navigate(`/game/${gameId}`);

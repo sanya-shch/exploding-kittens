@@ -174,6 +174,9 @@ const GamePage = () => {
               expansionsList={gameData?.expansions}
               cardPacksList={gameData?.card_packs}
               currentPlayerUid={gameData?.current_player_uid}
+              playersList={gameData?.players_list}
+              gameMoves={gameData?.game_moves}
+              attackCount={gameData?.attack_count}
               uuid={uuid}
               id={id}
             />
