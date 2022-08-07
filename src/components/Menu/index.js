@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, lazy, Suspense } from 'react';
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 import { db } from "../../firebase";
@@ -6,8 +6,11 @@ import { expansions } from "../../constants/expansions";
 import { ToastContext } from "../Toast";
 import ButtonCopy from "../ButtonCopy";
 import Checkbox from "../Checkbox";
+// import FieldGuideBlock from "../FieldGuideBlock";
 
 import './style.scss';
+
+const FieldGuideBlock = lazy(() => import("../FieldGuideBlock"));
 
 const Menu = ({
   open,
@@ -16,6 +19,7 @@ const Menu = ({
   gameData,
   isHost,
   ongoingGame,
+  expansionsList,
 }) => {
   const { setToast } = useContext(ToastContext);
 
@@ -97,6 +101,10 @@ const Menu = ({
             {/*/>*/}
           </div>
         )}
+
+        <Suspense>
+          <FieldGuideBlock expansionsList={expansionsList} />
+        </Suspense>
       </div>
     </div>
   )

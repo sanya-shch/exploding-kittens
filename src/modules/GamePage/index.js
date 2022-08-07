@@ -148,6 +148,7 @@ const GamePage = () => {
         gameData={gameData}
         ongoingGame={ongoingGame}
         isHost={isHost}
+        expansionsList={gameData?.expansions}
       />
       <div className={`content ${openMenu ? 'content_active' : ''}`}>
         <Header
