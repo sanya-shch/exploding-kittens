@@ -1,0 +1,71 @@
+.card-type-selection-modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  z-index: 999;
+  padding: 40px 20px 20px;
+
+  .modal-content {
+    min-width: 244px;
+    background-color: #f6f6e9;
+    color: #313131;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 33px;
+    border: 2px solid #525252;
+  }
+
+  .content_block {
+    margin: 20px 20px 0;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    max-height: 530px;
+    overflow-y: scroll;
+
+    div {
+      cursor: pointer;
+      border: 3px solid #525252;
+      border-radius: 0.5em;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      padding: 5px;
+    }
+    div.selected {
+      border: 3px dotted #525252;
+    }
+
+    img {
+      margin-bottom: 5px;
+    }
+  }
+
+  .btn_block {
+    width: 100%;
+
+    .main_button {
+      max-width: 100%;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .card-type-selection-modal .modal-content {
+    width: 100%;
+  }
+}

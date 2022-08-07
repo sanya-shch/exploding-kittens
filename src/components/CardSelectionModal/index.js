@@ -1,32 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 import { db } from "../../firebase";
-
+import { revers } from "../../assets/cards"
+import { randomize } from "../../helpers";
 import ReactPortal from "../ReactPortal";
 import MainButton from "../MainButton";
 
 import './style.scss';
 
-const CardFromTheDiscardedDeckModal = ({
+const CardSelectionModal = ({
   isOpen,
   handleClose,
-  outCardDeck,
-  cards,
   id,
   uuid,
   playerCards,
   selectedCards,
+  selectedPlayerUid,
 }) => {
   const [selectedCard, setSelectedCard] = useState(null);
 
+  const randomizedPlayerCards = useMemo(() => playerCards[selectedPlayerUid] && randomize(playerCards[selectedPlayerUid]), [selectedPlayerUid, playerCards]);
+
   const handleClick = () => {
-    if (selectedCard) {
+    if (selectedCard && selectedPlayerUid) {
       updateDoc(doc(db, "game_rooms_kitten", id), {
-        player_cards: { ...playerCards, [uuid]: [...playerCards[uuid].filter(item => !selectedCards.includes(item)), selectedCard] },
+        player_cards: {
+          ...playerCards,
+          [selectedPlayerUid]: playerCards[selectedPlayerUid].filter(item => item !== selectedCard),
+          [uuid]: [...playerCards[uuid].filter(item => !selectedCards.includes(item)), selectedCard],
+        },
         out_card_deck: arrayUnion(...selectedCards),
 
-        game_moves: arrayUnion({ uid: uuid, cardType: 'combo_5', playerCards: playerCards[uuid], outCardDeck }),
+        game_moves: arrayUnion({ uid: uuid, cardType: 'combo_2', selectedCard, combo2PlayerUid: selectedPlayerUid }),
       });
     }
 
@@ -40,19 +46,18 @@ const CardFromTheDiscardedDeckModal = ({
   if (!isOpen) return null;
 
   return (
-    <ReactPortal wrapperId="react-portal-card-from-discarded-deck-modal">
-      <div className="card-from-discarded-deck-modal">
+    <ReactPortal wrapperId="react-portal-card-selection-modal">
+      <div className="card-selection-modal">
         <div className="modal-content">
           <div className="content_block">
-            {outCardDeck.map(card => (
-              <div key={`${card}-from-discarded-deck`}>
+            {randomizedPlayerCards.map(card => (
+              <div key={card} className={selectedCard === card ? 'selected' : ''}>
                 <img
-                  src={cards[card]?.img}
+                  src={revers}
                   alt=""
                   width={200}
                   height={300}
                   onClick={() => handleClickImg(card)}
-                  className={selectedCard === card ? 'selected' : ''}
                 />
               </div>
             ))}
@@ -69,4 +74,4 @@ const CardFromTheDiscardedDeckModal = ({
   )
 };
 
-export default CardFromTheDiscardedDeckModal;
+export default CardSelectionModal;

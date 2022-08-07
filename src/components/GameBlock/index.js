@@ -11,6 +11,10 @@ import CardsDeckBlock from "../CardsDeckBlock";
 import CardSeeTheFutureModal from "../CardSeeTheFutureModal";
 import CardPutToDeckModal from "../CardPutToDeckModal";
 import CardFromTheDiscardedDeckModal from "../CardFromTheDiscardedDeckModal";
+import PlayerSelectionModal from "../PlayerSelectionModal";
+import CardSelectionModal from "../CardSelectionModal";
+import CardTypeSelectionModal from "../CardTypeSelectionModal";
+import FavorCardModal from "../FavorCardModal";
 
 import './style.scss';
 
@@ -29,12 +33,12 @@ const GameBlock = ({
   attackCount,
   uuid,
   id,
+  setOpenMenu,
 }) => {
   const { setToast } = useContext(ToastContext);
 
   const [cardSeeTheFutureModalOpen, setCardSeeTheFutureModalOpen] = useState(false);
   const [cardType, setCardType] = useState('');
-
   useEffect(() => {
     if (cardType) {
       setCardSeeTheFutureModalOpen(true);
@@ -43,6 +47,20 @@ const GameBlock = ({
 
   const [cardPutToDeckModalOpen, setCardPutToDeckModalOpen] = useState(false);
   const [cardFromTheDiscardedDeckModalOpen, setCardFromTheDiscardedDeckModalOpen] = useState(false);
+
+  const [playerSelectionModalOpen, setPlayerSelectionModalOpen] = useState(false);
+  const [playerSelectionModalCardType, setPlayerSelectionModalCardType] = useState('');
+  const [favorCardModalOpen, setFavorCardModalOpen] = useState(false);
+  useEffect(() => {
+    if (playerSelectionModalCardType) {
+      setPlayerSelectionModalOpen(true);
+    }
+  }, [playerSelectionModalCardType]);
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [selectedPlayerCards, setSelectedPlayerCards] = useState(null);
+
+  const [cardSelectionModalOpen, setCardSelectionModalOpen] = useState(false);
+  const [cardTypeSelectionModalOpen, setCardTypeSelectionModalOpen] = useState(false);
 
   const [selectedCards, setSelectedCards] = useState([]);
 
@@ -71,8 +89,16 @@ const GameBlock = ({
       case 'not_explode':
         setCardPutToDeckModalOpen(true);
         break;
+      default: break;
     }
-  }, [cardDeck, playerCards]);
+  }, [cardDeck, playerCards, cards, id, playersList, setToast, uuid]);
+
+  useEffect(() => {
+    if (gameMoves.at(-1)?.favorPlayerUid === uuid) {
+      setFavorCardModalOpen(true);
+      setOpenMenu(false);
+    }
+  }, [gameMoves, setOpenMenu, uuid]);
 
   return (
     <>
@@ -102,6 +128,8 @@ const GameBlock = ({
           attackCount={attackCount}
           setCardType={setCardType}
           setCardFromTheDiscardedDeckModalOpen={setCardFromTheDiscardedDeckModalOpen}
+          setPlayerSelectionModalCardType={setPlayerSelectionModalCardType}
+          setSelectedPlayerCards={setSelectedPlayerCards}
         />
 
         <CardsBlock
@@ -113,6 +141,13 @@ const GameBlock = ({
           cards={cards}
           currentPlayerUid={currentPlayerUid}
           isCurrentPlayer={currentPlayerUid === uuid}
+          playersList={playersList}
+          cardDeck={cardDeck}
+          setCardType={setCardType}
+          gameMoves={gameMoves}
+          attackCount={attackCount}
+          setCardFromTheDiscardedDeckModalOpen={setCardFromTheDiscardedDeckModalOpen}
+          setPlayerSelectionModalCardType={setPlayerSelectionModalCardType}
         />
 
         <div className="drag_items">
@@ -161,6 +196,68 @@ const GameBlock = ({
         uuid={uuid}
         id={id}
         selectedCards={selectedCards}
+      />
+
+      <PlayerSelectionModal
+        isOpen={playerSelectionModalOpen}
+        handleClose={() => {
+          setPlayerSelectionModalOpen(false);
+          setPlayerSelectionModalCardType('');
+        }}
+        cardType={playerSelectionModalCardType}
+        playersList={playersList}
+        playerDataArr={playerDataArr}
+        iconPack={iconPack}
+        uuid={uuid}
+        id={id}
+        playerCards={playerCards}
+        cards={cards}
+        setCardTypeSelectionModalOpen={setCardTypeSelectionModalOpen}
+        setSelectedPlayer={setSelectedPlayer}
+        selectedPlayer={selectedPlayer}
+        setCardSelectionModalOpen={setCardSelectionModalOpen}
+      />
+
+      <FavorCardModal
+        isOpen={favorCardModalOpen}
+        handleClose={() => {
+          setFavorCardModalOpen(false);
+        }}
+        playerCards={playerCards}
+        cards={cards}
+        uuid={uuid}
+        id={id}
+        favoredUid={gameMoves.at(-1)?.uid}
+      />
+
+      <CardTypeSelectionModal
+        isOpen={cardTypeSelectionModalOpen}
+        handleClose={() => {
+          setCardTypeSelectionModalOpen(false);
+          setSelectedPlayer(null);
+          setSelectedPlayerCards(null);
+        }}
+        expansionsList={expansionsList}
+        selectedPlayer={selectedPlayer}
+        playerCards={playerCards}
+        cards={cards}
+        uuid={uuid}
+        id={id}
+        selectedCards={selectedPlayerCards}
+      />
+
+      <CardSelectionModal
+        isOpen={cardSelectionModalOpen}
+        handleClose={() => {
+          setCardSelectionModalOpen(false);
+          setSelectedPlayer(null);
+          setSelectedPlayerCards(null);
+        }}
+        playerCards={playerCards}
+        uuid={uuid}
+        id={id}
+        selectedCards={selectedPlayerCards}
+        selectedPlayerUid={selectedPlayer?.uid}
       />
     </>
   )

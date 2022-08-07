@@ -81,7 +81,7 @@ const GamePage = () => {
     } else {
       setIsWaitStart(true);
     }
-  }, [gameData?.player_data_arr, uuid]);
+  }, [gameData?.player_data_arr, uuid, gameData?.card_packs, navigate, setToast]);
 
   const checkIfBanned = useCallback(() => {
     if (gameData.banned_player_uid.indexOf(uuid) !== -1) {
@@ -93,7 +93,7 @@ const GamePage = () => {
       });
       navigate("/");
     }
-  }, [gameData?.banned_player_uid, uuid]);
+  }, [gameData?.banned_player_uid, uuid, navigate, setToast]);
 
   const leaveIfGameDeleted = useCallback(() => {
     if (gameData.game_room_closed) {
@@ -183,6 +183,7 @@ const GamePage = () => {
               attackCount={gameData?.attack_count}
               uuid={uuid}
               id={id}
+              setOpenMenu={setOpenMenu}
             />
           )}
           {isMidGamePlayer && (

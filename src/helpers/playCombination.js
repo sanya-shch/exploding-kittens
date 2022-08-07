@@ -7,6 +7,7 @@ import { isExplodeCard } from "./isExplode";
 
 export const playCombination = ({
   selectedCards,
+  setSelectedPlayerCards,
   cards,
   id,
   playerCards,
@@ -17,6 +18,7 @@ export const playCombination = ({
   gameMoves,
   attackCount,
   setCardFromTheDiscardedDeckModalOpen,
+  setPlayerSelectionModalCardType,
 }) => {
   const cardTypesList = selectedCards.reduce((acc, item) => {
     if (Object.keys(acc).includes(cards[item].type)) {
@@ -28,13 +30,14 @@ export const playCombination = ({
     return acc;
   }, {});
 
-  console.log({selectedCards, cards, cardTypesList});
+  console.log({ selectedCards, cards, cardTypesList });
 
   if (selectedCards.length === 1) {
     const cardType = Object.keys(cardTypesList)[0];
 
     if (cardType === cardTypes.alterTheFuture) {
       // setCardType(selectedCards[0]);
+      // TODO
     } else if (cardType === cardTypes.drawFromTheBottom) {
       if (attackCount > 0) {
         updateDoc(doc(db, "game_rooms_kitten", id), {
@@ -67,12 +70,12 @@ export const playCombination = ({
       }
     } else if (cardType === cardTypes.reverse) {
       if (attackCount > 0) {
-
+        // TODO
       } else {
 
       }
     } else if (cardType === cardTypes.targetedAttack) {
-
+      setPlayerSelectionModalCardType(selectedCards[0]);
     } else if (cardType === cardTypes.attack) {
       const index = playersList.findIndex(item => item === uuid);
 
@@ -86,9 +89,9 @@ export const playCombination = ({
         current_player_uid: index === playersList.length - 1 ? playersList[0] : playersList[index + 1],
       });
     } else if (cardType === cardTypes.favor) {
-
+      setPlayerSelectionModalCardType(selectedCards[0]);
     } else if (cardType === cardTypes.nope) {
-
+      // TODO
     } else if (cardType === cardTypes.seeFuture) {
       setCardType(selectedCards[0]);
     } else if (cardType === cardTypes.shuffle) {
@@ -139,7 +142,8 @@ export const playCombination = ({
         )
       )
     ) {
-
+      setSelectedPlayerCards(selectedCards);
+      setPlayerSelectionModalCardType('combo_2');
     }
   } else if (selectedCards.length === 3) {
     const cardTypeList = Object.keys(cardTypesList);
@@ -156,7 +160,8 @@ export const playCombination = ({
         )
       )
     ) {
-
+      setSelectedPlayerCards(selectedCards);
+      setPlayerSelectionModalCardType('combo_3');
     }
   } else if (selectedCards.length === 5) {
     const values = Object.values(cardTypesList);

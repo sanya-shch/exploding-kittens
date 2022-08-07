@@ -163,7 +163,7 @@ const CardPutToDeckModal = ({
           </div>
           <div className="btn_block">
             <MainButton
-              text="Exit"
+              text="Go"
               onClick={handleClick}
             />
           </div>

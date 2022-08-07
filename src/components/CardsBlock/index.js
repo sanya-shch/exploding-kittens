@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+// import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 
-import { db } from "../../firebase";
+// import { db } from "../../firebase";
+import { isCombinationExist, playCombination } from "../../helpers";
 
 import './style.scss';
 
@@ -13,6 +14,13 @@ const CardsBlock = ({
   selectedCards,
   cards,
   isCurrentPlayer,
+  playersList,
+  cardDeck,
+  setCardType,
+  gameMoves,
+  attackCount,
+  setCardFromTheDiscardedDeckModalOpen,
+  setPlayerSelectionModalCardType,
 }) => {
   const [dragCard, setDragCard] = useState(null);
 
@@ -30,6 +38,8 @@ const CardsBlock = ({
 
   function dragStart({ event, cardId }) {
     // console.log('drag started');
+
+    setSelectedCards([]);
 
     if (isCurrentPlayer) {
       setDragCard(cardId);
@@ -60,12 +70,43 @@ const CardsBlock = ({
     // console.log('drag dropped',  dragCard);
 
     if (dragCard) {
-      updateDoc(doc(db, "game_rooms_kitten", id), {
-        player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => item !== dragCard) },
-        out_card_deck: arrayUnion(dragCard),
-      });
+      // updateDoc(doc(db, "game_rooms_kitten", id), {
+      //   player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => item !== dragCard) },
+      //   out_card_deck: arrayUnion(dragCard),
+      // });
+
+      if (isCombinationExist([...selectedCards, dragCard], cards)) {
+        playCombination({
+          selectedCards: [...selectedCards, dragCard],
+          cards,
+          id,
+          playerCards,
+          uuid,
+          playersList,
+          cardDeck,
+          setCardType,
+          gameMoves,
+          attackCount,
+          setCardFromTheDiscardedDeckModalOpen,
+          setPlayerSelectionModalCardType,
+        });
+      }
     }
-  }, [dragCard, playerCards, uuid, id]);
+  }, [
+    dragCard,
+    playerCards,
+    uuid,
+    id,
+    attackCount,
+    cardDeck,
+    cards,
+    gameMoves,
+    playersList,
+    selectedCards,
+    setCardFromTheDiscardedDeckModalOpen,
+    setCardType,
+    setPlayerSelectionModalCardType,
+  ]);
 
   useEffect(() => {
     // const draggableItems = document.querySelectorAll('.draggable_item');
@@ -97,10 +138,6 @@ const CardsBlock = ({
       }
     }
   }, [dragDrop, isCurrentPlayer]);
-
-  // function handleMouseDown({ event, cardId }) {
-  //   console.log("onMouseDown", { cardId });
-  // }
 
   useEffect(() => {
     const element = document.documentElement;
@@ -144,7 +181,6 @@ const CardsBlock = ({
             tabIndex={0}
             role="button"
             onClick={() => handleClick(item)}
-            // onMouseDown={event => handleMouseDown({ event, cardId: item})}
             onDragStart={event => dragStart({ event, cardId: item})}
             onDragEnd={dragEnd}
             draggable

@@ -22,12 +22,15 @@ const CardsDeckBlock = ({
   attackCount,
   setCardType,
   setCardFromTheDiscardedDeckModalOpen,
+  setPlayerSelectionModalCardType,
+  setSelectedPlayerCards,
 }) => {
   const handleClickOutDeck = () => {
     if (selectedCards.length && isCurrentPlayer) {
       if (isCombinationExist(selectedCards, cards)) {
         playCombination({
           selectedCards,
+          setSelectedPlayerCards,
           cards,
           id,
           playerCards,
@@ -38,6 +41,7 @@ const CardsDeckBlock = ({
           gameMoves,
           attackCount,
           setCardFromTheDiscardedDeckModalOpen,
+          setPlayerSelectionModalCardType,
         });
       }
 
