@@ -91,7 +91,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
       <p>These cards are powerless on their own, but if you collect any 2 matching Cat Cards, you can play them as a Pair to steal a random card from any player.</p>
     </div>
 
-    {expansionsList.includes(expansions.ImplodingKittens) && (
+    {expansionsList?.includes(expansions.ImplodingKittens) && (
       <>
         <div className="item">
           <div className="header_block">

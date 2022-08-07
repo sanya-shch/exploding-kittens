@@ -10,6 +10,7 @@ import CardsBlock from "../CardsBlock";
 import CardsDeckBlock from "../CardsDeckBlock";
 import CardSeeTheFutureModal from "../CardSeeTheFutureModal";
 import CardPutToDeckModal from "../CardPutToDeckModal";
+import CardFromTheDiscardedDeckModal from "../CardFromTheDiscardedDeckModal";
 
 import './style.scss';
 
@@ -41,6 +42,7 @@ const GameBlock = ({
   }, [cardType]);
 
   const [cardPutToDeckModalOpen, setCardPutToDeckModalOpen] = useState(false);
+  const [cardFromTheDiscardedDeckModalOpen, setCardFromTheDiscardedDeckModalOpen] = useState(false);
 
   const [selectedCards, setSelectedCards] = useState([]);
 
@@ -99,9 +101,8 @@ const GameBlock = ({
           gameMoves={gameMoves}
           attackCount={attackCount}
           setCardType={setCardType}
+          setCardFromTheDiscardedDeckModalOpen={setCardFromTheDiscardedDeckModalOpen}
         />
-
-        <div/>
 
         <CardsBlock
           playerCards={playerCards}
@@ -147,6 +148,19 @@ const GameBlock = ({
         id={id}
         attackCount={attackCount}
         playersList={playersList}
+      />
+
+      <CardFromTheDiscardedDeckModal
+        isOpen={cardFromTheDiscardedDeckModalOpen}
+        handleClose={() => {
+          setCardFromTheDiscardedDeckModalOpen(false);
+        }}
+        outCardDeck={outCardDeck}
+        cards={cards}
+        playerCards={playerCards}
+        uuid={uuid}
+        id={id}
+        selectedCards={selectedCards}
       />
     </>
   )

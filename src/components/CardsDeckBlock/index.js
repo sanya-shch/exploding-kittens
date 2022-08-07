@@ -21,6 +21,7 @@ const CardsDeckBlock = ({
   gameMoves,
   attackCount,
   setCardType,
+  setCardFromTheDiscardedDeckModalOpen,
 }) => {
   const handleClickOutDeck = () => {
     if (selectedCards.length && isCurrentPlayer) {
@@ -36,6 +37,7 @@ const CardsDeckBlock = ({
           setCardType,
           gameMoves,
           attackCount,
+          setCardFromTheDiscardedDeckModalOpen,
         });
       }
 

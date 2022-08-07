@@ -16,6 +16,7 @@ export const playCombination = ({
   setCardType,
   gameMoves,
   attackCount,
+  setCardFromTheDiscardedDeckModalOpen,
 }) => {
   const cardTypesList = selectedCards.reduce((acc, item) => {
     if (Object.keys(acc).includes(cards[item].type)) {
@@ -161,7 +162,7 @@ export const playCombination = ({
     const values = Object.values(cardTypesList);
 
     if (values.every(item => item === 1)) {
-
+      setCardFromTheDiscardedDeckModalOpen(true);
     }
   }
 };
