@@ -8,6 +8,9 @@
 /psd
 .psd
 
+/original_sizes
+.original_size.png
+
 # testing
 /coverage
 

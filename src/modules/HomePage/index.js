@@ -117,6 +117,7 @@ const HomePage = ({ gameId, setGameId }) => {
   return (
     <div className="home_page">
       <div className="first_screen">
+        <h1><span>EXPLODING</span> KITTENS</h1>
         <div className="input_block">
           <MainButton
             text="New Game"

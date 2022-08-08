@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useContext } from 'react';
+import React, { useState, useCallback, useEffect, useContext, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import {
   doc,
@@ -10,13 +10,16 @@ import { ToastContext } from "../../components/Toast";
 import { db } from "../../firebase";
 import { getUserId } from "../../helpers";
 import { numbersOfPlayers } from "../../constants/expansions";
-import WelcomeModal from "../../components/WelcomeModal";
+// import WelcomeModal from "../../components/WelcomeModal";
 import Header from "../../components/Header";
 import Menu from "../../components/Menu";
-import StartBlock from "../../components/StartBlock";
+// import StartBlock from "../../components/StartBlock";
 import GameBlock from "../../components/GameBlock";
 
 import './style.scss';
+
+const StartBlock = lazy(() => import("../../components/StartBlock"));
+const WelcomeModal = lazy(() => import("../../components/WelcomeModal"));
 
 const GamePage = () => {
   let { id } = useParams();
@@ -31,7 +34,6 @@ const GamePage = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [isHost, setIsHost] = useState(false);
   const [ongoingGame, setOngoingGame] = useState(false);
-  // const [banned, setBanned] = useState(false);
   const [isMidGamePlayer, setIsMidGamePlayer] = useState(false);
 
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(false);
@@ -145,6 +147,7 @@ const GamePage = () => {
         open={openMenu}
         setOpen={setOpenMenu}
         id={id}
+        uuid={uuid}
         gameData={gameData}
         ongoingGame={ongoingGame}
         isHost={isHost}
@@ -157,15 +160,17 @@ const GamePage = () => {
         />
         <div className="game_page">
           {!ongoingGame && isWaitStart && (
-            <StartBlock
-              isHost={isHost}
-              playerDataArr={gameData?.player_data_arr}
-              iconPack={gameData?.icon_pack}
-              uuid={uuid}
-              id={id}
-              expansionsList={gameData?.expansions}
-              cardPacksList={gameData?.card_packs}
-            />
+            <Suspense>
+              <StartBlock
+                isHost={isHost}
+                playerDataArr={gameData?.player_data_arr}
+                iconPack={gameData?.icon_pack}
+                uuid={uuid}
+                id={id}
+                expansionsList={gameData?.expansions}
+                cardPacksList={gameData?.card_packs}
+              />
+            </Suspense>
           )}
           {ongoingGame && (
             <GameBlock
@@ -189,16 +194,18 @@ const GamePage = () => {
           {isMidGamePlayer && (
             <div/>
           )}
-          <WelcomeModal
-            isOpen={isWelcomeModalOpen}
-            handleClose={() => setIsWelcomeModalOpen(false)}
-            isHost={isHost}
-            iconPack={gameData?.icon_pack}
-            iconIndex={gameData?.icon_index}
-            id={id}
-            uuid={uuid}
-            ongoingGame={ongoingGame}
-          />
+          {isWelcomeModalOpen && <Suspense>
+            <WelcomeModal
+              isOpen={isWelcomeModalOpen}
+              handleClose={() => setIsWelcomeModalOpen(false)}
+              isHost={isHost}
+              iconPack={gameData?.icon_pack}
+              iconIndex={gameData?.icon_index}
+              id={id}
+              uuid={uuid}
+              ongoingGame={ongoingGame}
+            />
+          </Suspense>}
         </div>
       </div>
     </>

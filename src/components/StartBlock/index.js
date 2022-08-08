@@ -4,6 +4,7 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
+  deleteDoc,
 } from "firebase/firestore";
 
 import { db } from "../../firebase";
@@ -66,21 +67,20 @@ const StartBlock = ({
     }
   };
 
+  const handleClickDelete = async () => {
+    await updateDoc(doc(db, "game_rooms_kitten", id), {
+      game_room_closed: true,
+    });
+    await deleteDoc(doc(db, "game_rooms_kitten", id));
+    await updateDoc(doc(db, "game_room_codes_kitten", "code_array"), {
+      codes: arrayRemove(id),
+    });
+  };
+
   const handleKick = async uid => {
-    const index = playerDataArr.findIndex(player => player.uid === uid);
-
-    const username = playerDataArr[index].username;
-    const points = playerDataArr[index].points;
-    const iconIndex = playerDataArr[index].icon_index;
-
     await updateDoc(doc(db, "game_rooms_kitten", id), {
       banned_player_uid: arrayUnion(uid),
-      player_data_arr: arrayRemove({
-        username,
-        uid,
-        points,
-        iconIndex,
-      }),
+      player_data_arr: playerDataArr.filter(player =>  player.uid !== uid),
     });
   };
 
@@ -101,10 +101,16 @@ const StartBlock = ({
         ))}
       </div>
       {isHost && (
-        <MainButton
-          text="Start"
-          onClick={handleClickStart}
-        />
+        <div className="btn-block">
+          <MainButton
+            text="Delete Room ×"
+            onClick={handleClickDelete}
+          />
+          <MainButton
+            text="Start Game →"
+            onClick={handleClickStart}
+          />
+        </div>
       )}
     </div>
   )

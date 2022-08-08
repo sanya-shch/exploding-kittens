@@ -11,7 +11,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
     <div className="item">
       <div className="header_block">
-        <img src={cardTypeIcons.explodingKitten} alt="" width={60} height={60} />
+        <img src={cardTypeIcons.explodingKitten} alt="" width={60} height={60} loading="lazy"/>
         <h3>Exploding Kitten</h3>
       </div>
       <p>Unless you have a Defuse Card, you're dead. Discard all of your cards, including the Exploding Kitten.</p>
@@ -19,7 +19,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
     <div className="item">
       <div className="header_block">
-        <img src={cardTypeIcons.defuse} alt="" width={60} height={60} />
+        <img src={cardTypeIcons.defuse} alt="" width={60} height={60} loading="lazy"/>
         <h3>Defuse</h3>
       </div>
       <p>If you drew an Exploding Kitten, you can play this card instead of dying. Place your Defuse Card in the Discard Pile.</p>
@@ -30,7 +30,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
     <div className="item">
       <div className="header_block">
-        <img src={cardTypeIcons.attack} alt="" width={60} height={60} />
+        <img src={cardTypeIcons.attack} alt="" width={60} height={60} loading="lazy"/>
         <h3>Attack</h3>
       </div>
       <p>Do not draw any cards. Instead, immediately force the next player to take 2 turns in a row. Play then continues from that player.</p>
@@ -38,7 +38,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
     <div className="item">
       <div className="header_block">
-        <img src={cardTypeIcons.favor} alt="" width={60} height={60} />
+        <img src={cardTypeIcons.favor} alt="" width={60} height={60} loading="lazy"/>
         <h3>Favor</h3>
       </div>
       <p>Force any other player to give you 1 card from their hand. They choose which card to give you.</p>
@@ -46,7 +46,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
     <div className="item">
       <div className="header_block">
-        <img src={cardTypeIcons.nope} alt="" width={60} height={60} />
+        <img src={cardTypeIcons.nope} alt="" width={60} height={60} loading="lazy"/>
         <h3>Nope</h3>
       </div>
       <p>Stop any action except for an Exploding Kitten or a Defuse Card. Imagine that any card beneath a Nope Card never existed.</p>
@@ -56,7 +56,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
     <div className="item">
       <div className="header_block">
-        <img src={cardTypeIcons.shuffle} alt="" width={60} height={60} />
+        <img src={cardTypeIcons.shuffle} alt="" width={60} height={60} loading="lazy"/>
         <h3>Shuffle</h3>
       </div>
       <p>Shuffle the Draw Pile thoroughly. (Useful when you know there's an Exploding Kitten coming.)</p>
@@ -64,7 +64,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
     <div className="item">
       <div className="header_block">
-        <img src={cardTypeIcons.skip} alt="" width={60} height={60} />
+        <img src={cardTypeIcons.skip} alt="" width={60} height={60} loading="lazy"/>
         <h3>Skip</h3>
       </div>
       <p>Immediately end your turn without drawing a card.</p>
@@ -73,7 +73,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
     <div className="item">
       <div className="header_block">
-        <img src={cardTypeIcons.seeFuture} alt="" width={60} height={60} />
+        <img src={cardTypeIcons.seeFuture} alt="" width={60} height={60} loading="lazy"/>
         <h3>See the Future</h3>
       </div>
       <p>Privately view the top 3 cards from the Draw Pile and put them back in the same order. Don't show the cards to the other players.</p>
@@ -81,11 +81,11 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
     <div className="item">
       <div className="header_block">
-        <img src={cardTypeIcons.tacocat} alt="" width={60} height={60} />
-        <img src={cardTypeIcons.cattermelon} alt="" width={60} height={60} />
-        <img src={cardTypeIcons.hairyPotatoCat} alt="" width={60} height={60} />
-        <img src={cardTypeIcons.beardCat} alt="" width={60} height={60} />
-        <img src={cardTypeIcons.rainbowRalphingCat} alt="" width={60} height={60} />
+        <img src={cardTypeIcons.tacocat} alt="" width={60} height={60} loading="lazy"/>
+        <img src={cardTypeIcons.cattermelon} alt="" width={60} height={60} loading="lazy"/>
+        <img src={cardTypeIcons.hairyPotatoCat} alt="" width={60} height={60} loading="lazy"/>
+        <img src={cardTypeIcons.beardCat} alt="" width={60} height={60} loading="lazy"/>
+        <img src={cardTypeIcons.rainbowRalphingCat} alt="" width={60} height={60} loading="lazy"/>
         <h3>Cat Cards</h3>
       </div>
       <p>These cards are powerless on their own, but if you collect any 2 matching Cat Cards, you can play them as a Pair to steal a random card from any player.</p>
@@ -95,7 +95,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
       <>
         <div className="item">
           <div className="header_block">
-            <img src={cardTypeIcons.impendingImplodingKitten} alt="" width={60} height={60} />
+            <img src={cardTypeIcons.impendingImplodingKitten} alt="" width={60} height={60} loading="lazy"/>
             <h3>Imploding Kitten</h3>
           </div>
           <p>When this card is drawn, put it back into the Draw Pile FACE UP anywhere you’d like in secret. Do not use a Defuse Card.</p>
@@ -104,7 +104,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
         <div className="item">
           <div className="header_block">
-            <img src={cardTypeIcons.reverse} alt="" width={60} height={60} />
+            <img src={cardTypeIcons.reverse} alt="" width={60} height={60} loading="lazy"/>
             <h3>Reverse</h3>
           </div>
           <p>Reverse the order of play and end your turn without drawing a card.</p>
@@ -114,7 +114,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
         <div className="item">
           <div className="header_block">
-            <img src={cardTypeIcons.drawFromTheBottom} alt="" width={60} height={60} />
+            <img src={cardTypeIcons.drawFromTheBottom} alt="" width={60} height={60} loading="lazy"/>
             <h3>Draw from the Bottom</h3>
           </div>
           <p>End your turn by drawing the bottom card from the Draw Pile.</p>
@@ -122,7 +122,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
         <div className="item">
           <div className="header_block">
-            <img src={cardTypeIcons.feral} alt="" width={60} height={60} />
+            <img src={cardTypeIcons.feral} alt="" width={60} height={60} loading="lazy"/>
             <h3>Feral Cat</h3>
           </div>
           <p>Use as any Cat Card (any card that is powerless on its own).</p>
@@ -131,7 +131,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
         <div className="item">
           <div className="header_block">
-            <img src={cardTypeIcons.alterTheFuture} alt="" width={60} height={60} />
+            <img src={cardTypeIcons.alterTheFuture} alt="" width={60} height={60} loading="lazy"/>
             <h3>Alter the Future</h3>
           </div>
           <p>Privately view the top three cards from the Draw Pile and rearrange them in any order you’d like. Return them to the top of the Draw Pile face down, then continue with your turn.</p>
@@ -139,7 +139,7 @@ const FieldGuideBlock = ({ expansionsList }) => (
 
         <div className="item">
           <div className="header_block">
-            <img src={cardTypeIcons.targetedAttack} alt="" width={60} height={60} />
+            <img src={cardTypeIcons.targetedAttack} alt="" width={60} height={60} loading="lazy"/>
             <h3>Targeted Attacks</h3>
           </div>
           <p>Immediately end your turn(s) without drawing a card and choose any player to take 2 turns in a row.</p>

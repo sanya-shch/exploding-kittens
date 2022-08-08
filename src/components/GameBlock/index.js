@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useContext } from 'react';
+import React, { useState, useMemo, useEffect, useContext, lazy, Suspense } from 'react';
 import { doc, updateDoc } from "firebase/firestore";
 
 import { db } from "../../firebase";
@@ -8,15 +8,23 @@ import { ToastContext } from "../Toast";
 import PlayersBlock from "../PlayersBlock";
 import CardsBlock from "../CardsBlock";
 import CardsDeckBlock from "../CardsDeckBlock";
-import CardSeeTheFutureModal from "../CardSeeTheFutureModal";
-import CardPutToDeckModal from "../CardPutToDeckModal";
-import CardFromTheDiscardedDeckModal from "../CardFromTheDiscardedDeckModal";
-import PlayerSelectionModal from "../PlayerSelectionModal";
-import CardSelectionModal from "../CardSelectionModal";
-import CardTypeSelectionModal from "../CardTypeSelectionModal";
-import FavorCardModal from "../FavorCardModal";
+// import CardSeeTheFutureModal from "../CardSeeTheFutureModal";
+// import CardPutToDeckModal from "../CardPutToDeckModal";
+// import CardFromTheDiscardedDeckModal from "../CardFromTheDiscardedDeckModal";
+// import PlayerSelectionModal from "../PlayerSelectionModal";
+// import CardSelectionModal from "../CardSelectionModal";
+// import CardTypeSelectionModal from "../CardTypeSelectionModal";
+// import FavorCardModal from "../FavorCardModal";
 
 import './style.scss';
+
+const CardSeeTheFutureModal = lazy(() => import("../CardSeeTheFutureModal"));
+const CardPutToDeckModal = lazy(() => import("../CardPutToDeckModal"));
+const CardFromTheDiscardedDeckModal = lazy(() => import("../CardFromTheDiscardedDeckModal"));
+const PlayerSelectionModal = lazy(() => import("../PlayerSelectionModal"));
+const CardSelectionModal = lazy(() => import("../CardSelectionModal"));
+const CardTypeSelectionModal = lazy(() => import("../CardTypeSelectionModal"));
+const FavorCardModal = lazy(() => import("../FavorCardModal"));
 
 const GameBlock = ({
   midgamePlayerUid,
@@ -157,108 +165,122 @@ const GameBlock = ({
         </div>
       </div>
 
-      <CardSeeTheFutureModal
-        isOpen={cardSeeTheFutureModalOpen}
-        handleClose={() => {
-          setCardSeeTheFutureModalOpen(false);
-          setCardType('');
-        }}
-        cardType={cardType}
-        cardDeck={cardDeck}
-        cards={cards}
-        playerCards={playerCards}
-        uuid={uuid}
-        id={id}
-      />
+      {cardSeeTheFutureModalOpen && <Suspense>
+        <CardSeeTheFutureModal
+          isOpen={cardSeeTheFutureModalOpen}
+          handleClose={() => {
+            setCardSeeTheFutureModalOpen(false);
+            setCardType('');
+          }}
+          cardType={cardType}
+          cardDeck={cardDeck}
+          cards={cards}
+          playerCards={playerCards}
+          uuid={uuid}
+          id={id}
+        />
+      </Suspense>}
 
-      <CardPutToDeckModal
-        isOpen={cardPutToDeckModalOpen}
-        handleClose={() => {
-          setCardPutToDeckModalOpen(false);
-        }}
-        cardDeck={cardDeck}
-        playerCards={playerCards}
-        cards={cards}
-        uuid={uuid}
-        id={id}
-        attackCount={attackCount}
-        playersList={playersList}
-      />
+      {cardPutToDeckModalOpen && <Suspense>
+        <CardPutToDeckModal
+          isOpen={cardPutToDeckModalOpen}
+          handleClose={() => {
+            setCardPutToDeckModalOpen(false);
+          }}
+          cardDeck={cardDeck}
+          playerCards={playerCards}
+          cards={cards}
+          uuid={uuid}
+          id={id}
+          attackCount={attackCount}
+          playersList={playersList}
+        />
+      </Suspense>}
 
-      <CardFromTheDiscardedDeckModal
-        isOpen={cardFromTheDiscardedDeckModalOpen}
-        handleClose={() => {
-          setCardFromTheDiscardedDeckModalOpen(false);
-        }}
-        outCardDeck={outCardDeck}
-        cards={cards}
-        playerCards={playerCards}
-        uuid={uuid}
-        id={id}
-        selectedCards={selectedCards}
-      />
+      {cardFromTheDiscardedDeckModalOpen && <Suspense>
+        <CardFromTheDiscardedDeckModal
+          isOpen={cardFromTheDiscardedDeckModalOpen}
+          handleClose={() => {
+            setCardFromTheDiscardedDeckModalOpen(false);
+          }}
+          outCardDeck={outCardDeck}
+          cards={cards}
+          playerCards={playerCards}
+          uuid={uuid}
+          id={id}
+          selectedCards={selectedCards}
+        />
+      </Suspense>}
 
-      <PlayerSelectionModal
-        isOpen={playerSelectionModalOpen}
-        handleClose={() => {
-          setPlayerSelectionModalOpen(false);
-          setPlayerSelectionModalCardType('');
-        }}
-        cardType={playerSelectionModalCardType}
-        playersList={playersList}
-        playerDataArr={playerDataArr}
-        iconPack={iconPack}
-        uuid={uuid}
-        id={id}
-        playerCards={playerCards}
-        cards={cards}
-        setCardTypeSelectionModalOpen={setCardTypeSelectionModalOpen}
-        setSelectedPlayer={setSelectedPlayer}
-        selectedPlayer={selectedPlayer}
-        setCardSelectionModalOpen={setCardSelectionModalOpen}
-      />
+      {playerSelectionModalOpen && <Suspense>
+        <PlayerSelectionModal
+          isOpen={playerSelectionModalOpen}
+          handleClose={() => {
+            setPlayerSelectionModalOpen(false);
+            setPlayerSelectionModalCardType('');
+          }}
+          cardType={playerSelectionModalCardType}
+          playersList={playersList}
+          playerDataArr={playerDataArr}
+          iconPack={iconPack}
+          uuid={uuid}
+          id={id}
+          playerCards={playerCards}
+          cards={cards}
+          setCardTypeSelectionModalOpen={setCardTypeSelectionModalOpen}
+          setSelectedPlayer={setSelectedPlayer}
+          selectedPlayer={selectedPlayer}
+          setCardSelectionModalOpen={setCardSelectionModalOpen}
+        />
+      </Suspense>}
 
-      <FavorCardModal
-        isOpen={favorCardModalOpen}
-        handleClose={() => {
-          setFavorCardModalOpen(false);
-        }}
-        playerCards={playerCards}
-        cards={cards}
-        uuid={uuid}
-        id={id}
-        favoredUid={gameMoves.at(-1)?.uid}
-      />
+      {favorCardModalOpen && <Suspense>
+        <FavorCardModal
+          isOpen={favorCardModalOpen}
+          handleClose={() => {
+            setFavorCardModalOpen(false);
+          }}
+          playerCards={playerCards}
+          cards={cards}
+          uuid={uuid}
+          id={id}
+          favoredUid={gameMoves.at(-1)?.uid}
+        />
+      </Suspense>}
 
-      <CardTypeSelectionModal
-        isOpen={cardTypeSelectionModalOpen}
-        handleClose={() => {
-          setCardTypeSelectionModalOpen(false);
-          setSelectedPlayer(null);
-          setSelectedPlayerCards(null);
-        }}
-        expansionsList={expansionsList}
-        selectedPlayer={selectedPlayer}
-        playerCards={playerCards}
-        cards={cards}
-        uuid={uuid}
-        id={id}
-        selectedCards={selectedPlayerCards}
-      />
+      {cardTypeSelectionModalOpen && <Suspense>
+        <CardTypeSelectionModal
+          isOpen={cardTypeSelectionModalOpen}
+          handleClose={() => {
+            setCardTypeSelectionModalOpen(false);
+            setSelectedPlayer(null);
+            setSelectedPlayerCards(null);
+          }}
+          expansionsList={expansionsList}
+          selectedPlayer={selectedPlayer}
+          playerCards={playerCards}
+          cards={cards}
+          uuid={uuid}
+          id={id}
+          selectedCards={selectedPlayerCards}
+        />
+      </Suspense>}
 
-      <CardSelectionModal
-        isOpen={cardSelectionModalOpen}
-        handleClose={() => {
-          setCardSelectionModalOpen(false);
-          setSelectedPlayer(null);
-          setSelectedPlayerCards(null);
-        }}
-        playerCards={playerCards}
-        uuid={uuid}
-        id={id}
-        selectedCards={selectedPlayerCards}
-        selectedPlayerUid={selectedPlayer?.uid}
-      />
+      {cardSelectionModalOpen && <Suspense>
+        <CardSelectionModal
+          isOpen={cardSelectionModalOpen}
+          handleClose={() => {
+            setCardSelectionModalOpen(false);
+            setSelectedPlayer(null);
+            setSelectedPlayerCards(null);
+          }}
+          playerCards={playerCards}
+          uuid={uuid}
+          id={id}
+          selectedCards={selectedPlayerCards}
+          selectedPlayerUid={selectedPlayer?.uid}
+        />
+      </Suspense>}
     </>
   )
 };

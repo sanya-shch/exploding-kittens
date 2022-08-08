@@ -1,7 +1,7 @@
 import { cardTypes } from "../constants/cardTypes";
 
 export const isExplode = ({ playerCards, cards }) => {
-  const explodeCard = playerCards.find(item => cards[item].type === cardTypes.explodingKitten);
+  const explodeCard = playerCards?.find(item => cards[item].type === cardTypes.explodingKitten);
 
   if (explodeCard) {
     const defuseCard = playerCards.find(item => cards[item].type === cardTypes.defuse);

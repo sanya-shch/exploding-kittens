@@ -1,4 +1,4 @@
-import React, { useContext, lazy, Suspense } from 'react';
+import React, { useContext } from 'react';
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 import { db } from "../../firebase";
@@ -6,16 +6,16 @@ import { expansions } from "../../constants/expansions";
 import { ToastContext } from "../Toast";
 import ButtonCopy from "../ButtonCopy";
 import Checkbox from "../Checkbox";
-// import FieldGuideBlock from "../FieldGuideBlock";
+import FieldGuideBlock from "../FieldGuideBlock";
+import MainButton from "../MainButton";
 
 import './style.scss';
-
-const FieldGuideBlock = lazy(() => import("../FieldGuideBlock"));
 
 const Menu = ({
   open,
   setOpen,
   id,
+  uuid,
   gameData,
   isHost,
   ongoingGame,
@@ -39,6 +39,20 @@ const Menu = ({
         card_packs: arrayUnion(pack),
       });
     }
+  };
+
+  const handleClickReset = async () => {
+    await updateDoc(doc(db, "game_rooms_kitten", id), {
+      ongoing_game: false,
+      midgame_player_uid: [],
+      card_deck: [],
+      player_cards: {},
+      players_list: [],
+      game_moves: [],
+      attack_count: 0,
+      out_card_deck: [],
+      current_player_uid: uuid,
+    });
   };
 
   return (
@@ -102,9 +116,16 @@ const Menu = ({
           </div>
         )}
 
-        <Suspense>
-          <FieldGuideBlock expansionsList={expansionsList} />
-        </Suspense>
+        <FieldGuideBlock expansionsList={expansionsList} />
+
+        {isHost && ongoingGame && (
+          <div className="reset_btn">
+            <MainButton
+              text="Reset Game ↬"
+              onClick={handleClickReset}
+            />
+          </div>
+        )}
       </div>
     </div>
   )

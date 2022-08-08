@@ -20,6 +20,7 @@ const UserBlock = ({
         alt=""
         width="65px"
         height="65px"
+        loading="lazy"
       />
       {!isStartBlock && (
         <div className="card_items">
