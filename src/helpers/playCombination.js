@@ -69,10 +69,28 @@ export const playCombination = ({
         });
       }
     } else if (cardType === cardTypes.reverse) {
-      if (attackCount > 0) {
-        // TODO
-      } else {
+      const reversedPlayersList = [...playersList].reverse();
 
+      if (attackCount > 0) {
+        updateDoc(doc(db, "game_rooms_kitten", id), {
+          player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+          out_card_deck: arrayUnion(...selectedCards),
+
+          game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.reverse, attackCount, playersList }),
+          attack_count: attackCount - 1,
+          players_list: reversedPlayersList,
+        });
+      } else {
+        const index = reversedPlayersList.findIndex(item => item === uuid);
+
+        updateDoc(doc(db, "game_rooms_kitten", id), {
+          player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+          out_card_deck: arrayUnion(...selectedCards),
+
+          game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.reverse, playersList }),
+          current_player_uid: index === reversedPlayersList.length - 1 ? reversedPlayersList[0] : reversedPlayersList[index + 1],
+          players_list: reversedPlayersList,
+        });
       }
     } else if (cardType === cardTypes.targetedAttack) {
       setPlayerSelectionModalCardType(selectedCards[0]);
