@@ -25,7 +25,7 @@ const MainInput = ({
         onChange={handleChange}
       />
       <label htmlFor="register"><span>{label}</span></label>
-      <button onClick={onClick}>{btnText}</button>
+      {value && <button onClick={onClick}>{btnText}</button>}
     </div>
   )
 };

@@ -30,12 +30,21 @@
     padding: 20px;
 
     img {
+      //border: 3px solid #f6f6e9;
       border-radius: 12px;
     }
-    img:nth-of-type(2),
-    img:nth-of-type(3) {
+
+    .dnd_item {
+      width: 200px;
+      height: 300px;
+    }
+    .dnd_item:nth-of-type(2),
+    .dnd_item:nth-of-type(3) {
       margin-left: 10px;
     }
+    //.dnd_item.over img {
+    //  border: 3px dotted #525252;
+    //}
   }
 
   .btn_block {
@@ -48,6 +57,14 @@
       border-top-left-radius: 0;
       border-top-right-radius: 0;
     }
+  }
+
+  [draggable] {
+    user-select: none;
+  }
+
+  .move {
+    cursor: move;
   }
 }
 

@@ -36,8 +36,7 @@ export const playCombination = ({
     const cardType = Object.keys(cardTypesList)[0];
 
     if (cardType === cardTypes.alterTheFuture) {
-      // setCardType(selectedCards[0]);
-      // TODO
+      setCardType(selectedCards[0]);
     } else if (cardType === cardTypes.drawFromTheBottom) {
       if (attackCount > 0) {
         updateDoc(doc(db, "game_rooms_kitten", id), {
