@@ -172,7 +172,7 @@ const GamePage = () => {
               />
             </Suspense>
           )}
-          {ongoingGame && (
+          {ongoingGame && !isMidGamePlayer && !isWelcomeModalOpen && (
             <GameBlock
               midgamePlayerUid={gameData?.midgame_player_uid}
               playerDataArr={gameData?.player_data_arr}
@@ -192,7 +192,9 @@ const GamePage = () => {
             />
           )}
           {isMidGamePlayer && (
-            <div/>
+            <div className="mid_game_text">
+              <p>Please wait for the next game to begin ⏱</p>
+            </div>
           )}
           {isWelcomeModalOpen && <Suspense>
             <WelcomeModal

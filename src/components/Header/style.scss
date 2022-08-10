@@ -23,6 +23,7 @@
   .players {
     display: flex;
     align-items: center;
+    user-select: none;
 
     div {
       margin-left: 10px;
