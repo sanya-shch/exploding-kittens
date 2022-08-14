@@ -5,6 +5,8 @@ import { randomize } from "./getCards";
 import { playCombination } from "./playCombination";
 import { isCombinationExist } from "./isCombinationExist";
 import { isExplode, isExplodeCard } from "./isExplode";
+import { isEven } from "./isEven";
+import { getNopeCount } from "./getNopeCount";
 
 export {
   getSixLetterCode,
@@ -15,4 +17,6 @@ export {
   isCombinationExist,
   isExplode,
   isExplodeCard,
+  isEven,
+  getNopeCount,
 }

@@ -184,7 +184,7 @@ const CardTypeSelectionModal = ({
           </div>
           <div className="btn_block">
             <MainButton
-              text="Go"
+              text={selectedCardType ? 'Go' : 'Exit'}
               onClick={handleClick}
             />
           </div>

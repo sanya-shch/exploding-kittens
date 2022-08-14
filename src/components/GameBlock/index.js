@@ -138,6 +138,8 @@ const GameBlock = ({
           setCardFromTheDiscardedDeckModalOpen={setCardFromTheDiscardedDeckModalOpen}
           setPlayerSelectionModalCardType={setPlayerSelectionModalCardType}
           setSelectedPlayerCards={setSelectedPlayerCards}
+          setCardSelectionModalOpen={setCardSelectionModalOpen}
+          setSelectedPlayer={setSelectedPlayer}
         />
 
         <CardsBlock
@@ -156,6 +158,8 @@ const GameBlock = ({
           attackCount={attackCount}
           setCardFromTheDiscardedDeckModalOpen={setCardFromTheDiscardedDeckModalOpen}
           setPlayerSelectionModalCardType={setPlayerSelectionModalCardType}
+          setCardSelectionModalOpen={setCardSelectionModalOpen}
+          setSelectedPlayer={setSelectedPlayer}
         />
 
         <div className="drag_items">

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { doc, updateDoc, arrayRemove } from "firebase/firestore";
 
 import { revers } from "../../assets/cards"
 import { db } from "../../firebase";
-import { isCombinationExist, playCombination, isExplodeCard } from "../../helpers";
+import { isCombinationExist, playCombination, isExplodeCard, getNopeCount, isEven } from "../../helpers";
+import { cardTypes } from "../../constants/cardTypes";
+import { ToastContext } from "../Toast";
 
 import './style.scss';
 
@@ -24,7 +26,18 @@ const CardsDeckBlock = ({
   setCardFromTheDiscardedDeckModalOpen,
   setPlayerSelectionModalCardType,
   setSelectedPlayerCards,
+  setCardSelectionModalOpen,
+  setSelectedPlayer,
 }) => {
+  const { setToast } = useContext(ToastContext);
+
+  const isFavor = React.useMemo(() => {
+    const gameMovesLastItem = gameMoves.find(item => item.cardType !== cardTypes.nope);
+    const nopeCount = getNopeCount(gameMoves);
+
+    return gameMovesLastItem?.cardType === cardTypes.favor && isEven(nopeCount);
+  }, [gameMoves]);
+
   const handleClickOutDeck = () => {
     if (selectedCards.length && isCurrentPlayer) {
       if (isCombinationExist(selectedCards, cards)) {
@@ -42,6 +55,9 @@ const CardsDeckBlock = ({
           attackCount,
           setCardFromTheDiscardedDeckModalOpen,
           setPlayerSelectionModalCardType,
+          setToast,
+          setCardSelectionModalOpen,
+          setSelectedPlayer,
         });
       }
 
@@ -50,7 +66,7 @@ const CardsDeckBlock = ({
   };
 
   const handleClickDeck = () => {
-    if (cardDeck.length && isCurrentPlayer) {
+    if (cardDeck.length && (isCurrentPlayer || (gameMoves.length && !isFavor))) {
       if (attackCount > 0) {
         updateDoc(doc(db, "game_rooms_kitten", id), {
           player_cards: { ...playerCards, [uuid]: [...playerCards[uuid], cardDeck[0]] },
@@ -91,7 +107,7 @@ const CardsDeckBlock = ({
             alt=""
             width={200}
             height={300}
-            className={`${isCurrentPlayer ? '' : 'not_current_player'}`}
+            className={`${isCurrentPlayer || (gameMoves.length && !isFavor) ? '' : 'not_current_player'}`}
             tabIndex={0}
             role="button"
             onClick={handleClickDeck}

@@ -104,7 +104,7 @@ const CardSeeTheFutureModal = ({
         out_card_deck: arrayUnion(cardType),
 
         card_deck: newCardDeck,
-        game_moves: arrayUnion({ uid: uuid, cardType: cards[cardType]?.type, cardDeck }),
+        game_moves: arrayUnion({ uid: uuid, cardType: cards[cardType]?.type, oldCardDeck: cardDeck, newCardDeck }),
       });
     } else {
       updateDoc(doc(db, "game_rooms_kitten", id), {

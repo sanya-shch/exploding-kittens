@@ -64,7 +64,7 @@ const CardSelectionModal = ({
           </div>
           <div className="btn_block">
             <MainButton
-              text="Go"
+              text={selectedCard ? 'Go' : 'Exit'}
               onClick={handleClick}
             />
           </div>

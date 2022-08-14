@@ -26,7 +26,7 @@ const FavorCardModal = ({
       updateDoc(doc(db, "game_rooms_kitten", id), {
         player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => item !== selectedCard), [favoredUid]: [...playerCards[favoredUid], selectedCard] },
 
-        game_moves: arrayUnion({ uid: uuid, cardType: 'favor_answer' }),
+        game_moves: arrayUnion({ uid: uuid, cardType: 'favor_answer', selectedCard, favoredUid }),
       });
     }
 
@@ -39,6 +39,8 @@ const FavorCardModal = ({
 
   const handleClickNope = () => {
     updateDoc(doc(db, "game_rooms_kitten", id), {
+      player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => item !== nopeCard) },
+      out_card_deck: arrayUnion(nopeCard),
       game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.nope }),
     });
 
@@ -70,7 +72,7 @@ const FavorCardModal = ({
           </div>
           <div className="btn_block">
             <MainButton
-              text="Exit"
+              text="Go"
               onClick={handleClick}
             />
           </div>

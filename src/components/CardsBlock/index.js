@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 // import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 // import { db } from "../../firebase";
-import { isCombinationExist, playCombination } from "../../helpers";
+import { getNopeCount, isCombinationExist, isEven, playCombination } from "../../helpers";
+import { cardTypes } from "../../constants/cardTypes";
+import { ToastContext } from "../Toast";
 
 import './style.scss';
 
@@ -21,8 +23,19 @@ const CardsBlock = ({
   attackCount,
   setCardFromTheDiscardedDeckModalOpen,
   setPlayerSelectionModalCardType,
+  setCardSelectionModalOpen,
+  setSelectedPlayer,
 }) => {
+  const { setToast } = useContext(ToastContext);
+
   const [dragCard, setDragCard] = useState(null);
+
+  const isFavor = React.useMemo(() => {
+    const gameMovesLastItem = gameMoves.find(item => item.cardType !== cardTypes.nope);
+    const nopeCount = getNopeCount(gameMoves);
+
+    return gameMovesLastItem?.cardType === cardTypes.favor && isEven(nopeCount);
+  }, [gameMoves]);
 
   function dragOver(e) {
     e.preventDefault();
@@ -41,7 +54,7 @@ const CardsBlock = ({
 
     setSelectedCards([]);
 
-    if (isCurrentPlayer) {
+    if (isCurrentPlayer || (gameMoves.length && !isFavor) || cards[cardId].type === cardTypes.nope) {
       setDragCard(cardId);
 
       let dropZone = document.querySelector('.drop_zone div');
@@ -54,10 +67,10 @@ const CardsBlock = ({
     event.dataTransfer.setDragImage(event.target, 100, 100);
   }
 
-  function dragEnd() {
+  function dragEnd({ cardId }) {
     // console.log('drag ended');
 
-    if (isCurrentPlayer) {
+    if (isCurrentPlayer || (gameMoves.length && !isFavor) || cards[cardId].type === cardTypes.nope) {
       let dropZone = document.querySelector('.drop_zone div');
       if (!dropZone) dropZone = document.querySelector('.drop_zone img');
       dropZone.classList.toggle("drag_start");
@@ -89,6 +102,9 @@ const CardsBlock = ({
           attackCount,
           setCardFromTheDiscardedDeckModalOpen,
           setPlayerSelectionModalCardType,
+          setToast,
+          setCardSelectionModalOpen,
+          setSelectedPlayer,
         });
       }
     }
@@ -106,13 +122,14 @@ const CardsBlock = ({
     setCardFromTheDiscardedDeckModalOpen,
     setCardType,
     setPlayerSelectionModalCardType,
+    setToast,
   ]);
 
   useEffect(() => {
     // const draggableItems = document.querySelectorAll('.draggable_item');
     const dropZone = document.querySelector('.drop_zone');
 
-    if (isCurrentPlayer) {
+    if (isCurrentPlayer || (gameMoves.length && !isFavor) || cards[dragCard]?.type === cardTypes.nope) {
       // draggableItems.forEach(item => {
       //   // item.addEventListener('dragstart', dragStart);
       //   item.addEventListener('dragend', dragEnd);
@@ -125,7 +142,7 @@ const CardsBlock = ({
     }
 
     return () => {
-      if (isCurrentPlayer) {
+      if (isCurrentPlayer || (gameMoves.length && !isFavor) || cards[dragCard]?.type === cardTypes.nope) {
         // draggableItems.forEach(item => {
         //   // item.removeEventListener('dragstart', dragStart);
         //   item.removeEventListener('dragend', dragEnd);
@@ -137,7 +154,7 @@ const CardsBlock = ({
         dropZone.removeEventListener('drop', dragDrop);
       }
     }
-  }, [dragDrop, isCurrentPlayer]);
+  }, [dragDrop, isCurrentPlayer, dragCard, isFavor, cards, gameMoves]);
 
   useEffect(() => {
     const element = document.documentElement;
@@ -160,7 +177,7 @@ const CardsBlock = ({
   }, []);
 
   const handleClick = item => {
-    if (isCurrentPlayer) {
+    if (isCurrentPlayer || (gameMoves.length && !isFavor) || cards[item].type === cardTypes.nope) {
       setSelectedCards(prev => (
         prev.includes(item)
           ? prev.filter(pItem => pItem !== item)
@@ -177,12 +194,12 @@ const CardsBlock = ({
         playerCards[uuid].sort().map(item => (
           <div
             key={item}
-            className={`draggable_item ${item} card_wrapper ${selectedCards.includes(item) ? 'selected' : ''} ${isCurrentPlayer ? '' : 'not_current_player'}`}
+            className={`draggable_item ${item} card_wrapper ${selectedCards.includes(item) ? 'selected' : ''} ${isCurrentPlayer || (gameMoves.length && !isFavor) || cards[item].type === cardTypes.nope ? '' : 'not_current_player'}`}
             tabIndex={0}
             role="button"
             onClick={() => handleClick(item)}
-            onDragStart={event => dragStart({ event, cardId: item})}
-            onDragEnd={dragEnd}
+            onDragStart={event => dragStart({ event, cardId: item })}
+            onDragEnd={() => dragEnd({ cardId: item })}
             draggable
           >
             <img src={cards[item].img} alt="" width={200} height={300} />

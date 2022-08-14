@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 import { db } from "../../firebase";
 import * as icons from "../../assets/icons";
 import { cardTypes } from "../../constants/cardTypes";
+import { ToastContext } from "../Toast";
 import ReactPortal from "../ReactPortal";
 import MainButton from "../MainButton";
 
@@ -25,6 +26,8 @@ const PlayerSelectionModal = ({
   selectedPlayer,
   setCardSelectionModalOpen,
 }) => {
+  const { setToast } = useContext(ToastContext);
+
   // const [selectedPlayer, setSelectedPlayer] = useState(null);
 
   const players = playersList.reduce((acc, item) => {
@@ -38,12 +41,19 @@ const PlayerSelectionModal = ({
   const handleClick = () => {
     if (selectedPlayer) {
       if (cards[cardType]?.type === cardTypes.favor) {
-        updateDoc(doc(db, "game_rooms_kitten", id), {
-          player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => item !== cardType) },
-          out_card_deck: arrayUnion(cardType),
+        if (playerCards[selectedPlayer.uid]?.length) {
+          updateDoc(doc(db, "game_rooms_kitten", id), {
+            player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => item !== cardType) },
+            out_card_deck: arrayUnion(cardType),
 
-          game_moves: arrayUnion({ uid: uuid, cardType: cards[cardType].type, favorPlayerUid: selectedPlayer.uid }),
-        });
+            game_moves: arrayUnion({ uid: uuid, cardType: cards[cardType].type, favorPlayerUid: selectedPlayer.uid }),
+          });
+        } else {
+          setToast({
+            type: 'danger',
+            text: 'The player has no cards',
+          });
+        }
       } else if (cards[cardType]?.type === cardTypes.targetedAttack) {
         updateDoc(doc(db, "game_rooms_kitten", id), {
           player_cards: {...playerCards, [uuid]: playerCards[uuid].filter(item => item !== cardType)},
@@ -55,7 +65,14 @@ const PlayerSelectionModal = ({
           current_player_uid: selectedPlayer.uid,
         });
       } else if (cardType === 'combo_2') {
-        setCardSelectionModalOpen(true);
+        if (playerCards[selectedPlayer.uid]?.length) {
+          setCardSelectionModalOpen(true);
+        } else {
+          setToast({
+            type: 'danger',
+            text: 'The player has no cards',
+          });
+        }
       } else if (cardType === 'combo_3') {
         setCardTypeSelectionModalOpen(true);
       }
@@ -93,7 +110,7 @@ const PlayerSelectionModal = ({
           </div>
           <div className="btn_block">
             <MainButton
-              text="Go"
+              text={selectedPlayer ? 'Go' : 'Exit'}
               onClick={handleClick}
             />
           </div>
