@@ -21,4 +21,10 @@ export const cardTypes = {
   hairyPotatoCat: 'hairyPotatoCat',
   tacocat: 'tacocat',
   rainbowRalphingCat: 'rainbowRalphingCat',
+
+  mommaCat: 'mommaCat',
+  zombieCat: 'zombieCat',
+  catSchrodinger: 'catSchrodinger',
+  shyBladderCat: 'shyBladderCat',
+  bikiniCat: 'bikiniCat',
 };

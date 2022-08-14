@@ -36,11 +36,17 @@ export const isCombinationExist = (selectedCards, cards) => {
       (
         cardTypeList.length === 2 && cardTypesList[cardTypes.feral] === 1 &&
         (
-          cardTypeList.includes(cardTypes.beardCat) ||
-          cardTypeList.includes(cardTypes.cattermelon) ||
-          cardTypeList.includes(cardTypes.hairyPotatoCat) ||
-          cardTypeList.includes(cardTypes.tacocat) ||
-          cardTypeList.includes(cardTypes.rainbowRalphingCat)
+          cardTypeList.includes(cardTypes.beardCat)
+          || cardTypeList.includes(cardTypes.cattermelon)
+          || cardTypeList.includes(cardTypes.hairyPotatoCat)
+          || cardTypeList.includes(cardTypes.tacocat)
+          || cardTypeList.includes(cardTypes.rainbowRalphingCat)
+
+          || cardTypeList.includes(cardTypes.mommaCat)
+          || cardTypeList.includes(cardTypes.zombieCat)
+          || cardTypeList.includes(cardTypes.catSchrodinger)
+          || cardTypeList.includes(cardTypes.shyBladderCat)
+          || cardTypeList.includes(cardTypes.bikiniCat)
         )
       )
     ) {
@@ -53,11 +59,17 @@ export const isCombinationExist = (selectedCards, cards) => {
       (cardTypeList.length === 1 && cardTypesList[cardTypeList[0]] === 3) ||
       (cardTypeList.length === 2 && cardTypesList[cardTypes.feral] === 1 &&
         (
-          cardTypeList.includes(cardTypes.beardCat) ||
-          cardTypeList.includes(cardTypes.cattermelon) ||
-          cardTypeList.includes(cardTypes.hairyPotatoCat) ||
-          cardTypeList.includes(cardTypes.tacocat) ||
-          cardTypeList.includes(cardTypes.rainbowRalphingCat)
+          cardTypeList.includes(cardTypes.beardCat)
+          || cardTypeList.includes(cardTypes.cattermelon)
+          || cardTypeList.includes(cardTypes.hairyPotatoCat)
+          || cardTypeList.includes(cardTypes.tacocat)
+          || cardTypeList.includes(cardTypes.rainbowRalphingCat)
+
+          || cardTypeList.includes(cardTypes.mommaCat)
+          || cardTypeList.includes(cardTypes.zombieCat)
+          || cardTypeList.includes(cardTypes.catSchrodinger)
+          || cardTypeList.includes(cardTypes.shyBladderCat)
+          || cardTypeList.includes(cardTypes.bikiniCat)
         )
       )
     ) {

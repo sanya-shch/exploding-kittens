@@ -482,9 +482,364 @@ export const ExplodingKittensOriginal = {
   },
 };
 
-// const ExplodingKittensNSFW = {
-//
-// };
+export const ExplodingKittensNSFW = {
+  explodingKitten_5: {
+    id: 'explodingKitten_5',
+    img: cardsImages.explodingKitten_5,
+    title: "Exploding Kitten",
+    type: "explodingKitten"
+  },
+  explodingKitten_6: {
+    id: 'explodingKitten_6',
+    img: cardsImages.explodingKitten_6,
+    title: "Exploding Kitten",
+    type: "explodingKitten"
+  },
+  explodingKitten_7: {
+    id: 'explodingKitten_7',
+    img: cardsImages.explodingKitten_6, /* .explodingKitten_7, */
+    title: "Exploding Kitten",
+    type: "explodingKitten"
+  },
+  explodingKitten_8: {
+    id: 'explodingKitten_8',
+    img: cardsImages.explodingKitten_6, /* .explodingKitten_8 */
+    title: "Exploding Kitten",
+    type: "explodingKitten"
+  },
+  attack_5: {
+    id: 'attack_5',
+    img: cardsImages.attack_5,
+    title: "Attack",
+    type: "attack"
+  },
+  attack_6: {
+    id: 'attack_6',
+    img: cardsImages.attack_6,
+    title: "Attack",
+    type: "attack"
+  },
+  attack_7: {
+    id: 'attack_7',
+    img: cardsImages.attack_7,
+    title: "Attack",
+    type: "attack"
+  },
+  attack_8: {
+    id: 'attack_8',
+    img: cardsImages.attack_8,
+    title: "Attack",
+    type: "attack"
+  },
+  defuse_7: {
+    id: 'defuse_7',
+    img: cardsImages.defuse_7,
+    title: "Defuse",
+    type: "defuse"
+  },
+  defuse_8: {
+    id: 'defuse_8',
+    img: cardsImages.defuse_8,
+    title: "Defuse",
+    type: "defuse"
+  },
+  defuse_9: {
+    id: 'defuse_9',
+    img: cardsImages.defuse_9,
+    title: "Defuse",
+    type: "defuse"
+  },
+  defuse_10: {
+    id: 'defuse_10',
+    img: cardsImages.defuse_10,
+    title: "Defuse",
+    type: "defuse"
+  },
+  defuse_11: {
+    id: 'defuse_11',
+    img: cardsImages.defuse_10, /* .defuse_11 */
+    title: "Defuse",
+    type: "defuse"
+  },
+  defuse_12: {
+    id: 'defuse_12',
+    img: cardsImages.defuse_10, /* .defuse_12 */
+    title: "Defuse",
+    type: "defuse"
+  },
+  favor_5: {
+    id: 'favor_5',
+    img: cardsImages.favor_5,
+    title: "Favor",
+    type: "favor"
+  },
+  favor_6: {
+    id: 'favor_6',
+    img: cardsImages.favor_6,
+    title: "Favor",
+    type: "favor"
+  },
+  favor_7: {
+    id: 'favor_7',
+    img: cardsImages.favor_7,
+    title: "Favor",
+    type: "favor"
+  },
+  favor_8: {
+    id: 'favor_8',
+    img: cardsImages.favor_8,
+    title: "Favor",
+    type: "favor"
+  },
+  nope_6: {
+    id: 'nope_6',
+    img: cardsImages.nope_6,
+    title: "Nope",
+    type: "nope"
+  },
+  nope_7: {
+    id: 'nope_7',
+    img: cardsImages.nope_7,
+    title: "Nope",
+    type: "nope"
+  },
+  nope_8: {
+    id: 'nope_8',
+    img: cardsImages.nope_8,
+    title: "Nope",
+    type: "nope"
+  },
+  nope_9: {
+    id: 'nope_9',
+    img: cardsImages.nope_8, /* .nope_9 */
+    title: "Nope",
+    type: "nope"
+  },
+  nope_10: {
+    id: 'nope_10',
+    img: cardsImages.nope_8, /* .nope_10 */
+    title: "Nope",
+    type: "nope"
+  },
+  seeFuture_6: {
+    id: 'seeFuture_6',
+    img: cardsImages.seeFuture_6,
+    title: "See The Future",
+    type: "seeFuture"
+  },
+  seeFuture_7: {
+    id: 'seeFuture_7',
+    img: cardsImages.seeFuture_7,
+    title: "See The Future",
+    type: "seeFuture"
+  },
+  seeFuture_8: {
+    id: 'seeFuture_8',
+    img: cardsImages.seeFuture_8,
+    title: "See The Future",
+    type: "seeFuture"
+  },
+  seeFuture_9: {
+    id: 'seeFuture_9',
+    img: cardsImages.seeFuture_9,
+    title: "See The Future",
+    type: "seeFuture"
+  },
+  seeFuture_10: {
+    id: 'seeFuture_10',
+    img: cardsImages.seeFuture_10,
+    title: "See The Future",
+    type: "seeFuture"
+  },
+  shuffle_5: {
+    id: 'shuffle_5',
+    img: cardsImages.shuffle_5,
+    title: "Shuffle",
+    type: "shuffle"
+  },
+  shuffle_6: {
+    id: 'shuffle_6',
+    img: cardsImages.shuffle_6,
+    title: "Shuffle",
+    type: "shuffle"
+  },
+  shuffle_7: {
+    id: 'shuffle_7',
+    img: cardsImages.shuffle_7,
+    title: "Shuffle",
+    type: "shuffle"
+  },
+  shuffle_8: {
+    id: 'shuffle_8',
+    img: cardsImages.shuffle_7, /* .shuffle_8 */
+    title: "Shuffle",
+    type: "shuffle"
+  },
+  skip_5: {
+    id: 'skip_5',
+    img: cardsImages.skip_5,
+    title: "Skip",
+    type: "skip"
+  },
+  skip_6: {
+    id: 'skip_6',
+    img: cardsImages.skip_6,
+    title: "Skip",
+    type: "skip"
+  },
+  skip_7: {
+    id: 'skip_7',
+    img: cardsImages.skip_7,
+    title: "Skip",
+    type: "skip"
+  },
+  skip_8: {
+    id: 'skip_8',
+    img: cardsImages.skip_7, /* .skip_8 */
+    title: "Skip",
+    type: "skip"
+  },
+  mommaCat_1: {
+    id: 'mommaCat_1',
+    img: cardsImages.mommaCat_1,
+    title: "Momma Cat",
+    type: "mommaCat",
+    subType: "standardCart"
+  },
+  mommaCat_2: {
+    id: 'mommaCat_2',
+    img: cardsImages.mommaCat_1,
+    title: "Momma Cat",
+    type: "mommaCat",
+    subType: "standardCart"
+  },
+  mommaCat_3: {
+    id: 'mommaCat_3',
+    img: cardsImages.mommaCat_1,
+    title: "Momma Cat",
+    type: "mommaCat",
+    subType: "standardCart"
+  },
+  mommaCat_4: {
+    id: 'mommaCat_4',
+    img: cardsImages.mommaCat_1,
+    title: "Momma Cat",
+    type: "mommaCat",
+    subType: "standardCart"
+  },
+  zombieCat_1: {
+    id: 'zombieCat_1',
+    img: cardsImages.zombieCat_1,
+    title: "Zombie Cat",
+    type: "zombieCat",
+    subType: "standardCart"
+  },
+  zombieCat_2: {
+    id: 'zombieCat_2',
+    img: cardsImages.zombieCat_1,
+    title: "Zombie Cat",
+    type: "zombieCat",
+    subType: "standardCart"
+  },
+  zombieCat_3: {
+    id: 'zombieCat_3',
+    img: cardsImages.zombieCat_1,
+    title: "Zombie Cat",
+    type: "zombieCat",
+    subType: "standardCart"
+  },
+  zombieCat_4: {
+    id: 'zombieCat_4',
+    img: cardsImages.zombieCat_1,
+    title: "Zombie Cat",
+    type: "zombieCat",
+    subType: "standardCart"
+  },
+  catSchrodinger_1: {
+    id: 'catSchrodinger_1',
+    img: cardsImages.catSchrodinger_1,
+    title: "Cat's Schrodinger",
+    type: "catSchrodinger",
+    subType: "standardCart"
+  },
+  catSchrodinger_2: {
+    id: 'catSchrodinger_2',
+    img: cardsImages.catSchrodinger_1,
+    title: "Cat's Schrodinger",
+    type: "catSchrodinger",
+    subType: "standardCart"
+  },
+  catSchrodinger_3: {
+    id: 'catSchrodinger_3',
+    img: cardsImages.catSchrodinger_1,
+    title: "Cat's Schrodinger",
+    type: "catSchrodinger",
+    subType: "standardCart"
+  },
+  catSchrodinger_4: {
+    id: 'catSchrodinger_4',
+    img: cardsImages.catSchrodinger_1,
+    title: "Cat's Schrodinger",
+    type: "catSchrodinger",
+    subType: "standardCart"
+  },
+  shyBladderCat_1: {
+    id: 'shyBladderCat_1',
+    img: cardsImages.shyBladderCat_1,
+    title: "Shy Bladder Cat",
+    type: "shyBladderCat",
+    subType: "standardCart"
+  },
+  shyBladderCat_2: {
+    id: 'shyBladderCat_2',
+    img: cardsImages.shyBladderCat_1,
+    title: "Shy Bladder Cat",
+    type: "shyBladderCat",
+    subType: "standardCart"
+  },
+  shyBladderCat_3: {
+    id: 'shyBladderCat_3',
+    img: cardsImages.shyBladderCat_1,
+    title: "Shy Bladder Cat",
+    type: "shyBladderCat",
+    subType: "standardCart"
+  },
+  shyBladderCat_4: {
+    id: 'shyBladderCat_4',
+    img: cardsImages.shyBladderCat_1,
+    title: "Shy Bladder Cat",
+    type: "shyBladderCat",
+    subType: "standardCart"
+  },
+  bikiniCat_1: {
+    id: 'bikiniCat_1',
+    img: cardsImages.bikiniCat_1,
+    title: "Bikini Cat",
+    type: "bikiniCat",
+    subType: "standardCart"
+  },
+  bikiniCat_2: {
+    id: 'bikiniCat_2',
+    img: cardsImages.bikiniCat_1,
+    title: "Bikini Cat",
+    type: "bikiniCat",
+    subType: "standardCart"
+  },
+  bikiniCat_3: {
+    id: 'bikiniCat_3',
+    img: cardsImages.bikiniCat_1,
+    title: "Bikini Cat",
+    type: "bikiniCat",
+    subType: "standardCart"
+  },
+  bikiniCat_4: {
+    id: 'bikiniCat_4',
+    img: cardsImages.bikiniCat_1,
+    title: "Bikini Cat",
+    type: "bikiniCat",
+    subType: "standardCart"
+  },
+};
 
 // const ExplodingKittensParty = {
 //

@@ -62,6 +62,49 @@ import rainbowRalphingCat_1 from './ExplodingKittens_ORIGINAL/exploding-kittens-
 
 import revers from './exploding-kittens-title-2.png';
 
+// ExplodingKittensNSFW
+import explodingKitten_5 from './ExplodingKittens_NSFW/exploding-kittens-4.png';
+import explodingKitten_6 from './ExplodingKittens_NSFW/exploding-kittens-6.png';
+// import explodingKitten_7 from './ExplodingKittens_NSFW/';
+// import explodingKitten_8 from './ExplodingKittens_NSFW/';
+import attack_5 from './ExplodingKittens_NSFW/exploding-kittens-attack-7.png';
+import attack_6 from './ExplodingKittens_NSFW/exploding-kittens-attack-8.png';
+import attack_7 from './ExplodingKittens_NSFW/exploding-kittens-attack-9.png';
+import attack_8 from './ExplodingKittens_NSFW/exploding-kittens-ATTACK-11.png';
+import defuse_7 from './ExplodingKittens_NSFW/exploding-kittens-defuse-8.png';
+import defuse_8 from './ExplodingKittens_NSFW/exploding-kittens-defuse-10.png';
+import defuse_9 from './ExplodingKittens_NSFW/exploding-kittens-defuse-12.png';
+import defuse_10 from './ExplodingKittens_NSFW/exploding-kittens-drfuse-6.png';
+// import defuse_11 from './ExplodingKittens_NSFW/exploding-kittens-defuse-9.png';
+// import defuse_12 from './ExplodingKittens_NSFW/exploding-kittens-defuse-11.png';
+import favor_5 from './ExplodingKittens_NSFW/exploding-kittens-favor-3.png';
+import favor_6 from './ExplodingKittens_NSFW/exploding-kittens-favor-4.png';
+import favor_7 from './ExplodingKittens_NSFW/exploding-kittens-favor-5.png';
+import favor_8 from './ExplodingKittens_NSFW/exploding-kittens-favor-7.png';
+import nope_6 from './ExplodingKittens_NSFW/exploding-kittens-nope-3.png';
+import nope_7 from './ExplodingKittens_NSFW/exploding-kittens-nope-6.png';
+import nope_8 from './ExplodingKittens_NSFW/exploding-kittens-nope-10.png';
+// import nope_9 from './ExplodingKittens_NSFW/';
+// import nope_10 from './ExplodingKittens_NSFW/';
+import seeFuture_6 from './ExplodingKittens_NSFW/exploding-kittens-seefuture2.png';
+import seeFuture_7 from './ExplodingKittens_NSFW/exploding-kittens-seefuture3.png';
+import seeFuture_8 from './ExplodingKittens_NSFW/exploding-kittens-seefuture4.png';
+import seeFuture_9 from './ExplodingKittens_NSFW/exploding-kittens-seefuture5.png';
+import seeFuture_10 from './ExplodingKittens_NSFW/exploding-kittens-SEEFUTURE-8.png';
+import shuffle_5 from './ExplodingKittens_NSFW/exploding-kittens-shuffle-1.png';
+import shuffle_6 from './ExplodingKittens_NSFW/exploding-kittens-shuffle-6.png';
+import shuffle_7 from './ExplodingKittens_NSFW/exploding-kittens-shuffle-7.png';
+// import shuffle_8 from './ExplodingKittens_NSFW/';
+import skip_5 from './ExplodingKittens_NSFW/exploding-kittens-skip1.png';
+import skip_6 from './ExplodingKittens_NSFW/exploding-kittens-skip2.png';
+import skip_7 from './ExplodingKittens_NSFW/exploding-kittens-skip6.png';
+// import skip_8 from './ExplodingKittens_NSFW/';
+import mommaCat_1 from './ExplodingKittens_NSFW/exploding-kittens-STANDARD9.png';
+import zombieCat_1 from './ExplodingKittens_NSFW/exploding-kittens-standard-2.png';
+import catSchrodinger_1 from './ExplodingKittens_NSFW/exploding-kittens-standard-8.png';
+import shyBladderCat_1 from './ExplodingKittens_NSFW/exploding-kittens-standard-10.png';
+import bikiniCat_1 from './ExplodingKittens_NSFW/exploding-kittens-standard8.png';
+
 export {
   alterTheFuture_1,
   alterTheFuture_2,
@@ -124,4 +167,46 @@ export {
   rainbowRalphingCat_1,
 
   revers,
+
+  explodingKitten_5,
+  explodingKitten_6,
+  // explodingKitten_7,
+  // explodingKitten_8,
+  attack_5,
+  attack_6,
+  attack_7,
+  attack_8,
+  defuse_7,
+  defuse_8,
+  defuse_9,
+  defuse_10,
+  // defuse_11,
+  // defuse_12,
+  favor_5,
+  favor_6,
+  favor_7,
+  favor_8,
+  nope_6,
+  nope_7,
+  nope_8,
+  // nope_9,
+  // nope_10,
+  seeFuture_6,
+  seeFuture_7,
+  seeFuture_8,
+  seeFuture_9,
+  seeFuture_10,
+  shuffle_5,
+  shuffle_6,
+  shuffle_7,
+  // shuffle_8,
+  skip_5,
+  skip_6,
+  skip_7,
+  // skip_8,
+  mommaCat_1,
+  zombieCat_1,
+  catSchrodinger_1,
+  shyBladderCat_1,
+  bikiniCat_1,
 }
