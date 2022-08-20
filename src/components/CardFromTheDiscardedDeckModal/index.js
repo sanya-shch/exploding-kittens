@@ -22,11 +22,14 @@ const CardFromTheDiscardedDeckModal = ({
 
   const handleClick = () => {
     if (selectedCard) {
+      const newOutCardDeck = [...outCardDeck, ...selectedCards];
+      const filteredOutCardDeck = newOutCardDeck.filter(item => selectedCard !== item);
+
       updateDoc(doc(db, "game_rooms_kitten", id), {
         player_cards: { ...playerCards, [uuid]: [...playerCards[uuid].filter(item => !selectedCards.includes(item)), selectedCard] },
-        out_card_deck: arrayUnion(...selectedCards),
+        out_card_deck: filteredOutCardDeck,
 
-        game_moves: arrayUnion({ uid: uuid, cardType: 'combo_5', playerCards: playerCards[uuid], outCardDeck }),
+        game_moves: arrayUnion({ uid: uuid, cardType: 'combo_5', playerCards: playerCards[uuid], oldOutCardDeck: newOutCardDeck, newOutCardDeck: filteredOutCardDeck }),
       });
     }
 
@@ -59,7 +62,7 @@ const CardFromTheDiscardedDeckModal = ({
           </div>
           <div className="btn_block">
             <MainButton
-              text="Go"
+              text={selectedCard ? 'Go' : 'Exit'}
               onClick={handleClick}
             />
           </div>

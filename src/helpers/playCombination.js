@@ -227,27 +227,65 @@ export const playCombination = ({
             type: 'danger',
             text: 'We cannot erase the player\'s memory, so it makes no sense to cancel this card.',
           });
-
-          // if (isEven(nopeCount)) {
-          //
-          // } else {
-          //
-          // }
         } else if (gameMovesLastItem.cardType === cardTypes.shuffle) {
-          console.log(cardTypes.shuffle);
+          // console.log(cardTypes.shuffle);
 
           if (isEven(nopeCount)) {
+            updateDoc(doc(db, "game_rooms_kitten", id), {
+              player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+              out_card_deck: arrayUnion(...selectedCards),
 
+              game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.nope }),
+              card_deck: gameMovesLastItem.oldCardDeck,
+            });
           } else {
+            updateDoc(doc(db, "game_rooms_kitten", id), {
+              player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+              out_card_deck: arrayUnion(...selectedCards),
 
+              game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.nope }),
+              card_deck: gameMovesLastItem.newCardDeck,
+            });
           }
         } else if (gameMovesLastItem.cardType === cardTypes.skip) {
-          console.log(cardTypes.skip);
+          // console.log(cardTypes.skip);
 
           if (isEven(nopeCount)) {
+            if (gameMovesLastItem.newCurrentPlayerUid) {
+              updateDoc(doc(db, "game_rooms_kitten", id), {
+                player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+                out_card_deck: arrayUnion(...selectedCards),
 
+                game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.nope }),
+                current_player_uid: gameMovesLastItem.uid,
+              });
+            } else {
+              updateDoc(doc(db, "game_rooms_kitten", id), {
+                player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+                out_card_deck: arrayUnion(...selectedCards),
+
+                game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.nope }),
+                attack_count: gameMovesLastItem.oldAttackCount,
+              });
+            }
           } else {
+            if (gameMovesLastItem.newCurrentPlayerUid) {
+              updateDoc(doc(db, "game_rooms_kitten", id), {
+                player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+                out_card_deck: arrayUnion(...selectedCards),
 
+                game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.nope }),
+                current_player_uid: gameMovesLastItem.newCurrentPlayerUid,
+              });
+            } else {
+              updateDoc(doc(db, "game_rooms_kitten", id), {
+                player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+                out_card_deck: arrayUnion(...selectedCards),
+
+                game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.nope }),
+                attack_count: gameMovesLastItem.newAttackCount,
+              });
+            }
           }
         } else if (gameMovesLastItem.cardType === 'combo_2') {
           console.log('combo_2');
@@ -266,25 +304,35 @@ export const playCombination = ({
 
           }
         } else if (gameMovesLastItem.cardType === 'combo_5') {
-          console.log('combo_5');
+          // console.log('combo_5');
 
           if (isEven(nopeCount)) {
-
+            updateDoc(doc(db, "game_rooms_kitten", id), {
+              player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+              out_card_deck: [...gameMovesLastItem.oldOutCardDeck, ...selectedCards],
+              game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.nope }),
+            });
           } else {
-
+            updateDoc(doc(db, "game_rooms_kitten", id), {
+              player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+              out_card_deck: [...gameMovesLastItem.newOutCardDeck, ...selectedCards],
+              game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.nope }),
+            });
           }
         }
       }
     } else if (cardType === cardTypes.seeFuture) {
       setCardType(selectedCards[0]);
     } else if (cardType === cardTypes.shuffle) {
+      const newCardDeck = randomize(cardDeck);
+
       updateDoc(doc(db, "game_rooms_kitten", id), {
         player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
         out_card_deck: arrayUnion(...selectedCards),
 
-        game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.shuffle, oldCardDeck: cardDeck }),
+        game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.shuffle, oldCardDeck: cardDeck, newCardDeck }),
 
-        card_deck: randomize(cardDeck),
+        card_deck: newCardDeck,
       });
     } else if (cardType === cardTypes.skip) {
       if (attackCount > 0) {
@@ -292,20 +340,22 @@ export const playCombination = ({
           player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
           out_card_deck: arrayUnion(...selectedCards),
 
-          game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.skip, attackCount }),
+          game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.skip, oldAttackCount: attackCount, newAttackCount: attackCount - 1 }),
 
           attack_count: attackCount - 1,
         });
       } else {
         const index = playersList.findIndex(item => item === uuid);
 
+        const newCurrentPlayerUid = index === playersList.length - 1 ? playersList[0] : playersList[index + 1];
+
         updateDoc(doc(db, "game_rooms_kitten", id), {
           player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
           out_card_deck: arrayUnion(...selectedCards),
 
-          game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.skip }),
+          game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.skip, newCurrentPlayerUid }),
 
-          current_player_uid: index === playersList.length - 1 ? playersList[0] : playersList[index + 1],
+          current_player_uid: newCurrentPlayerUid,
         });
       }
     }
@@ -377,6 +427,7 @@ export const playCombination = ({
     const values = Object.values(cardTypesList);
 
     if (values.every(item => item === 1)) {
+      setSelectedPlayerCards(selectedCards);
       setCardFromTheDiscardedDeckModalOpen(true);
     }
   }

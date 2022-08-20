@@ -206,13 +206,14 @@ const GameBlock = ({
           isOpen={cardFromTheDiscardedDeckModalOpen}
           handleClose={() => {
             setCardFromTheDiscardedDeckModalOpen(false);
+            setSelectedPlayerCards(null);
           }}
           outCardDeck={outCardDeck}
           cards={cards}
           playerCards={playerCards}
           uuid={uuid}
           id={id}
-          selectedCards={selectedCards}
+          selectedCards={selectedPlayerCards}
         />
       </Suspense>}
 
