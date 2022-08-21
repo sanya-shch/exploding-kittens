@@ -6,7 +6,7 @@ import { db } from "../../firebase";
 import {
   isCombinationExist,
   playCombination,
-  isExplodeCard,
+  // isExplodeCard,
   getNopeCount,
   isEven,
 } from "../../helpers";
@@ -90,16 +90,16 @@ const CardsDeckBlock = ({
 
           attack_count: attackCount - 1,
         });
-      } else if (isExplodeCard({ cards, card: cardDeck[0] })) {
-        updateDoc(doc(db, "game_rooms_kitten", id), {
-          player_cards: {
-            ...playerCards,
-            [uuid]: [...playerCards[uuid], cardDeck[0]],
-          },
-          card_deck: arrayRemove(cardDeck[0]),
-
-          game_moves: [],
-        });
+        // } else if (isExplodeCard({ cards, card: cardDeck[0] })) {
+        //   updateDoc(doc(db, "game_rooms_kitten", id), {
+        //     player_cards: {
+        //       ...playerCards,
+        //       [uuid]: [...playerCards[uuid], cardDeck[0]],
+        //     },
+        //     card_deck: arrayRemove(cardDeck[0]),
+        //
+        //     game_moves: [],
+        //   });
       } else {
         const index = playersList.findIndex((item) => item === uuid);
 

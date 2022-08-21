@@ -48,7 +48,7 @@ const CardTypeSelectionModal = ({
             uid: uuid,
             cardType: "combo_3",
             desiredCard,
-            combo3PlayerUid: selectedPlayer.uid,
+            selectedPlayerUid: selectedPlayer.uid,
           }),
         });
       } else {
@@ -64,7 +64,7 @@ const CardTypeSelectionModal = ({
           game_moves: arrayUnion({
             uid: uuid,
             cardType: "combo_3",
-            combo3PlayerUid: selectedPlayer.uid,
+            selectedPlayerUid: selectedPlayer.uid,
           }),
         });
       }

@@ -131,6 +131,27 @@ const GameBlock = ({
     }
   }, [gameMoves, setOpenMenu, uuid]);
 
+  useEffect(() => {
+    if (playersList.length === 1 && playersList[0] === uuid) {
+      updateDoc(doc(db, "game_rooms_kitten", id), {
+        ongoing_game: false,
+        midgame_player_uid: [],
+        card_deck: [],
+        player_cards: {},
+        players_list: [],
+        game_moves: [],
+        attack_count: 0,
+        out_card_deck: [],
+        current_player_uid: uuid,
+        player_data_arr: playerDataArr.map((item) =>
+          item.uid === playersList[0]
+            ? { ...item, points: item.points + 1 }
+            : item
+        ),
+      });
+    }
+  }, [playersList, uuid, playerDataArr]);
+
   return (
     <>
       <div className="game_block">
@@ -270,6 +291,7 @@ const GameBlock = ({
             setSelectedPlayer={setSelectedPlayer}
             selectedPlayer={selectedPlayer}
             setCardSelectionModalOpen={setCardSelectionModalOpen}
+            attackCount={attackCount || 0}
           />
         </Suspense>
       )}

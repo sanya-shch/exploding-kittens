@@ -29,18 +29,19 @@ const CardSelectionModal = ({
 
   const handleClick = () => {
     if (selectedCard && selectedPlayerUid) {
+      const selectedPlayerCards = playerCards[selectedPlayerUid].filter(
+        (item) => item !== selectedCard
+      );
+
+      const myCardsList = playerCards[uuid].filter(
+        (item) => !selectedCards.includes(item)
+      );
+
       updateDoc(doc(db, "game_rooms_kitten", id), {
         player_cards: {
           ...playerCards,
-          [selectedPlayerUid]: playerCards[selectedPlayerUid].filter(
-            (item) => item !== selectedCard
-          ),
-          [uuid]: [
-            ...playerCards[uuid].filter(
-              (item) => !selectedCards.includes(item)
-            ),
-            selectedCard,
-          ],
+          [selectedPlayerUid]: selectedPlayerCards,
+          [uuid]: [...myCardsList, selectedCard],
         },
         out_card_deck: arrayUnion(...selectedCards),
 
@@ -48,7 +49,7 @@ const CardSelectionModal = ({
           uid: uuid,
           cardType: "combo_2",
           selectedCard,
-          combo2PlayerUid: selectedPlayerUid,
+          selectedPlayerUid,
         }),
       });
     }

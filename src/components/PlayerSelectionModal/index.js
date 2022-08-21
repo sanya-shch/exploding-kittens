@@ -25,6 +25,7 @@ const PlayerSelectionModal = ({
   setSelectedPlayer,
   selectedPlayer,
   setCardSelectionModalOpen,
+  attackCount,
 }) => {
   const { setToast } = useContext(ToastContext);
 
@@ -69,7 +70,13 @@ const PlayerSelectionModal = ({
           },
           out_card_deck: arrayUnion(cardType),
 
-          game_moves: arrayUnion({ uid: uuid, cardType: cards[cardType].type }),
+          game_moves: arrayUnion({
+            uid: uuid,
+            cardType: cards[cardType].type,
+            newCurrentPlayerUid: selectedPlayer.uid,
+            oldAttackCount: attackCount,
+            newAttackCount: 2,
+          }),
 
           attack_count: 2,
           current_player_uid: selectedPlayer.uid,
