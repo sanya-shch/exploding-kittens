@@ -10,7 +10,7 @@
   user-select: none;
 
   &:after {
-    content: '';
+    content: "";
     border: 2px solid transparent;
     border-radius: 50%;
     width: 74px;
@@ -20,11 +20,11 @@
     z-index: 1;
   }
   &.itsI:after {
-    content: '';
+    content: "";
     border: 2px solid #525252;
   }
   &.is_current_player:after {
-    content: '';
+    content: "";
     border: 2px solid #0071cd;
   }
 

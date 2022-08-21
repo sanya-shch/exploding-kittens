@@ -1,38 +1,39 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from "react";
 
-import { ToastContext } from './toast.context.js';
+import { ToastContext } from "./toast.context.js";
 import Toast from "./Toast";
 
 function ToastProvider({ children }) {
-  const setToast = useCallback(({
-    text,
-    position = 'top-right',
-    duration,
-    type = '',
-    pauseOnHover = true,
-    pauseOnFocusLoss = true,
-  }) => {
-    new Toast({
+  const setToast = useCallback(
+    ({
       text,
-      position,
-      autoClose: duration || 3000,
-      type,
-      pauseOnHover,
-      pauseOnFocusLoss,
-    });
-  }, []);
+      position = "top-right",
+      duration,
+      type = "",
+      pauseOnHover = true,
+      pauseOnFocusLoss = true,
+    }) => {
+      new Toast({
+        text,
+        position,
+        autoClose: duration || 3000,
+        type,
+        pauseOnHover,
+        pauseOnFocusLoss,
+      });
+    },
+    []
+  );
 
   const value = useMemo(
     () => ({
       setToast,
     }),
-    [setToast],
+    [setToast]
   );
 
   return (
-    <ToastContext.Provider value={value}>
-      {children}
-    </ToastContext.Provider>
+    <ToastContext.Provider value={value}>{children}</ToastContext.Provider>
   );
 }
 

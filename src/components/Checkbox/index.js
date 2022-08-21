@@ -1,12 +1,8 @@
-import React, { useId } from 'react';
+import React, { useId } from "react";
 
-import './style.scss';
+import "./style.scss";
 
-const Checkbox = ({
-  text,
-  handleClick,
-  isChecked,
-}) => {
+const Checkbox = ({ text, handleClick, isChecked }) => {
   const componentID = useId();
 
   return (
@@ -18,9 +14,9 @@ const Checkbox = ({
         checked={isChecked}
         onChange={handleClick}
       />
-        <label htmlFor={`checkbox-rect-${componentID}`}>{text}</label>
+      <label htmlFor={`checkbox-rect-${componentID}`}>{text}</label>
     </div>
-  )
+  );
 };
 
 export default Checkbox;

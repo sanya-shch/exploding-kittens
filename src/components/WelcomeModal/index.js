@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 import * as icons from "../../assets/icons";
@@ -9,7 +9,7 @@ import ReactPortal from "../ReactPortal";
 import Input from "../Input";
 import MainButton from "../MainButton";
 
-import './style.scss';
+import "./style.scss";
 
 const WelcomeModal = ({
   isOpen,
@@ -23,13 +23,13 @@ const WelcomeModal = ({
 }) => {
   const { setToast } = useContext(ToastContext);
 
-  const [value, setValue] = useState('cat');
+  const [value, setValue] = useState("cat");
   const [checked, setChecked] = useState(1);
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     if (iconPack) {
-      setValue(iconPack || 'cat');
+      setValue(iconPack || "cat");
     }
     if (iconIndex) {
       setChecked(iconIndex || 1);
@@ -40,7 +40,12 @@ const WelcomeModal = ({
     if (value && checked && username) {
       updateDoc(doc(db, "game_rooms_kitten", id), {
         icon_pack: value,
-        player_data_arr: arrayUnion({ username, uid: uuid, points: 0, icon_index: checked }),
+        player_data_arr: arrayUnion({
+          username,
+          uid: uuid,
+          points: 0,
+          icon_index: checked,
+        }),
       });
 
       if (ongoingGame) {
@@ -52,13 +57,13 @@ const WelcomeModal = ({
       handleClose();
     } else {
       setToast({
-        type: 'danger',
-        text: 'Enter your username',
+        type: "danger",
+        text: "Enter your username",
       });
     }
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setUsername(event.target.value);
   };
 
@@ -69,20 +74,13 @@ const WelcomeModal = ({
       <div className="start-modal">
         <div className="modal-content">
           <div className="input_name_block">
-            <Input
-              maxLength={12}
-              value={username}
-              onChange={handleChange}
-            />
+            <Input maxLength={12} value={username} onChange={handleChange} />
           </div>
           {/*<div className="expansion_packs_block">*/}
 
           {/*</div>*/}
           <div className="content_block">
-            {isHost && <RadioBlock
-              value={value}
-              setValue={setValue}
-            />}
+            {isHost && <RadioBlock value={value} setValue={setValue} />}
             <div className="icons_block">
               {Object.values(icons[value]).map((item, index) => (
                 <img
@@ -91,22 +89,19 @@ const WelcomeModal = ({
                   alt=""
                   width="65px"
                   height="65px"
-                  className={index + 1 === checked ? 'checked' : ''}
+                  className={index + 1 === checked ? "checked" : ""}
                   onClick={() => setChecked(index + 1)}
                 />
               ))}
             </div>
           </div>
           <div className="btn_block">
-            <MainButton
-              text="Join"
-              onClick={handleClick}
-            />
+            <MainButton text="Join" onClick={handleClick} />
           </div>
         </div>
       </div>
     </ReactPortal>
-  )
+  );
 };
 
 export default WelcomeModal;

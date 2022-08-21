@@ -8,10 +8,10 @@
 }
 
 body {
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
 }
 
 code {
-   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-   monospace;
- }
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

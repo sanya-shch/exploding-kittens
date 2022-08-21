@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import './style.scss';
+import "./style.scss";
 
 const CardsLoader = ({ delay = 0 }) => {
   const [ready, setReady] = React.useState(false);
@@ -10,7 +10,7 @@ const CardsLoader = ({ delay = 0 }) => {
 
     return () => {
       clearTimeout(timeout);
-    }
+    };
   }, [delay]);
 
   return (
@@ -26,7 +26,7 @@ const CardsLoader = ({ delay = 0 }) => {
         </div>
       )}
     </div>
-  )
+  );
 };
 
 export default CardsLoader;

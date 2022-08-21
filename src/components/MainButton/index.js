@@ -1,31 +1,28 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
-import './style.scss';
+import "./style.scss";
 
-const MainButton = ({
-  text,
-  onClick,
-}) => {
+const MainButton = ({ text, onClick }) => {
   const element = useRef(null);
   const spanElement = useRef(null);
 
   useEffect(() => {
-    const mouseenter = e => {
+    const mouseenter = (e) => {
       if (element?.current) {
         const relX = e.pageX - element.current.offsetLeft;
         const relY = e.pageY - element.current.offsetTop;
 
         spanElement.current.style.top = `${relY}px`;
-        spanElement.current.style.left = `${relX}px`
+        spanElement.current.style.left = `${relX}px`;
       }
     };
-    const mouseout = e => {
+    const mouseout = (e) => {
       if (element?.current) {
         const relX = e.pageX - element.current.offsetLeft;
         const relY = e.pageY - element.current.offsetTop;
 
         spanElement.current.style.top = `${relY}px`;
-        spanElement.current.style.left = `${relX}px`
+        spanElement.current.style.left = `${relX}px`;
       }
     };
 
@@ -39,7 +36,7 @@ const MainButton = ({
         element.current.removeEventListener("mouseenter", mouseenter);
         element.current.removeEventListener("mouseout", mouseout);
       }
-    }
+    };
   }, []);
 
   return (
@@ -47,7 +44,7 @@ const MainButton = ({
       <span className="text">{text}</span>
       <span ref={spanElement} className="focus-bg" />
     </button>
-  )
+  );
 };
 
 export default MainButton;

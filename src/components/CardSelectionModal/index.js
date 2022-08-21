@@ -1,13 +1,13 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from "react";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 import { db } from "../../firebase";
-import { revers } from "../../assets/cards"
+import { revers } from "../../assets/cards";
 import { randomize } from "../../helpers";
 import ReactPortal from "../ReactPortal";
 import MainButton from "../MainButton";
 
-import './style.scss';
+import "./style.scss";
 
 const CardSelectionModal = ({
   isOpen,
@@ -20,26 +20,43 @@ const CardSelectionModal = ({
 }) => {
   const [selectedCard, setSelectedCard] = useState(null);
 
-  const randomizedPlayerCards = useMemo(() => playerCards[selectedPlayerUid] && randomize(playerCards[selectedPlayerUid]), [selectedPlayerUid, playerCards]);
+  const randomizedPlayerCards = useMemo(
+    () =>
+      playerCards[selectedPlayerUid] &&
+      randomize(playerCards[selectedPlayerUid]),
+    [selectedPlayerUid, playerCards]
+  );
 
   const handleClick = () => {
     if (selectedCard && selectedPlayerUid) {
       updateDoc(doc(db, "game_rooms_kitten", id), {
         player_cards: {
           ...playerCards,
-          [selectedPlayerUid]: playerCards[selectedPlayerUid].filter(item => item !== selectedCard),
-          [uuid]: [...playerCards[uuid].filter(item => !selectedCards.includes(item)), selectedCard],
+          [selectedPlayerUid]: playerCards[selectedPlayerUid].filter(
+            (item) => item !== selectedCard
+          ),
+          [uuid]: [
+            ...playerCards[uuid].filter(
+              (item) => !selectedCards.includes(item)
+            ),
+            selectedCard,
+          ],
         },
         out_card_deck: arrayUnion(...selectedCards),
 
-        game_moves: arrayUnion({ uid: uuid, cardType: 'combo_2', selectedCard, combo2PlayerUid: selectedPlayerUid }),
+        game_moves: arrayUnion({
+          uid: uuid,
+          cardType: "combo_2",
+          selectedCard,
+          combo2PlayerUid: selectedPlayerUid,
+        }),
       });
     }
 
     handleClose();
   };
 
-  const handleClickImg = card => {
+  const handleClickImg = (card) => {
     setSelectedCard(card);
   };
 
@@ -50,8 +67,11 @@ const CardSelectionModal = ({
       <div className="card-selection-modal">
         <div className="modal-content">
           <div className="content_block">
-            {randomizedPlayerCards.map(card => (
-              <div key={card} className={selectedCard === card ? 'selected' : ''}>
+            {randomizedPlayerCards.map((card) => (
+              <div
+                key={card}
+                className={selectedCard === card ? "selected" : ""}
+              >
                 <img
                   src={revers}
                   alt=""
@@ -64,14 +84,14 @@ const CardSelectionModal = ({
           </div>
           <div className="btn_block">
             <MainButton
-              text={selectedCard ? 'Go' : 'Exit'}
+              text={selectedCard ? "Go" : "Exit"}
               onClick={handleClick}
             />
           </div>
         </div>
       </div>
     </ReactPortal>
-  )
+  );
 };
 
 export default CardSelectionModal;

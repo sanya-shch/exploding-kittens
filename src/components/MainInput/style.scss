@@ -12,8 +12,8 @@
     padding: 20px 0 0 16px;
     font-size: 0;
     background: #313131;
-    transition: background .3s ease;
-    color: #E1E0E7;
+    transition: background 0.3s ease;
+    color: #e1e0e7;
 
     &:focus {
       background: #414141;
@@ -21,7 +21,7 @@
       //width: 270px;
 
       &::selection {
-         background: rgba(188, 232, 255, 0.5);
+        background: rgba(188, 232, 255, 0.5);
       }
     }
   }
@@ -39,18 +39,15 @@
     width: 115px;
     border-radius: 6px;
     font-size: 22px;
-    font-family: 'Comfortaa', cursive;
+    font-family: "Comfortaa", cursive;
     font-weight: 700;
     cursor: pointer;
-    transition:
-        width .3s ease,
-        background .3s ease,
-        opacity .3s ease;
+    transition: width 0.3s ease, background 0.3s ease, opacity 0.3s ease;
     opacity: 0;
-    color: #E1E0E7;
+    color: #e1e0e7;
 
     &.full {
-       width: 100%;
+      width: 100%;
     }
   }
 
@@ -62,19 +59,16 @@
 
   label {
     position: absolute;
-    color: #E1E0E7;
+    color: #e1e0e7;
     transform: translate(16px, 20px);
-    transition:
-        transform .3s ease,
-        font-size .3s ease,
-        color .3s .1s ease;
+    transition: transform 0.3s ease, font-size 0.3s ease, color 0.3s 0.1s ease;
     font-size: 28px;
     font-weight: bold;
 
     &.active {
-       font-size: 19px;
-       transform: translate(16px, 11px);
-       color: rgba(255, 255, 255, 0.7);
+      font-size: 19px;
+      transform: translate(16px, 11px);
+      color: rgba(255, 255, 255, 0.7);
     }
   }
 

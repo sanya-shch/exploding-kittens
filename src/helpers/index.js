@@ -19,4 +19,4 @@ export {
   isExplodeCard,
   isEven,
   getNopeCount,
-}
+};

@@ -33,22 +33,18 @@ export const isCombinationExist = (selectedCards, cards) => {
 
     if (
       (cardTypeList.length === 1 && cardTypesList[cardTypeList[0]] === 2) ||
-      (
-        cardTypeList.length === 2 && cardTypesList[cardTypes.feral] === 1 &&
-        (
-          cardTypeList.includes(cardTypes.beardCat)
-          || cardTypeList.includes(cardTypes.cattermelon)
-          || cardTypeList.includes(cardTypes.hairyPotatoCat)
-          || cardTypeList.includes(cardTypes.tacocat)
-          || cardTypeList.includes(cardTypes.rainbowRalphingCat)
-
-          || cardTypeList.includes(cardTypes.mommaCat)
-          || cardTypeList.includes(cardTypes.zombieCat)
-          || cardTypeList.includes(cardTypes.catSchrodinger)
-          || cardTypeList.includes(cardTypes.shyBladderCat)
-          || cardTypeList.includes(cardTypes.bikiniCat)
-        )
-      )
+      (cardTypeList.length === 2 &&
+        cardTypesList[cardTypes.feral] === 1 &&
+        (cardTypeList.includes(cardTypes.beardCat) ||
+          cardTypeList.includes(cardTypes.cattermelon) ||
+          cardTypeList.includes(cardTypes.hairyPotatoCat) ||
+          cardTypeList.includes(cardTypes.tacocat) ||
+          cardTypeList.includes(cardTypes.rainbowRalphingCat) ||
+          cardTypeList.includes(cardTypes.mommaCat) ||
+          cardTypeList.includes(cardTypes.zombieCat) ||
+          cardTypeList.includes(cardTypes.catSchrodinger) ||
+          cardTypeList.includes(cardTypes.shyBladderCat) ||
+          cardTypeList.includes(cardTypes.bikiniCat)))
     ) {
       return true;
     }
@@ -57,28 +53,25 @@ export const isCombinationExist = (selectedCards, cards) => {
 
     if (
       (cardTypeList.length === 1 && cardTypesList[cardTypeList[0]] === 3) ||
-      (cardTypeList.length === 2 && cardTypesList[cardTypes.feral] === 1 &&
-        (
-          cardTypeList.includes(cardTypes.beardCat)
-          || cardTypeList.includes(cardTypes.cattermelon)
-          || cardTypeList.includes(cardTypes.hairyPotatoCat)
-          || cardTypeList.includes(cardTypes.tacocat)
-          || cardTypeList.includes(cardTypes.rainbowRalphingCat)
-
-          || cardTypeList.includes(cardTypes.mommaCat)
-          || cardTypeList.includes(cardTypes.zombieCat)
-          || cardTypeList.includes(cardTypes.catSchrodinger)
-          || cardTypeList.includes(cardTypes.shyBladderCat)
-          || cardTypeList.includes(cardTypes.bikiniCat)
-        )
-      )
+      (cardTypeList.length === 2 &&
+        cardTypesList[cardTypes.feral] === 1 &&
+        (cardTypeList.includes(cardTypes.beardCat) ||
+          cardTypeList.includes(cardTypes.cattermelon) ||
+          cardTypeList.includes(cardTypes.hairyPotatoCat) ||
+          cardTypeList.includes(cardTypes.tacocat) ||
+          cardTypeList.includes(cardTypes.rainbowRalphingCat) ||
+          cardTypeList.includes(cardTypes.mommaCat) ||
+          cardTypeList.includes(cardTypes.zombieCat) ||
+          cardTypeList.includes(cardTypes.catSchrodinger) ||
+          cardTypeList.includes(cardTypes.shyBladderCat) ||
+          cardTypeList.includes(cardTypes.bikiniCat)))
     ) {
       return true;
     }
   } else if (selectedCards.length === 5) {
     const values = Object.values(cardTypesList);
 
-    if (values.every(item => item === 1)) {
+    if (values.every((item) => item === 1)) {
       return true;
     }
   }

@@ -1,4 +1,4 @@
-import './style.scss';
+import "./style.scss";
 
 const DEFAULT_OPTIONS = {
   autoClose: 5000,
@@ -26,7 +26,7 @@ export default class Toast {
     this.#toastElem = document.createElement("div");
     this.#toastElem.classList.add("toast");
     requestAnimationFrame(() => {
-      this.#toastElem.classList.add("show")
+      this.#toastElem.classList.add("show");
     });
     this.#removeBinded = this.remove.bind(this);
     this.#unpause = () => (this.#isPaused = false);
@@ -34,7 +34,7 @@ export default class Toast {
     this.#visibilityChange = () => {
       this.#shouldUnPause = document.visibilityState === "visible";
     };
-    this.update({ ...DEFAULT_OPTIONS, ...options })
+    this.update({ ...DEFAULT_OPTIONS, ...options });
   }
 
   set autoClose(value) {
@@ -43,7 +43,7 @@ export default class Toast {
     if (value === false) return;
 
     let lastTime;
-    const func = time => {
+    const func = (time) => {
       if (this.#shouldUnPause) {
         lastTime = null;
         this.#shouldUnPause = false;
@@ -71,7 +71,8 @@ export default class Toast {
   set position(value) {
     const currentContainer = this.#toastElem.parentElement;
     const selector = `.toast-container[data-position="${value}"]`;
-    const container = document.querySelector(selector) || createContainer(value);
+    const container =
+      document.querySelector(selector) || createContainer(value);
     container.append(this.#toastElem);
     if (currentContainer == null || currentContainer.hasChildNodes()) return;
     currentContainer.remove();
@@ -100,7 +101,7 @@ export default class Toast {
           this.#toastElem.style.setProperty(
             "--progress",
             1 - this.#timeVisible / this.#autoClose
-          )
+          );
         }
         this.#progressInterval = requestAnimationFrame(func);
       };
@@ -134,7 +135,7 @@ export default class Toast {
   update(options) {
     Object.entries(options).forEach(([key, value]) => {
       this[key] = value;
-    })
+    });
   }
 
   remove() {

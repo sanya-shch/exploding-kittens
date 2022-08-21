@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 import { db } from "../../firebase";
@@ -6,7 +6,7 @@ import { cardTypes } from "../../constants/cardTypes";
 import ReactPortal from "../ReactPortal";
 import MainButton from "../MainButton";
 
-import './style.scss';
+import "./style.scss";
 
 const CardSeeTheFutureModal = ({
   isOpen,
@@ -22,17 +22,16 @@ const CardSeeTheFutureModal = ({
 
   const [newCardDeck, setNewCardDeck] = useState([]);
   useEffect(() => {
-      setNewCardDeck([...cardDeck]);
+    setNewCardDeck([...cardDeck]);
   }, [cardDeck]);
 
   const [dragEl, setDragEl] = useState(null);
 
   function handleDragStart({ e, card }) {
-
     if (cards[cardType]?.type === cardTypes.alterTheFuture) {
       setDragEl(card);
 
-      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.effectAllowed = "move";
       e.dataTransfer.setDragImage(e.target, 100, 100);
     }
   }
@@ -42,8 +41,8 @@ const CardSeeTheFutureModal = ({
       e.preventDefault();
     }
 
-    if (cards[cardType]?.type === cardTypes.alterTheFuture){
-      e.dataTransfer.dropEffect = 'move';
+    if (cards[cardType]?.type === cardTypes.alterTheFuture) {
+      e.dataTransfer.dropEffect = "move";
     }
 
     return false;
@@ -67,20 +66,22 @@ const CardSeeTheFutureModal = ({
     }
 
     if (cards[cardType]?.type === cardTypes.alterTheFuture) {
-      const cardIndex = newCardDeck.findIndex(item => item === card);
-      const dndCardIndex = newCardDeck.findIndex(item => item === dragEl);
+      const cardIndex = newCardDeck.findIndex((item) => item === card);
+      const dndCardIndex = newCardDeck.findIndex((item) => item === dragEl);
 
-      setNewCardDeck(prev => prev.reduce((acc, item, index) => {
-        if (index === dndCardIndex) {
-          acc.push(card);
-        } else if (index === cardIndex) {
-          acc.push(dragEl);
-        } else {
-          acc.push(item);
-        }
+      setNewCardDeck((prev) =>
+        prev.reduce((acc, item, index) => {
+          if (index === dndCardIndex) {
+            acc.push(card);
+          } else if (index === cardIndex) {
+            acc.push(dragEl);
+          } else {
+            acc.push(item);
+          }
 
-        return acc;
-      }, []));
+          return acc;
+        }, [])
+      );
     }
 
     return false;
@@ -88,10 +89,12 @@ const CardSeeTheFutureModal = ({
 
   function handleDragEnd(e) {
     if (cards[cardType]?.type === cardTypes.alterTheFuture) {
-      const items = modalRef.current?.querySelectorAll('.dnd_container .dnd_item');
+      const items = modalRef.current?.querySelectorAll(
+        ".dnd_container .dnd_item"
+      );
 
       items?.forEach(function (item) {
-        item.classList.remove('over');
+        item.classList.remove("over");
       });
       setDragEl(null);
     }
@@ -100,15 +103,26 @@ const CardSeeTheFutureModal = ({
   const handleClick = () => {
     if (cards[cardType]?.type === cardTypes.alterTheFuture) {
       updateDoc(doc(db, "game_rooms_kitten", id), {
-        player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => item !== cardType) },
+        player_cards: {
+          ...playerCards,
+          [uuid]: playerCards[uuid].filter((item) => item !== cardType),
+        },
         out_card_deck: arrayUnion(cardType),
 
         card_deck: newCardDeck,
-        game_moves: arrayUnion({ uid: uuid, cardType: cards[cardType]?.type, oldCardDeck: cardDeck, newCardDeck }),
+        game_moves: arrayUnion({
+          uid: uuid,
+          cardType: cards[cardType]?.type,
+          oldCardDeck: cardDeck,
+          newCardDeck,
+        }),
       });
     } else {
       updateDoc(doc(db, "game_rooms_kitten", id), {
-        player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => item !== cardType) },
+        player_cards: {
+          ...playerCards,
+          [uuid]: playerCards[uuid].filter((item) => item !== cardType),
+        },
         out_card_deck: arrayUnion(cardType),
 
         game_moves: arrayUnion({ uid: uuid, cardType: cards[cardType]?.type }),
@@ -125,38 +139,43 @@ const CardSeeTheFutureModal = ({
       <div className="card-see-the-future-modal" ref={modalRef}>
         <div className="modal-content">
           <div className="content_block dnd_container">
-            {newCardDeck.length && newCardDeck.map((card, index) => index < 3 && (
-              <div
-                key={card}
-                className={`dnd_item ${cards[cardType]?.type === cardTypes.alterTheFuture ? 'move' : ''}`}
-                onDragStart={e => handleDragStart({ e, card })}
-                // onDragEnter={e => handleDragEnter({ e, card })}
-                onDragOver={handleDragOver}
-                // onDragLeave={e => handleDragLeave({ e, card })}
-                onDrop={e => handleDrop({ e, card })}
-                onDragEnd={handleDragEnd}
-                data-card={card}
-                draggable
-              >
-                <img
-                  src={cards[card].img}
-                  alt={cards[card].title}
-                  width={200}
-                  height={300}
-                />
-              </div>
-            ))}
+            {newCardDeck.length &&
+              newCardDeck.map(
+                (card, index) =>
+                  index < 3 && (
+                    <div
+                      key={card}
+                      className={`dnd_item ${
+                        cards[cardType]?.type === cardTypes.alterTheFuture
+                          ? "move"
+                          : ""
+                      }`}
+                      onDragStart={(e) => handleDragStart({ e, card })}
+                      // onDragEnter={e => handleDragEnter({ e, card })}
+                      onDragOver={handleDragOver}
+                      // onDragLeave={e => handleDragLeave({ e, card })}
+                      onDrop={(e) => handleDrop({ e, card })}
+                      onDragEnd={handleDragEnd}
+                      data-card={card}
+                      draggable
+                    >
+                      <img
+                        src={cards[card].img}
+                        alt={cards[card].title}
+                        width={200}
+                        height={300}
+                      />
+                    </div>
+                  )
+              )}
           </div>
           <div className="btn_block">
-            <MainButton
-              text="Go"
-              onClick={handleClick}
-            />
+            <MainButton text="Go" onClick={handleClick} />
           </div>
         </div>
       </div>
     </ReactPortal>
-  )
+  );
 };
 
 export default CardSeeTheFutureModal;

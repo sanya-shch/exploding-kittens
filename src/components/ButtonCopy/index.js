@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import './style.scss';
+import "./style.scss";
 
 const ButtonCopy = ({ children, value, onClick }) => {
   const handleCopy = async () => {

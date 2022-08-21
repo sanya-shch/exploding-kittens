@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import './style.scss';
+import "./style.scss";
 
-const Tooltip = ({ children, text = '', position = 'down' }) => {
+const Tooltip = ({ children, text = "", position = "down" }) => {
   return (
     <div tooltip={text} flow={position}>
       {children}
     </div>
-  )
+  );
 };
 
 export default Tooltip;

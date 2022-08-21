@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 import {
   doc,
   updateDoc,
@@ -15,7 +15,7 @@ import { startGame } from "../../helpers";
 import MainButton from "../MainButton";
 import UserBlock from "../UserBlock";
 
-import './style.scss';
+import "./style.scss";
 
 const StartBlock = ({
   isHost,
@@ -38,14 +38,14 @@ const StartBlock = ({
         startGame({ cardPacksList, expansionsList, playerDataArr, id });
       } else {
         setToast({
-          type: 'danger',
-          text: 'Select one of the game packs from the menu',
+          type: "danger",
+          text: "Select one of the game packs from the menu",
         });
       }
     } else {
       setToast({
-        type: 'danger',
-        text: 'At least 2 players are required',
+        type: "danger",
+        text: "At least 2 players are required",
       });
 
       // setToast({
@@ -77,17 +77,17 @@ const StartBlock = ({
     });
   };
 
-  const handleKick = async uid => {
+  const handleKick = async (uid) => {
     await updateDoc(doc(db, "game_rooms_kitten", id), {
       banned_player_uid: arrayUnion(uid),
-      player_data_arr: playerDataArr.filter(player =>  player.uid !== uid),
+      player_data_arr: playerDataArr.filter((player) => player.uid !== uid),
     });
   };
 
   return (
     <div className="start_block">
       <div className="player_block">
-        {playerDataArr?.map(player => (
+        {playerDataArr?.map((player) => (
           <UserBlock
             key={player.uid}
             imgSrc={icons[iconPack][`${iconPack}${player.icon_index}`]}
@@ -102,18 +102,12 @@ const StartBlock = ({
       </div>
       {isHost && (
         <div className="btn-block">
-          <MainButton
-            text="Delete Room ×"
-            onClick={handleClickDelete}
-          />
-          <MainButton
-            text="Start Game →"
-            onClick={handleClickStart}
-          />
+          <MainButton text="Delete Room ×" onClick={handleClickDelete} />
+          <MainButton text="Start Game →" onClick={handleClickStart} />
         </div>
       )}
     </div>
-  )
+  );
 };
 
 export default StartBlock;

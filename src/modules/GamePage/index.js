@@ -1,10 +1,13 @@
-import React, { useState, useCallback, useEffect, useContext, lazy, Suspense } from 'react';
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  useContext,
+  lazy,
+  Suspense,
+} from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  doc,
-  getDoc,
-  onSnapshot,
-} from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 
 import { ToastContext } from "../../components/Toast";
 import { db } from "../../firebase";
@@ -16,7 +19,7 @@ import Menu from "../../components/Menu";
 // import StartBlock from "../../components/StartBlock";
 import GameBlock from "../../components/GameBlock";
 
-import './style.scss';
+import "./style.scss";
 
 const StartBlock = lazy(() => import("../../components/StartBlock"));
 const WelcomeModal = lazy(() => import("../../components/WelcomeModal"));
@@ -69,29 +72,38 @@ const GamePage = () => {
     });
 
     const currentNumberOfPlayers = gameData.player_data_arr.length;
-    const possibleNumberOfPlayers = gameData.card_packs.reduce((acc, item) => acc + numbersOfPlayers[item], 0);
+    const possibleNumberOfPlayers = gameData.card_packs.reduce(
+      (acc, item) => acc + numbersOfPlayers[item],
+      0
+    );
 
     if (!userExists) {
       setIsWelcomeModalOpen(true);
       setIsWaitStart(false);
     } else if (possibleNumberOfPlayers <= currentNumberOfPlayers) {
       setToast({
-        type: 'info',
-        text: 'There are too many players in this game',
+        type: "info",
+        text: "There are too many players in this game",
       });
       navigate("/");
     } else {
       setIsWaitStart(true);
     }
-  }, [gameData?.player_data_arr, uuid, gameData?.card_packs, navigate, setToast]);
+  }, [
+    gameData?.player_data_arr,
+    uuid,
+    gameData?.card_packs,
+    navigate,
+    setToast,
+  ]);
 
   const checkIfBanned = useCallback(() => {
     if (gameData.banned_player_uid.indexOf(uuid) !== -1) {
       // setBanned(true);
       setIsWelcomeModalOpen(false);
       setToast({
-        type: 'danger',
-        text: 'You have been banned',
+        type: "danger",
+        text: "You have been banned",
       });
       navigate("/");
     }
@@ -153,7 +165,7 @@ const GamePage = () => {
         isHost={isHost}
         expansionsList={gameData?.expansions}
       />
-      <div className={`content ${openMenu ? 'content_active' : ''}`}>
+      <div className={`content ${openMenu ? "content_active" : ""}`}>
         <Header
           playerDataArr={gameData?.player_data_arr}
           iconPack={gameData?.icon_pack}
@@ -196,22 +208,24 @@ const GamePage = () => {
               <p>Please wait for the next game to begin ⏱</p>
             </div>
           )}
-          {isWelcomeModalOpen && <Suspense>
-            <WelcomeModal
-              isOpen={isWelcomeModalOpen}
-              handleClose={() => setIsWelcomeModalOpen(false)}
-              isHost={isHost}
-              iconPack={gameData?.icon_pack}
-              iconIndex={gameData?.icon_index}
-              id={id}
-              uuid={uuid}
-              ongoingGame={ongoingGame}
-            />
-          </Suspense>}
+          {isWelcomeModalOpen && (
+            <Suspense>
+              <WelcomeModal
+                isOpen={isWelcomeModalOpen}
+                handleClose={() => setIsWelcomeModalOpen(false)}
+                isHost={isHost}
+                iconPack={gameData?.icon_pack}
+                iconIndex={gameData?.icon_index}
+                id={id}
+                uuid={uuid}
+                ongoingGame={ongoingGame}
+              />
+            </Suspense>
+          )}
         </div>
       </div>
     </>
-  )
+  );
 };
 
 export default GamePage;

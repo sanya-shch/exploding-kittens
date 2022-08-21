@@ -1,10 +1,10 @@
 export const expansions = {
-  ExplodingKittensOriginal: 'ExplodingKittensOriginal',
-  ExplodingKittensParty: 'ExplodingKittensParty',
-  ExplodingKittensNSFW: 'ExplodingKittensNSFW',
-  ImplodingKittens: 'ImplodingKittens',
-  StreakingKittens: 'StreakingKittens',
-  BarkingKittens: 'BarkingKittens',
+  ExplodingKittensOriginal: "ExplodingKittensOriginal",
+  ExplodingKittensParty: "ExplodingKittensParty",
+  ExplodingKittensNSFW: "ExplodingKittensNSFW",
+  ImplodingKittens: "ImplodingKittens",
+  StreakingKittens: "StreakingKittens",
+  BarkingKittens: "BarkingKittens",
   // ZombieKittens: 'ZombieKittens',
 };
 

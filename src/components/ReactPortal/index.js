@@ -1,8 +1,8 @@
-import { useState, useLayoutEffect } from 'react';
-import { createPortal } from 'react-dom';
+import { useState, useLayoutEffect } from "react";
+import { createPortal } from "react-dom";
 
 function createWrapperAndAppendToBody(wrapperId) {
-  const wrapperElement = document.createElement('div');
+  const wrapperElement = document.createElement("div");
   wrapperElement.setAttribute("id", wrapperId);
   document.body.appendChild(wrapperElement);
   return wrapperElement;
@@ -25,7 +25,7 @@ function ReactPortal({ children, wrapperId = "react-portal-wrapper" }) {
       if (systemCreated && element.parentNode) {
         element.parentNode.removeChild(element);
       }
-    }
+    };
   }, [wrapperId]);
 
   if (wrapperElement === null) return;

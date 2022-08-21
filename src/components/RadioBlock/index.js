@@ -1,16 +1,13 @@
-import React from 'react';
+import React from "react";
 
 import { ReactComponent as CatSvg } from "../../assets/icons/cat-svgrepo-com.svg";
 import { ReactComponent as OrigamiSvg } from "../../assets/icons/origami-svgrepo-com.svg";
 import { ReactComponent as AnimalsSvg } from "../../assets/icons/fields-svgrepo-com.svg";
 
-import './style.scss';
+import "./style.scss";
 
-const RadioBlock = ({
-  value = 'cat',
-  setValue,
-}) => {
-  const handleChange = event => {
+const RadioBlock = ({ value = "cat", setValue }) => {
+  const handleChange = (event) => {
     setValue(event.target.value);
   };
 
@@ -19,7 +16,6 @@ const RadioBlock = ({
       <div className="rating-container">
         <div className="rating">
           <form className="rating-form">
-
             <label htmlFor="cat">
               <input
                 type="radio"
@@ -62,7 +58,7 @@ const RadioBlock = ({
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default RadioBlock;

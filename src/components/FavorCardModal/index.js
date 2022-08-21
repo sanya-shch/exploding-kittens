@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from "react";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 import { db } from "../../firebase";
@@ -6,7 +6,7 @@ import { cardTypes } from "../../constants/cardTypes";
 import ReactPortal from "../ReactPortal";
 import MainButton from "../MainButton";
 
-import './style.scss';
+import "./style.scss";
 
 const FavorCardModal = ({
   isOpen,
@@ -19,27 +19,42 @@ const FavorCardModal = ({
 }) => {
   const [selectedCard, setSelectedCard] = useState(null);
 
-  const nopeCard = useMemo(() => playerCards[uuid].find(item => cards[item].type === cardTypes.nope), [playerCards, cards, uuid]);
+  const nopeCard = useMemo(
+    () => playerCards[uuid].find((item) => cards[item].type === cardTypes.nope),
+    [playerCards, cards, uuid]
+  );
 
   const handleClick = () => {
     if (selectedCard) {
       updateDoc(doc(db, "game_rooms_kitten", id), {
-        player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => item !== selectedCard), [favoredUid]: [...playerCards[favoredUid], selectedCard] },
+        player_cards: {
+          ...playerCards,
+          [uuid]: playerCards[uuid].filter((item) => item !== selectedCard),
+          [favoredUid]: [...playerCards[favoredUid], selectedCard],
+        },
 
-        game_moves: arrayUnion({ uid: uuid, cardType: 'favor_answer', selectedCard, favoredUid }),
+        game_moves: arrayUnion({
+          uid: uuid,
+          cardType: "favor_answer",
+          selectedCard,
+          favoredUid,
+        }),
       });
     }
 
     handleClose();
   };
 
-  const handleClickImg = card => {
+  const handleClickImg = (card) => {
     setSelectedCard(card);
   };
 
   const handleClickNope = () => {
     updateDoc(doc(db, "game_rooms_kitten", id), {
-      player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => item !== nopeCard) },
+      player_cards: {
+        ...playerCards,
+        [uuid]: playerCards[uuid].filter((item) => item !== nopeCard),
+      },
       out_card_deck: arrayUnion(nopeCard),
       game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.nope }),
     });
@@ -56,7 +71,7 @@ const FavorCardModal = ({
           <div className="content_block">
             {nopeCard && <button onClick={handleClickNope}>Nope</button>}
             <div className="cards">
-              {playerCards[uuid].map(card => (
+              {playerCards[uuid].map((card) => (
                 <div key={card}>
                   <img
                     src={cards[card]?.img}
@@ -64,22 +79,19 @@ const FavorCardModal = ({
                     width={200}
                     height={300}
                     onClick={() => handleClickImg(card)}
-                    className={selectedCard === card ? 'selected' : ''}
+                    className={selectedCard === card ? "selected" : ""}
                   />
                 </div>
               ))}
             </div>
           </div>
           <div className="btn_block">
-            <MainButton
-              text="Go"
-              onClick={handleClick}
-            />
+            <MainButton text="Go" onClick={handleClick} />
           </div>
         </div>
       </div>
     </ReactPortal>
-  )
+  );
 };
 
 export default FavorCardModal;

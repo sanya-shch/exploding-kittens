@@ -1,18 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
 import MainButton from "../../components/MainButton";
 import MainInput from "../../components/MainInput";
 import { db } from "../../firebase";
-import {
-  getUserId,
-  getSixLetterCode,
-} from "../../helpers";
+import { getUserId, getSixLetterCode } from "../../helpers";
 import { expansions } from "../../constants/expansions";
 import { ToastContext } from "../../components/Toast";
 
-import './style.scss';
+import "./style.scss";
 
 const createGame = async ({
   uuid,
@@ -23,7 +20,9 @@ const createGame = async ({
 }) => {
   try {
     let codeArr = [];
-    const codesDoc = await getDoc(doc(db, "game_room_codes_kitten", "code_array"));
+    const codesDoc = await getDoc(
+      doc(db, "game_room_codes_kitten", "code_array")
+    );
 
     if (codesDoc.exists()) {
       codesDoc.data().codes.forEach((element) => {
@@ -56,7 +55,7 @@ const createGame = async ({
       midgame_player_uid: [],
       game_room_closed: false,
       ongoing_game: false,
-      icon_pack: '',
+      icon_pack: "",
       current_player_uid: uuid,
       players_list: [],
 
@@ -74,7 +73,7 @@ const createGame = async ({
 const HomePage = ({ gameId, setGameId }) => {
   const { setToast } = useContext(ToastContext);
 
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
 
   const navigate = useNavigate();
   const uuid = getUserId();
@@ -92,37 +91,38 @@ const HomePage = ({ gameId, setGameId }) => {
     });
   };
   const handleClickJoinToGame = async () => {
-    if (code !== '') {
-      const codesDoc = await getDoc(doc(db, "game_room_codes_kitten", "code_array"));
+    if (code !== "") {
+      const codesDoc = await getDoc(
+        doc(db, "game_room_codes_kitten", "code_array")
+      );
 
       if (codesDoc.data().codes.indexOf(code) !== -1) {
         navigate(`/game/${code}`);
       } else {
         setToast({
-          type: 'danger',
-          text: 'Please enter a valid code',
-        })
+          type: "danger",
+          text: "Please enter a valid code",
+        });
       }
     } else {
       setToast({
-        type: 'danger',
-        text: 'Please enter a code',
-      })
+        type: "danger",
+        text: "Please enter a code",
+      });
     }
   };
-  const handleChange = value => {
+  const handleChange = (value) => {
     setCode(value.toUpperCase());
   };
 
   return (
     <div className="home_page">
       <div className="first_screen">
-        <h1><span>EXPLODING</span> KITTENS</h1>
+        <h1>
+          <span>EXPLODING</span> KITTENS
+        </h1>
         <div className="input_block">
-          <MainButton
-            text="New Game"
-            onClick={handleClickNewGame}
-          />
+          <MainButton text="New Game" onClick={handleClickNewGame} />
           <MainInput
             label="Enter Game Code"
             btnText="Join"
@@ -134,7 +134,7 @@ const HomePage = ({ gameId, setGameId }) => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default HomePage;

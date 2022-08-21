@@ -1,16 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import './style.scss';
+import "./style.scss";
 
-const MainInput = ({
-  label,
-  btnText,
-  value,
-  maxLength,
-  onChange,
-  onClick,
-}) => {
-  const handleChange = event => {
+const MainInput = ({ label, btnText, value, maxLength, onChange, onClick }) => {
+  const handleChange = (event) => {
     const { value: eventValue } = event.target;
     onChange(eventValue);
   };
@@ -24,10 +17,12 @@ const MainInput = ({
         value={value}
         onChange={handleChange}
       />
-      <label htmlFor="register"><span>{label}</span></label>
+      <label htmlFor="register">
+        <span>{label}</span>
+      </label>
       {value && <button onClick={onClick}>{btnText}</button>}
     </div>
-  )
+  );
 };
 
 export default MainInput;

@@ -1,9 +1,9 @@
 :root {
   --button-width: 40px;
-  --button-height: calc(var(--button-width) * .8);
-  --rectangle-height: calc(var(--button-width) * .1);
-  --rectangle-radius: calc(var(--button-width) * .04);
-  --translate: calc(var(--button-width) * .17);
+  --button-height: calc(var(--button-width) * 0.8);
+  --rectangle-height: calc(var(--button-width) * 0.1);
+  --rectangle-radius: calc(var(--button-width) * 0.04);
+  --translate: calc(var(--button-width) * 0.17);
 }
 
 .menu {
