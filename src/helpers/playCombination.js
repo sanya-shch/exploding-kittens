@@ -43,10 +43,17 @@ export const playCombination = ({
     } else if (cardType === cardTypes.drawFromTheBottom) {
       if (attackCount > 0) {
         updateDoc(doc(db, "game_rooms_kitten", id), {
-          player_cards: { ...playerCards, [uuid]: [...playerCards[uuid].filter(item => !selectedCards.includes(item)), cardDeck.at(-1)] },
+          player_cards: {
+            ...playerCards,
+            [uuid]: [...playerCards[uuid].filter(item => !selectedCards.includes(item)), cardDeck.at(-1)],
+          },
           card_deck: arrayRemove(cardDeck.at(-1)),
 
-          game_moves: [{ uid: uuid, cardType: cardTypes.drawFromTheBottom, cardDeck, oldPlayerCards: playerCards[uuid] }],
+          game_moves: [{
+            uid: uuid,
+            cardType: cardTypes.drawFromTheBottom,
+            cardDeck, oldPlayerCards: playerCards[uuid],
+          }],
           attack_count: attackCount - 1,
           out_card_deck: arrayUnion(...selectedCards),
         });
@@ -75,22 +82,43 @@ export const playCombination = ({
 
       if (attackCount > 0) {
         updateDoc(doc(db, "game_rooms_kitten", id), {
-          player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+          player_cards: {
+            ...playerCards,
+            [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)),
+          },
           out_card_deck: arrayUnion(...selectedCards),
 
-          game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.reverse, attackCount, playersList }),
+          game_moves: arrayUnion({
+            uid: uuid,
+            cardType: cardTypes.reverse,
+            oldPlayersList: playersList,
+            newPlayersList: reversedPlayersList,
+            oldAttackCount: attackCount,
+            newAttackCount: attackCount - 1,
+          }),
           attack_count: attackCount - 1,
           players_list: reversedPlayersList,
         });
       } else {
         const index = reversedPlayersList.findIndex(item => item === uuid);
 
+        const newCurrentPlayerUid = index === reversedPlayersList.length - 1 ? reversedPlayersList[0] : reversedPlayersList[index + 1];
+
         updateDoc(doc(db, "game_rooms_kitten", id), {
-          player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+          player_cards: {
+            ...playerCards,
+            [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)),
+          },
           out_card_deck: arrayUnion(...selectedCards),
 
-          game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.reverse, playersList }),
-          current_player_uid: index === reversedPlayersList.length - 1 ? reversedPlayersList[0] : reversedPlayersList[index + 1],
+          game_moves: arrayUnion({
+            uid: uuid,
+            cardType: cardTypes.reverse,
+            oldPlayersList: playersList,
+            newPlayersList: reversedPlayersList,
+            newCurrentPlayerUid,
+          }),
+          current_player_uid: newCurrentPlayerUid,
           players_list: reversedPlayersList,
         });
       }
@@ -157,17 +185,78 @@ export const playCombination = ({
           console.log(cardTypes.drawFromTheBottom);
 
           if (isEven(nopeCount)) {
+            updateDoc(doc(db, "game_rooms_kitten", id), {
+              player_cards: {
+                ...playerCards,
+                [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item))
+              },
+              out_card_deck: arrayUnion(...selectedCards),
 
+
+              game_moves: arrayUnion({uid: uuid, cardType: cardTypes.nope}),
+            });
           } else {
 
           }
         } else if (gameMovesLastItem.cardType === cardTypes.reverse) {
-          console.log(cardTypes.reverse);
+          // console.log(cardTypes.reverse);
 
           if (isEven(nopeCount)) {
+            if (gameMovesLastItem.newCurrentPlayerUid) {
+              updateDoc(doc(db, "game_rooms_kitten", id), {
+                player_cards: {
+                  ...playerCards,
+                  [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item))
+                },
+                out_card_deck: arrayUnion(...selectedCards),
 
+                current_player_uid: gameMovesLastItem.uid,
+                players_list: gameMovesLastItem.oldPlayersList,
+
+                game_moves: arrayUnion({uid: uuid, cardType: cardTypes.nope}),
+              });
+            } else {
+              updateDoc(doc(db, "game_rooms_kitten", id), {
+                player_cards: {
+                  ...playerCards,
+                  [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item))
+                },
+                out_card_deck: arrayUnion(...selectedCards),
+
+                attack_count: gameMovesLastItem.oldAttackCount,
+                players_list: gameMovesLastItem.oldPlayersList,
+
+                game_moves: arrayUnion({uid: uuid, cardType: cardTypes.nope}),
+                });
+            }
           } else {
+            if (gameMovesLastItem.newCurrentPlayerUid) {
+              updateDoc(doc(db, "game_rooms_kitten", id), {
+                player_cards: {
+                  ...playerCards,
+                  [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item))
+                },
+                out_card_deck: arrayUnion(...selectedCards),
 
+                current_player_uid: gameMovesLastItem.newCurrentPlayerUid,
+                players_list: gameMovesLastItem.newPlayersList,
+
+                game_moves: arrayUnion({uid: uuid, cardType: cardTypes.nope}),
+              });
+            } else {
+              updateDoc(doc(db, "game_rooms_kitten", id), {
+                player_cards: {
+                  ...playerCards,
+                  [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item))
+                },
+                out_card_deck: arrayUnion(...selectedCards),
+
+                attack_count: gameMovesLastItem.newAttackCount,
+                players_list: gameMovesLastItem.newPlayersList,
+
+                game_moves: arrayUnion({uid: uuid, cardType: cardTypes.nope}),
+              });
+            }
           }
         } else if (gameMovesLastItem.cardType === cardTypes.targetedAttack) {
           console.log(cardTypes.targetedAttack);
@@ -327,20 +416,35 @@ export const playCombination = ({
       const newCardDeck = randomize(cardDeck);
 
       updateDoc(doc(db, "game_rooms_kitten", id), {
-        player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+        player_cards: {
+          ...playerCards,
+          [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)),
+        },
         out_card_deck: arrayUnion(...selectedCards),
 
-        game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.shuffle, oldCardDeck: cardDeck, newCardDeck }),
+        game_moves: arrayUnion({
+          uid: uuid,
+          cardType: cardTypes.shuffle,
+          oldCardDeck: cardDeck, newCardDeck,
+        }),
 
         card_deck: newCardDeck,
       });
     } else if (cardType === cardTypes.skip) {
       if (attackCount > 0) {
         updateDoc(doc(db, "game_rooms_kitten", id), {
-          player_cards: { ...playerCards, [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)) },
+          player_cards: {
+            ...playerCards,
+            [uuid]: playerCards[uuid].filter(item => !selectedCards.includes(item)),
+          },
           out_card_deck: arrayUnion(...selectedCards),
 
-          game_moves: arrayUnion({ uid: uuid, cardType: cardTypes.skip, oldAttackCount: attackCount, newAttackCount: attackCount - 1 }),
+          game_moves: arrayUnion({
+            uid: uuid,
+            cardType: cardTypes.skip,
+            oldAttackCount: attackCount,
+            newAttackCount: attackCount - 1,
+          }),
 
           attack_count: attackCount - 1,
         });
