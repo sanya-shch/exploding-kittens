@@ -138,6 +138,8 @@ const CardsBlock = ({
     setCardType,
     setPlayerSelectionModalCardType,
     setToast,
+    setCardSelectionModalOpen,
+    setSelectedPlayer,
   ]);
 
   useEffect(() => {

@@ -51,6 +51,7 @@ const GameBlock = ({
   uuid,
   id,
   setOpenMenu,
+  isImpendingImploding,
 }) => {
   const { setToast } = useContext(ToastContext);
 
@@ -102,6 +103,7 @@ const GameBlock = ({
       isExplode({
         playerCards: playerCards[uuid],
         cards,
+        isImpendingImploding,
       })
     ) {
       case "explode":
@@ -119,10 +121,13 @@ const GameBlock = ({
       case "not_explode":
         setCardPutToDeckModalOpen(true);
         break;
+      case "is_impending_imploding":
+        setCardPutToDeckModalOpen(true);
+        break;
       default:
         break;
     }
-  }, [cardDeck, playerCards, cards, id, playersList, setToast, uuid]);
+  }, [cardDeck, playerCards, cards, id, playersList, setToast, uuid, isImpendingImploding]);
 
   useEffect(() => {
     if (gameMoves.at(-1)?.favorPlayerUid === uuid) {
@@ -148,9 +153,10 @@ const GameBlock = ({
             ? { ...item, points: item.points + 1 }
             : item
         ),
+        is_impending_imploding_kitten: false,
       });
     }
-  }, [playersList, uuid, playerDataArr]);
+  }, [playersList, uuid, playerDataArr, id]);
 
   return (
     <>
@@ -186,6 +192,7 @@ const GameBlock = ({
           setSelectedPlayerCards={setSelectedPlayerCards}
           setCardSelectionModalOpen={setCardSelectionModalOpen}
           setSelectedPlayer={setSelectedPlayer}
+          isImpendingImploding={isImpendingImploding}
         />
 
         <CardsBlock

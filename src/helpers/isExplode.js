@@ -1,6 +1,6 @@
 import { cardTypes } from "../constants/cardTypes";
 
-export const isExplode = ({ playerCards, cards }) => {
+export const isExplode = ({ playerCards, cards, isImpendingImploding }) => {
   const explodeCard = playerCards?.find(
     (item) => cards[item].type === cardTypes.explodingKitten
   );
@@ -13,6 +13,16 @@ export const isExplode = ({ playerCards, cards }) => {
     if (defuseCard) return "not_explode";
 
     return "explode";
+  }
+
+  const impendingImplodingKittenCard = playerCards?.find(
+    (item) => cards[item].type === cardTypes.impendingImplodingKitten
+  );
+
+  if (impendingImplodingKittenCard) {
+    if (isImpendingImploding) return "explode";
+
+    return "is_impending_imploding";
   }
 };
 

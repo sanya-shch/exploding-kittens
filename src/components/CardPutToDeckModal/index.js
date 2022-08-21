@@ -34,52 +34,95 @@ const CardPutToDeckModal = ({
       playerCards[uuid].find((item) => cards[item].type === cardTypes.defuse),
     [playerCards, cards, uuid]
   );
+  const impendingImplodingKittenCard = useMemo(
+    () =>
+      playerCards[uuid].find(
+        (item) => cards[item].type === cardTypes.impendingImplodingKitten
+      ),
+    [playerCards, cards, uuid]
+  );
 
   const [newCardDeck, setNewCardDeck] = useState([]);
   useEffect(() => {
     if (explodeCard) {
       setNewCardDeck([explodeCard, ...cardDeck]);
     }
-  }, [cardDeck, explodeCard]);
+    if (impendingImplodingKittenCard) {
+      setNewCardDeck([impendingImplodingKittenCard, ...cardDeck]);
+    }
+  }, [cardDeck, explodeCard, impendingImplodingKittenCard]);
 
   const handleClick = () => {
     // console.log({ newCardDeck });
 
-    if (attackCount > 0) {
-      updateDoc(doc(db, "game_rooms_kitten", id), {
-        player_cards: {
-          ...playerCards,
-          [uuid]: playerCards[uuid].filter(
-            (item) => item !== defuseCard && item !== explodeCard
-          ),
-        },
-        out_card_deck: arrayUnion(defuseCard),
+    if (explodeCard) {
+      if (attackCount > 0) {
+        updateDoc(doc(db, "game_rooms_kitten", id), {
+          player_cards: {
+            ...playerCards,
+            [uuid]: playerCards[uuid].filter(
+              (item) => item !== defuseCard && item !== explodeCard
+            ),
+          },
+          out_card_deck: arrayUnion(defuseCard),
+          card_deck: newCardDeck,
+          // game_moves: arrayUnion({ uid: uuid, cardType: cards[defuseCard]?.type }),
+          game_moves: [],
+          attack_count: attackCount - 1,
+        });
+      } else {
+        const index = playersList.findIndex((item) => item === uuid);
 
-        card_deck: newCardDeck,
+        updateDoc(doc(db, "game_rooms_kitten", id), {
+          player_cards: {
+            ...playerCards,
+            [uuid]: playerCards[uuid].filter(
+              (item) => item !== defuseCard && item !== explodeCard
+            ),
+          },
+          out_card_deck: arrayUnion(defuseCard),
+          card_deck: newCardDeck,
+          // game_moves: arrayUnion({ uid: uuid, cardType: cards[defuseCard]?.type }),
+          game_moves: [],
+          current_player_uid:
+            index === playersList.length - 1
+              ? playersList[0]
+              : playersList[index + 1],
+        });
+      }
+    } else if (impendingImplodingKittenCard) {
+      if (attackCount > 0) {
+        updateDoc(doc(db, "game_rooms_kitten", id), {
+          player_cards: {
+            ...playerCards,
+            [uuid]: playerCards[uuid].filter(
+              (item) => item !== impendingImplodingKittenCard
+            ),
+          },
+          card_deck: newCardDeck,
+          game_moves: [],
+          is_impending_imploding_kitten: true,
+          attack_count: attackCount - 1,
+        });
+      } else {
+        const index = playersList.findIndex((item) => item === uuid);
 
-        // game_moves: arrayUnion({ uid: uuid, cardType: cards[defuseCard]?.type }),
-      });
-    } else {
-      const index = playersList.findIndex((item) => item === uuid);
-
-      updateDoc(doc(db, "game_rooms_kitten", id), {
-        player_cards: {
-          ...playerCards,
-          [uuid]: playerCards[uuid].filter(
-            (item) => item !== defuseCard && item !== explodeCard
-          ),
-        },
-        out_card_deck: arrayUnion(defuseCard),
-
-        card_deck: newCardDeck,
-
-        // game_moves: arrayUnion({ uid: uuid, cardType: cards[defuseCard]?.type }),
-
-        current_player_uid:
-          index === playersList.length - 1
-            ? playersList[0]
-            : playersList[index + 1],
-      });
+        updateDoc(doc(db, "game_rooms_kitten", id), {
+          player_cards: {
+            ...playerCards,
+            [uuid]: playerCards[uuid].filter(
+              (item) => item !== impendingImplodingKittenCard
+            ),
+          },
+          card_deck: newCardDeck,
+          game_moves: [],
+          is_impending_imploding_kitten: true,
+          current_player_uid:
+            index === playersList.length - 1
+              ? playersList[0]
+              : playersList[index + 1],
+        });
+      }
     }
 
     handleClose();
@@ -189,7 +232,9 @@ const CardPutToDeckModal = ({
                 data-card={card}
                 draggable
               >
-                {card === explodeCard ? "X" : index + 1}
+                {card === explodeCard || card === impendingImplodingKittenCard
+                  ? "X"
+                  : index + 1}
                 {/*<img src={card === explodeCard ? cards[card]?.img : revers} alt="" width={200} height={300} />*/}
               </div>
             ))}

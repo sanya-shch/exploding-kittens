@@ -61,6 +61,7 @@ const createGame = async ({
 
       game_moves: [],
       attack_count: 0,
+      is_impending_imploding_kitten: false,
     });
 
     navigate(`/game/${gameId}`);

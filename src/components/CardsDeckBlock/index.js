@@ -34,6 +34,7 @@ const CardsDeckBlock = ({
   setSelectedPlayerCards,
   setCardSelectionModalOpen,
   setSelectedPlayer,
+  isImpendingImploding,
 }) => {
   const { setToast } = useContext(ToastContext);
 
@@ -126,7 +127,12 @@ const CardsDeckBlock = ({
       <div className="deck">
         {cardDeck?.length ? (
           <img
-            src={revers}
+            src={
+              isImpendingImploding &&
+              cards[outCardDeck[0]]?.type === cardTypes.impendingImplodingKitten
+                ? cards[outCardDeck[0]]?.img
+                : revers
+            }
             alt=""
             width={200}
             height={300}

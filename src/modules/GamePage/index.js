@@ -198,6 +198,7 @@ const GamePage = () => {
               playersList={gameData?.players_list}
               gameMoves={gameData?.game_moves}
               attackCount={gameData?.attack_count}
+              isImpendingImploding={gameData?.is_impending_imploding_kitten}
               uuid={uuid}
               id={id}
               setOpenMenu={setOpenMenu}

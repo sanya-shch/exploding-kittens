@@ -57,6 +57,7 @@ const Menu = ({
       attack_count: 0,
       out_card_deck: [],
       current_player_uid: uuid,
+      is_impending_imploding_kitten: false,
     });
   };
 
