@@ -2,7 +2,7 @@ import React from "react";
 
 import "./style.scss";
 
-const Input = ({ value, onChange, maxLength }) => {
+const Input = ({ value, onChange, maxLength, autofocus = false }) => {
   return (
     <div className="input_container">
       <input
@@ -15,6 +15,7 @@ const Input = ({ value, onChange, maxLength }) => {
         maxLength={maxLength}
         value={value}
         onChange={onChange}
+        autoFocus={autofocus}
       />
       <label htmlFor="nme">
         <span>What's your name?</span>

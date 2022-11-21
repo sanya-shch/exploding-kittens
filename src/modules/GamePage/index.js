@@ -166,10 +166,7 @@ const GamePage = () => {
         expansionsList={gameData?.expansions}
       />
       <div className={`content ${openMenu ? "content_active" : ""}`}>
-        <Header
-          playerDataArr={gameData?.player_data_arr}
-          iconPack={gameData?.icon_pack}
-        />
+        <Header />
         <div className="game_page">
           {!ongoingGame && isWaitStart && (
             <Suspense>
@@ -220,6 +217,7 @@ const GamePage = () => {
                 id={id}
                 uuid={uuid}
                 ongoingGame={ongoingGame}
+                playerDataArr={gameData?.player_data_arr}
               />
             </Suspense>
           )}

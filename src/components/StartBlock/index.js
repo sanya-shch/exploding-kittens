@@ -6,13 +6,13 @@ import {
   arrayRemove,
   deleteDoc,
 } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 import { db } from "../../firebase";
 import * as icons from "../../assets/icons";
 import { ToastContext } from "../Toast";
 import { expansions } from "../../constants/expansions";
 import { startGame } from "../../helpers";
-import MainButton from "../MainButton";
 import UserBlock from "../UserBlock";
 
 import "./style.scss";
@@ -26,6 +26,8 @@ const StartBlock = ({
   expansionsList,
   cardPacksList,
 }) => {
+  const navigate = useNavigate();
+
   const { setToast } = useContext(ToastContext);
 
   const handleClickStart = () => {
@@ -84,13 +86,22 @@ const StartBlock = ({
     });
   };
 
+  const handleClickLeave = () => {
+    const player = playerDataArr.find((arr) => arr.uid === uuid);
+
+    updateDoc(doc(db, "game_rooms_kitten", id), {
+      player_data_arr: arrayRemove(player),
+    });
+    navigate("/");
+  };
+
   return (
     <div className="start_block">
       <div className="player_block">
         {playerDataArr?.map((player) => (
           <UserBlock
             key={player.uid}
-            imgSrc={icons[iconPack][`${iconPack}${player.icon_index}`]}
+            imgSrc={icons[iconPack][`${iconPack}${player.icon_index + 1}`]}
             username={player.username}
             itsI={uuid === player.uid}
             numberOfCards={10}
@@ -100,10 +111,14 @@ const StartBlock = ({
           />
         ))}
       </div>
-      {isHost && (
+      {isHost ? (
         <div className="btn-block">
-          <MainButton text="Delete Room ×" onClick={handleClickDelete} />
-          <MainButton text="Start Game →" onClick={handleClickStart} />
+          <button onClick={handleClickDelete}>Delete Room</button>
+          <button onClick={handleClickStart}>Start Game</button>
+        </div>
+      ) : (
+        <div className="btn-block">
+          <button onClick={handleClickLeave}>Leave</button>
         </div>
       )}
     </div>

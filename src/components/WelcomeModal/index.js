@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 import * as icons from "../../assets/icons";
@@ -20,11 +20,25 @@ const WelcomeModal = ({
   id,
   uuid,
   ongoingGame,
+  playerDataArr,
 }) => {
   const { setToast } = useContext(ToastContext);
 
   const [value, setValue] = useState("cat");
-  const [checked, setChecked] = useState(1);
+
+  const usersIconsList = useMemo(
+    () => playerDataArr.map((item) => item.icon_index),
+    [playerDataArr]
+  );
+  const filteredIconsList = useMemo(
+    () =>
+      Object.values(icons[value])
+        .reduce((acc, item, index) => [...acc, index], [])
+        .filter((item) => !usersIconsList.includes(item)),
+    [icons, usersIconsList]
+  );
+
+  const [checked, setChecked] = useState(filteredIconsList[0]);
   const [username, setUsername] = useState("");
 
   useEffect(() => {
@@ -74,24 +88,30 @@ const WelcomeModal = ({
       <div className="start-modal">
         <div className="modal-content">
           <div className="input_name_block">
-            <Input maxLength={12} value={username} onChange={handleChange} />
+            <Input
+              maxLength={12}
+              value={username}
+              onChange={handleChange}
+              autofocus
+            />
           </div>
-          {/*<div className="expansion_packs_block">*/}
-
-          {/*</div>*/}
           <div className="content_block">
             {isHost && <RadioBlock value={value} setValue={setValue} />}
             <div className="icons_block">
-              {Object.values(icons[value]).map((item, index) => (
-                <img
-                  key={`img-${index}`}
-                  src={item}
-                  alt=""
-                  width="65px"
-                  height="65px"
-                  className={index + 1 === checked ? "checked" : ""}
-                  onClick={() => setChecked(index + 1)}
-                />
+              {filteredIconsList.map((item) => (
+                <div
+                  key={`img-${item}`}
+                  className={item === checked ? "checked" : ""}
+                >
+                  <img
+                    src={Object.values(icons[value])[item]}
+                    alt=""
+                    width="65px"
+                    height="65px"
+                    className={item === checked ? "checked" : ""}
+                    onClick={() => setChecked(item)}
+                  />
+                </div>
               ))}
             </div>
           </div>
