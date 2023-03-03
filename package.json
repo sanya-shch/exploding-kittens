@@ -2,6 +2,7 @@
   "name": "exploding_kittens",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://sanya-shch.github.io/exploding_kittens/",
   "dependencies": {
     "firebase": "9.9.0",
     "node-sass": "7.0.1",
