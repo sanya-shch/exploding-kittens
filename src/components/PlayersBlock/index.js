@@ -25,7 +25,7 @@ const PlayersBlock = ({
       {players.map((player, index) => (
         <React.Fragment key={player.uid}>
           <UserBlock
-            imgSrc={icons[iconPack][`${iconPack}${player.icon_index}`]}
+            imgSrc={icons[iconPack][`${iconPack}${player.icon_index + 1}`]}
             username={player.username}
             itsI={uuid === player.uid}
             isCurrentPlayer={currentPlayerUid === player.uid}

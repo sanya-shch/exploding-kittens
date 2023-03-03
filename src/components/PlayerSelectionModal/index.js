@@ -116,7 +116,7 @@ const PlayerSelectionModal = ({
                 onClick={() => handleClickImg(player)}
               >
                 <img
-                  src={icons[iconPack][`${iconPack}${player.icon_index}`]}
+                  src={icons[iconPack][`${iconPack}${player.icon_index + 1}`]}
                   alt=""
                   width="65px"
                   height="65px"

@@ -78,20 +78,22 @@ const Menu = ({
       </button>
 
       <div className="menu_list">
-        <div className="game_id_block">
-          <span>{id}</span>
-          <ButtonCopy
-            value={window.location.href}
-            onClick={() =>
-              setToast({
-                type: "success",
-                text: "Copy",
-              })
-            }
-          >
-            <span>Copy</span>
-          </ButtonCopy>
-        </div>
+        {isHost && (
+          <div className="game_id_block">
+            <span>{id}</span>
+            <ButtonCopy
+              value={window.location.href}
+              onClick={() =>
+                setToast({
+                  type: "success",
+                  text: "Copy",
+                })
+              }
+            >
+              <span>Copy</span>
+            </ButtonCopy>
+          </div>
+        )}
         {isHost && !ongoingGame && (
           <div className="packs_block">
             <p>Exploding Kittens</p>

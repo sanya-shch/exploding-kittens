@@ -51,7 +51,7 @@ const WelcomeModal = ({
   }, [iconPack, iconIndex]);
 
   const handleClick = () => {
-    if (value && checked && username) {
+    if (username) {
       updateDoc(doc(db, "game_rooms_kitten", id), {
         icon_pack: value,
         player_data_arr: arrayUnion({
