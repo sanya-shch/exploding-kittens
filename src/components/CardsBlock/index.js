@@ -63,7 +63,7 @@ const CardsBlock = ({
 
     if (
       isCurrentPlayer ||
-      (gameMoves.length && !isFavor) ||
+      // (gameMoves.length && !isFavor) ||
       cards[cardId].type === cardTypes.nope
     ) {
       setDragCard(cardId);
@@ -83,7 +83,7 @@ const CardsBlock = ({
 
     if (
       isCurrentPlayer ||
-      (gameMoves.length && !isFavor) ||
+      // (gameMoves.length && !isFavor) ||
       cards[cardId].type === cardTypes.nope
     ) {
       let dropZone = document.querySelector(".drop_zone div");
@@ -148,7 +148,7 @@ const CardsBlock = ({
 
     if (
       isCurrentPlayer ||
-      (gameMoves.length && !isFavor) ||
+      // (gameMoves.length && !isFavor) ||
       cards[dragCard]?.type === cardTypes.nope
     ) {
       // draggableItems.forEach(item => {
@@ -165,7 +165,7 @@ const CardsBlock = ({
     return () => {
       if (
         isCurrentPlayer ||
-        (gameMoves.length && !isFavor) ||
+        // (gameMoves.length && !isFavor) ||
         cards[dragCard]?.type === cardTypes.nope
       ) {
         // draggableItems.forEach(item => {
@@ -204,7 +204,7 @@ const CardsBlock = ({
   const handleClick = (item) => {
     if (
       isCurrentPlayer ||
-      (gameMoves.length && !isFavor) ||
+      // (gameMoves.length && !isFavor) ||
       cards[item].type === cardTypes.nope
     ) {
       setSelectedCards((prev) =>
@@ -227,7 +227,7 @@ const CardsBlock = ({
               selectedCards.includes(item) ? "selected" : ""
             } ${
               isCurrentPlayer ||
-              (gameMoves.length && !isFavor) ||
+              // (gameMoves.length && !isFavor) ||
               cards[item].type === cardTypes.nope
                 ? ""
                 : "not_current_player"
